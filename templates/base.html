@@ -95,9 +95,9 @@ ion-icon {
 
 
 /* ==================CSS FOR NOTIFICATION ================== */
-.toast {
-    position: absolute;
-    top: 25px;
+.toast_not {
+    position:absolute;
+    margin-top:10px;
     right: 30px;
     border-radius: 12px;
     background: black;
@@ -110,17 +110,17 @@ ion-icon {
     z-index:1000;
   }
   
-  .toast.active {
+  .toast_not.toat_active {
     transform: translateX(0%);
     display:block;
   }
   
-  .toast .toast-content {
+  .toast_not .toast_not-content {
     display: flex;
     align-items: center;
   }
   
-  .toast-content .check {
+  .toast_not-content .check {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -131,11 +131,11 @@ ion-icon {
     font-size: 20px;
     border-radius: 50%;
   }
-  .toast-content i{
+  .toast_not-content i{
     font-size:32px;
   }
   
-  .toast-content .message {
+  .toast_not-content .message {
     display: flex;
     flex-direction: column;
     margin: 0 20px;
@@ -161,7 +161,7 @@ ion-icon {
   .warning{
     color:yellow;
   }
-  .toast .close {
+  .toast_not .close {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -171,11 +171,11 @@ ion-icon {
     color:white;
   }
   
-  .toast .close:hover {
+  .toast_not .close:hover {
     opacity: 1;
   }
   
-  .toast .progress {
+  .toast_not .progress {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -184,7 +184,7 @@ ion-icon {
   
   }
   
-  .toast .progress:before {
+  .toast_not .progress:before {
     content: "";
     position: absolute;
     bottom: 0;
@@ -194,7 +194,7 @@ ion-icon {
     background-color: #2770ff;
   }
   
-  .progress.active:before {
+  .progress.toat_active:before {
     animation: progress 5s linear forwards;
   }
   
@@ -253,8 +253,8 @@ ion-icon {
    <!--Notification --> 
    {% if messages %}  
         {% for message in messages %} 
-        <div class="toast active">
-           <div class="toast-content">
+        <div class="toast_not toat_active">
+           <div class="toast_not-content">
             {% if message.tags == 'success' %}
             <i class="fa fa-check-circle {{message.tags}}"></i>
             {% elif message.tags == 'warning' %}
@@ -268,12 +268,15 @@ ion-icon {
                </div>
            </div>
            <i class="fa-solid fa-xmark close"></i>
-           <div class="progress active"></div>
+           <div class="progress toat_active"></div>
         </div>   
         {% endfor %}  
    {% endif %}   
    <!-- Notification code end here-->
 
+
+
+   
       {% block body %} 
 
       {% endblock body %}
@@ -295,29 +298,26 @@ ion-icon {
           e.name = e.name === "menu" ? "close" : "menu";
           navlinks.classList.toggle("left-[0%]");
       }
-  </script>
-
-
-  <script>
+  
     const button = document.querySelector("button");
-    const toast = document.querySelector(".toast");
+    const toast_not = document.querySelector(".toast_not");
     const closeIcon = document.querySelector(".close");
     const progress = document.querySelector(".progress");
     let timer1, timer2;
 
     timer1 = setTimeout(() => {
-      toast.classList.remove("active");
+      toast_not.classList.remove("toat_active");
     }, 5000); //1s = 1000 milliseconds
   
     timer2 = setTimeout(() => {
-      progress.classList.remove("active");
+      progress.classList.remove("toat_active");
     }, 5000);
     
     closeIcon.addEventListener("click", () => {
-      toast.classList.remove("active");
+      toast_not.classList.remove("toat_active");
     
       setTimeout(() => {
-        progress.classList.remove("active");
+        progress.classList.remove("toat_active");
       }, 300);
     
       clearTimeout(timer1);
