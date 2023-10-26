@@ -136,7 +136,8 @@
         </div>
         <div class="form login">
             <header>Login</header>
-            <form action="/login" method="post">
+            <form action="/user_login" method="post">
+                {% csrf_token %}
                 <input type="text" placeholder="Username or Email" name="user_name" required />
                 <input type="password" placeholder="Password" name="user_password" required />
                 <a href="#">Forgot password?</a>
@@ -147,8 +148,22 @@
     <div>
  {% endblock %}
  {% block js %}
- <script>
-    const wrapper = document.querySelector(".wrapper"),
+
+    
+    {% if messages %}  
+    {% for message in messages %} 
+    {% if message.tags == 'success' or f == 1 %}
+    <script> 
+    const wrapper = document.querySelector(".wrapper");
+      wrapper.classList.add("active");
+    </script>
+    {%endif %}
+    {% endfor %}  
+   {% endif %}
+
+
+   <script> 
+        const wrapper = document.querySelector(".wrapper"),
         signupHeader = document.querySelector(".signup header"),
         loginHeader = document.querySelector(".login header");
     loginHeader.addEventListener("click", () => {
