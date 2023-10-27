@@ -110,3 +110,5 @@ def profileupdate(request,id):
         )
         profile.save()
     return redirect('user_profile')
+def add_your_resta(request):
+    return render (request,"add_rest.html")
