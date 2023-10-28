@@ -10,6 +10,8 @@ urlpatterns = [
    path('user_profile',views.user_profile,name='user_profile'),
    path('profile/update/<int:id>',views.profileupdate,name="profileupdate"),
    path('add_your_resta',views.add_your_resta,name="add_your_resta"),
+  path('restaurant_MPO',views.restaurant_MPO,name="restaurant_MPO"),
+ 
 ]
 
     

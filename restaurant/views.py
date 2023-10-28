@@ -112,3 +112,5 @@ def profileupdate(request,id):
     return redirect('user_profile')
 def add_your_resta(request):
     return render (request,"add_rest.html")
+def restaurant_MPO(request):
+    return render (request ,"restaurant_MPO.html")
