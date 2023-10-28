@@ -1,0 +1,514 @@
+{% extends 'base.html' %}
+{% block title %}Home page{% endblock title %}
+{% block link %}
+
+{% endblock link %}
+{%block css%}
+     
+/*=============================================  */
+/* css for body */
+/* =========================================== */
+.body{
+
+}
+svg {
+    font-family: 'Russo One', sans-serif;
+    position: absolute; 
+    width: 100%; height: 100%;
+  }
+  svg text {
+    text-transform: uppercase;
+    animation: stroke 5s alternate;
+    stroke-width: 0;
+    stroke: #050505;
+    font-size: 100px;
+    fill:rgba(194, 52, 8, 1);
+  }
+  @keyframes stroke {
+    0%   {
+      fill: rgba(72,138,20,0); stroke: rgba(247, 242, 240,1);
+      stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 5;
+    }
+    70%  {fill: rgba(72,138,20,0); stroke: rgba(247, 242, 240,1); }
+    80%  {fill: rgba(72,138,20,0); stroke: rgba(247, 242, 240,1); stroke-width: 4; }
+    100% {
+      fill:rgba(230, 217, 209,1) ; stroke: rgba(54,95,160,0); 
+      stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 1;
+    }
+  }
+.showcase-area {
+    height: 85vh;
+    background: linear-gradient(
+        rgba(97, 102, 98, 0.1),
+        rgba(34, 38, 35, 0.8)
+      ),
+      url("https://i.postimg.cc/65hmv638/istockphoto-1403973419-170667a.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .showcase-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 1.6rem;
+  }
+
+
+/* For tablets */
+@media (max-width: 825px) {
+    .showcase-area {height: 90vh;}
+}
+
+/* For mobile phones */
+@media (max-width: 480px) {
+    .showcase-area {height: 94vh;}
+}
+
+  
+ 
+  
+  
+
+.center {
+    position: relative;
+    text-align: center;
+    margin: 40px;
+    top: 90px;
+
+}
+
+.center .title {
+    color: #fb6107;
+    font-size: 40px;
+    font-family: cursive;
+    font-weight: 900;
+}
+
+.center .sub_title {
+    color:Black;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 50px;
+}
+
+.three-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: 400% 400%;
+    background: linear-gradient(128deg, #000000, #d94d02 , #d98e02);
+
+    animation: gradient 5s ease infinite;
+    
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.container-body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 15px;
+    padding: 50px 0;
+    gap: 40px 60px;
+}
+
+.drop {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    box-shadow:
+        inset 20px 20px 20px rgba(0, 0, 0, 0.05),
+        25px 35px 20px rgba(0, 0, 0, 0.05),
+        25px 30px 30px rgba(0, 0, 0, 0.05),
+        inset -20px -20px 25px rgba(255, 255, 255, 0.9);
+    transition: 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:black;
+}
+
+.drop:nth-child(1) {
+    border-radius: 47% 53% 70% 30% / 30% 43% 57% 70%;
+}
+
+.drop:nth-child(2) {
+    border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
+}
+
+.drop:nth-child(3) {
+    border-radius: 35% 65% 31% 69% / 57% 59% 41% 43%;
+}
+
+.drop:hover {
+    border-radius: 50%;
+}
+
+.drop::before {
+    content: '';
+    position: absolute;
+    top: 50px;
+    left: 85px;
+    width: 35px;
+    height: 35px;
+    background: #FFF;
+    border-radius: 50%;
+    opacity: 0.9;
+}
+
+.drop::after {
+    content: '';
+    position: absolute;
+    top: 90px;
+    left: 110px;
+    width: 15px;
+    height: 15px;
+    background: #FFF;
+    border-radius: 50%;
+    opacity: 0.9;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 40px;
+    gap: 15px;
+}
+
+.content h2 {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    color: var(--clr);
+    background: #EFF0F4;
+    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.1),
+        inset -2px -5px -10px rgba(255, 255, 255, 1),
+        15px 15px 10px rgba(0, 0, 0, 0.05),
+        15px 10px 15px rgba(0, 0, 0, 0.025);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+}
+
+.content a {
+    position: relative;
+    padding: 10px 25px;
+    background: var(--clr);
+    text-decoration: none;
+    color: #FFF;
+    border-radius: 25px;
+    font-weight: 500;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+    opacity: 0.75;
+    transition: 0.5s;
+}
+
+.content a:hover {
+    opacity: 1;
+}
+
+.content a::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 65%;
+    height: 5px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.content p {
+    color: rgb(160, 150, 150);
+}
+
+@media (max-width: 600px) {
+    .drop {
+        width: 280px;
+        height: 280px;
+    }
+}
+
+/* ====================================== */
+/* CSS CODE FOR BODY */
+/*==================================  */
+.orange_bg{
+    background:
+      url("https://i.postimg.cc/prv5zpMm/360-F-125263628-Fav-DDOw9-Ip-UKCc-A20yj-WVWIeb-QJ9-Qpg-W.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+.ordering_sysyem-heading {
+    font-size: 40px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+    padding-top:25px;
+    font-weight:400;
+    color:white;
+
+}
+.border_bottom {
+    height: 4px;
+    width: 250px;
+    margin: auto;
+    margin-bottom: 20px;
+    background-color: orange;
+}
+
+.ordering_sysyem {
+    margin: auto;
+    display: grid;
+    padding: 20px;
+    max-width: 1200px;
+    grid-gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-rows: 200px 200px;
+    grid-auto-rows: 200px;
+
+}
+
+.ordering_sysyem>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    color: #ffeead;
+    background-color:black;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+.Pizza{
+    background:url('https://i.postimg.cc/y6tnDzdc/1200px-Pizza-3007395.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+.Burger{
+    background:url('https://i.postimg.cc/PJSMfBPV/burger-black-background-menu-127425-580.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.Ice-Cream{
+    background:url('https://i.postimg.cc/Kv3vxtkx/cookies-black-background-mint-dessert-wallpaper-preview.jpg');
+    background-size: fit;
+    background-position: center;
+    
+    background-repeat: no-repeat;
+}
+.Wrap{
+    background:url('https://i.postimg.cc/FFGtJzS8/54347365-close-up-still-life-trio-of-tex-mex-fajita-wraps-on-dark-background-variety-of-gourmet-gril.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.Thali{
+    background:url('https://i.postimg.cc/Px47ZVCY/indian-thali-dark-background-traditional-food-concept-organic-dishes-appetisers-indeed-cuisine-top-v.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.Biryani{
+    background:url('https://i.postimg.cc/XJJqSm6Y/360-F-490192375-qg0-In7-Wbt4dh5zx18y-Eazvz-PYyd-N2-YOO.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.ordering_sysyem>div:hover {
+    transform: scale(1.05);
+
+}
+
+
+
+
+
+
+
+.kick_start {
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+.mybox {
+    padding: 40px;
+    border-radius: 15px;
+    height: auto;
+    background: linear-gradient(to left, black, rgb(217, 113, 2));
+    color: rgb(197, 193, 193);
+    margin: 4%;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+
+}
+
+.mybox p {
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.mybox a {
+    height: 50px;
+    border-radius: 20px;
+    background: #fff;
+    color: #fb6107;
+    padding: 10px;
+    border: 2px solid #fb6107;
+    text-decoration: none;
+    margin: auto;
+}
+
+.mybox a:hover {
+    background-color: #fb6107;
+    color: white;
+}
+
+
+
+/* ==================================== */
+/* Media Querry code  */
+/* ================================= */
+@media only screen and (max-width: 762px) {
+    ion-icon {
+        color: white;
+    }
+
+    .ordering_sysyem-heading {
+        font-size: 24px;
+    }
+
+   
+
+   
+
+    .mybox {
+        background: rgb(69, 41, 3);
+
+    }
+
+    .mybox p {
+        font-size: 30px;
+        font-weight: 900;
+    }
+
+    .mybox a {
+        margin-top: 20px;
+        margin-right: 100px;
+        ;
+    }
+   
+
+}
+{%endblock%}
+
+{% block body %}
+<section class="showcase-area" id="showcase">
+    <div class="showcase-container">
+        <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+
+        <svg viewBox="0 0 1320 300">
+          <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+            Eat-Swift
+          </text>
+        </svg> 
+      
+    </div>
+  </section>
+<div class="three-box">
+    <div class="container-body">
+        <div class="drop" style="--clr: #FF0F5B">
+            <div class="content">
+
+                <p> Partner with Eatswift at 0% commission for the 1st month!</p>
+                <a href="#">Add Restaurant</a>
+            </div>
+        </div>
+        <div class="drop" style="--clr: #BE01FE">
+            <div class="content">
+
+                <p>Order in for yourself or for the group, with no restrictions on order value</p>
+                <a href="#">Order items</a>
+            </div>
+        </div>
+        <div class="drop" style="--clr: #01B4FF">
+            <div class="content">
+
+                <p>Find the best restaurants and bars in India</p>
+                <a href="#">Find Restaurant</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="orange_bg">
+<div class="ordering_sysyem-heading">What's In Your Mind?</div>
+<div class="border_bottom"></div>
+<div class="ordering_sysyem">
+    <div class="Pizza">
+
+    </div>
+    <div class="Burger">
+    </div>
+    
+    <div class="Wrap">
+    </div>
+    <div class="Thali">
+    </div>
+    <div class="Biryani">
+    </div>
+    <div class="Ice-Cream">
+    </div>
+    
+    </div>
+
+
+
+
+<div class="kick_start">
+    <div class="mybox">
+        <p>Kickstart Food Business for your<br> Restaurant, only with Eatswift!!</p>
+        <a href="#" class="getstarted">Add Your Restaurant</a>
+    </div>
+</div>
+</div>
+ {% endblock %}
+ {% block js %}
+  <script>
+
+ </script>
+ 
+
+  {% endblock js %} 

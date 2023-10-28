@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    <link rel="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>{% block title %}Restaurant Management{% endblock title %}</title>
+    {% block link %}{% endblock%}
+    <style media="screen">
+
+    body {
+        margin: 0;
+        padding:0;
+        background-position: center;
+        font-family: "Montserrat";
+    }
+/* ============================================== */
+/* Navbar code start here  */
+/* ====================================== */
+.HEADER1 {
+    background-color:black;
+    z-index:90;
+}
+
+.navLinks {
+    background-color: black;
+    color: white;
+    z-index: 20;
+}
+
+.navLinks li a {
+    text-decoration: none;
+}
+
+.navLinks li a:hover {
+    color: white;
+}
+
+ion-icon {
+    color: white;
+}
+
+.HEADER1 button:hover {
+    color: blue;
+}
+
+.HEADER1 button {
+    color: white;
+}
+
+
+
+/* ==================================== */
+/* Media Querry code  */
+/* ================================= */
+@media only screen and (max-width: 762px) {
+
+
+    .HEADER1{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #111e2d;
+    }
+
+    .navLinks {
+        background-color: #111e2d;
+        color: white;
+        z-index: 20;
+    }
+
+    ion-icon {
+        color: white;
+    }
+
+    .HEADER1 button {
+        color: white;
+    }
+
+}
+
+@media only screen and (min-width: 762px) {
+    .HEADER1{
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+}
+
+
+/* ==================CSS FOR NOTIFICATION ================== */
+.toast_not {
+    position:absolute;
+    margin-top:10px;
+    right: 30px;
+    border-radius: 12px;
+    background: black;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transform: translateX(calc(100% + 30px));
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+    display:none;
+    z-index:1000;
+  }
+  
+  .toast_not.toat_active {
+    transform: translateX(0%);
+    display:block;
+  }
+  
+  .toast_not .toast_not-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .toast_not-content .check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    min-width: 35px;
+    background-color: #2770ff;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+  }
+  .toast_not-content i{
+    font-size:32px;
+  }
+  
+  .toast_not-content .message {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+  }
+  
+  .message .text {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  
+  .message .text.text-1 {
+    font-weight: 600;
+  }
+  .message .text.text-2{
+    color:white;
+  }
+  .success{
+    color:green;
+  }
+  .error{
+    color:red;
+  }
+  .warning{
+    color:yellow;
+  }
+  .toast_not .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+    color:white;
+  }
+  
+  .toast_not .close:hover {
+    opacity: 1;
+  }
+  
+  .toast_not .progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+  
+  }
+  
+  .toast_not .progress:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #2770ff;
+  }
+  
+  .progress.toat_active:before {
+    animation: progress 5s linear forwards;
+  }
+  
+  @keyframes progress {
+    100% {
+      right: 100%;
+    }
+  }
+
+  /* Popover styling */
+
+.profilebutton{
+  text-decoration: none;
+  color:yellow;
+  text-align: center;
+  margin-right:25px;
+  margin-bottom:20px;
+}
+.popover__wrapper {
+  position: relative;
+  margin-top: 1.5rem;
+  display: inline-block;
+  z-index:1000;
+}
+.popover__content {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: -100px;
+  top:30px;
+  transform: translate(0, 10px);
+  background-color: #598BE2;
+  padding:10px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  width: auto;
+  border-radius:9px;
+}
+@media (max-width:768px){
+  .popover__content {
+    left: -139px;
+    width: 165px;
+  }
+}
+.popover__content a{
+  color:yellow;
+  font-weight:800;
+  text-decoration:none;
+  margin:10px;
+}
+.popover__content:before {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  right: calc(50% - 10px);
+  top: -8px;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #bfbfbf transparent;
+  transition-duration: 0.3s;
+  transition-property: transform;
+}
+.popover__wrapper:hover .popover__content {
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -20px);
+  transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+.popover__message {
+  text-align: center;
+}
+
+
+/************ FOOTER CSS CODE START HERE *********/
+
+    {% block css %}
+    {% endblock%}
+</style>
+  </head>
+  
+  <body>
+
+    <header class="HEADER1 relative shadow-lg px-3">
+        <nav class="flex justify-between">
+            <div class="w-[130px] md:w-[200px] flex items-center">
+                <img src="{{ MEDIA_URL }}media/images/logo.png" alt="LOGO" srcset="">
+            </div>
+            <div class="flex items-center gap-3">
+                <div
+                    class="navLinks duration-500 absolute md:static md:w-auto w-full md:h-auto h-[100vh]  flex md:items-center gap-[1.5vw] top-[100%] left-[-100%] px-5 md:py-0 py-5 ">
+                    <ul class="flex md:flex-row flex-col md:items-center md:gap-[2vw] gap-8">
+                        <li
+                            class="relative max-w-fit pr-3 md:pr-0 py-1 after:bg-gradient-to-r from-[#2b68e0] to-[#e710ea]  after:absolute after:h-1 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300">
+                            <a href="/">Home</a>
+                        </li>
+                        <li
+                            class="relative max-w-fit pr-3 md:pr-0 py-1 after:bg-gradient-to-r from-[#2b68e0] to-[#e710ea]  after:absolute after:h-1 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300">
+                            <a href="/add_your_resta">Add Restaurant</a>
+                        </li>
+                        <!-- <li class="relative max-w-fit pr-3 md:pr-0 py-1 after:bg-gradient-to-r from-[#2b68e0] to-[#e710ea]  after:absolute after:h-1 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"><a href="#"></a></li> -->
+                        <li
+                            class="relative max-w-fit pr-3 md:pr-0 py-1 after:bg-gradient-to-r from-[#2b68e0] to-[#e710ea]  after:absolute after:h-1 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300">
+                            <a href="#">Menu</a>
+                        </li>
+                        <!-- <li class="relative max-w-fit pr-3 md:pr-0 py-1 after:bg-gradient-to-r from-[#2b68e0] to-[#e710ea]  after:absolute after:h-1 after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300"><a href="#">Contact us</a></li> -->
+                    </ul>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  {% if user.is_authenticated %}
+                  <!--<a class="my-3 mx-3" href="">
+                   <i style="font-size:30px;color:yellow" class="fa fa-shopping-cart"></i>
+                   </a>-->
+                   <div class="popover__wrapper my-3 ">
+                     <a class="profilebutton" href="#">
+                     <i style="font-size:30px;" class="fas fa-user"></i>
+                     </a>
+                     <div class="popover__content">
+                       <a class="nav-link" href="/user_profile">Profile</a>
+                       <hr>
+                       <a class="nav-link" href="#">Your Orders</a>
+                       <hr>
+                       <a class="nav-link" href="#"></a>
+                       <hr>
+                       <a class="nav-link" href="/user_logout"><i class="fa fa-sign-out"></i>Logout</a>
+                     </div>
+                   </div>
+       
+                 {% else %}
+                 <a href ="/authpage"><button type="button"
+                  class="hover:bg-clip-text hover: border-solid border-2 border-[#5356e3]  font-bold  px-3 mx-3 py-2 rounded-full ">Login</button></a>
+                  {% endif %}
+
+                    <ion-icon name="menu" onclick="onMenuToggle(this)"
+                        class="text-[30px] cursor-pointer md:hidden"></ion-icon>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+   <!--Notification --> 
+   {% if messages %}  
+        {% for message in messages %} 
+        <div class="toast_not toat_active">
+           <div class="toast_not-content">
+            {% if message.tags == 'success' %}
+            <i class="fa fa-check-circle {{message.tags}}"></i>
+            {% elif message.tags == 'warning' %}
+            <i class="fas fa-exclamation-triangle {{message.tags}}"></i>
+            {% elif message.tags == 'error' %}
+            <i class="fas fa-exclamation-circle {{message.tags}}"></i>
+            {% endif %}
+               <div class="message">
+                   <span class="text text-1 {{message.tags}}">{{message.tags}}</span>
+                   <span class="text text-2">{{ message }}</span>
+               </div>
+           </div>
+           <i class="fa-solid fa-xmark close"></i>
+           <div class="progress toat_active"></div>
+        </div>   
+        {% endfor %}  
+   {% endif %}   
+   <!-- Notification code end here-->
+
+
+
+   
+      {% block body %} 
+
+      {% endblock body %}
+      
+     
+
+
+  </body>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  
+  <script>
+      function onMenuToggle(e) {
+          const navlinks = document.querySelector(".navLinks");
+          e.name = e.name === "menu" ? "close" : "menu";
+          navlinks.classList.toggle("left-[0%]");
+      }
+  
+    const button = document.querySelector("button");
+    const toast_not = document.querySelector(".toast_not");
+    const closeIcon = document.querySelector(".close");
+    const progress = document.querySelector(".progress");
+    let timer1, timer2;
+
+    timer1 = setTimeout(() => {
+      toast_not.classList.remove("toat_active");
+    }, 5000); //1s = 1000 milliseconds
+  
+    timer2 = setTimeout(() => {
+      progress.classList.remove("toat_active");
+    }, 5000);
+    
+    closeIcon.addEventListener("click", () => {
+      toast_not.classList.remove("toat_active");
+    
+      setTimeout(() => {
+        progress.classList.remove("toat_active");
+      }, 300);
+    
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    });
+</script>
+
+{% block js %}  
+{% endblock js %}
+</html>
