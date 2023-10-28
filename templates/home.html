@@ -8,7 +8,70 @@
 /*=============================================  */
 /* css for body */
 /* =========================================== */
+.body{
 
+}
+svg {
+    font-family: 'Russo One', sans-serif;
+    position: absolute; 
+    width: 100%; height: 100%;
+  }
+  svg text {
+    text-transform: uppercase;
+    animation: stroke 5s alternate;
+    stroke-width: 0;
+    stroke: #050505;
+    font-size: 100px;
+    fill:rgba(194, 52, 8, 1);
+  }
+  @keyframes stroke {
+    0%   {
+      fill: rgba(72,138,20,0); stroke: rgba(247, 242, 240,1);
+      stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 5;
+    }
+    70%  {fill: rgba(72,138,20,0); stroke: rgba(247, 242, 240,1); }
+    80%  {fill: rgba(72,138,20,0); stroke: rgba(247, 242, 240,1); stroke-width: 4; }
+    100% {
+      fill:rgba(230, 217, 209,1) ; stroke: rgba(54,95,160,0); 
+      stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 1;
+    }
+  }
+.showcase-area {
+    height: 85vh;
+    background: linear-gradient(
+        rgba(240, 240, 240, 0.1),
+        rgba(255, 255, 255, 0.2)
+      ),
+      url("https://i.postimg.cc/65hmv638/istockphoto-1403973419-170667a.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .showcase-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 1.6rem;
+  }
+
+
+/* For tablets */
+@media (max-width: 825px) {
+    .showcase-area {height: 90vh;}
+}
+
+/* For mobile phones */
+@media (max-width: 480px) {
+    .showcase-area {height: 94vh;}
+}
+
+  
+ 
+  
+  
 
 .center {
     position: relative;
@@ -38,6 +101,22 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background-size: 400% 400%;
+    background: linear-gradient(128deg, #000000, #d94d02 , #d98e02);
+
+    animation: gradient 5s ease infinite;
+    
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .container-body {
@@ -178,18 +257,29 @@
 /* ====================================== */
 /* CSS CODE FOR BODY */
 /*==================================  */
+.orange_bg{
+    background:
+      url("https://i.postimg.cc/prv5zpMm/360-F-125263628-Fav-DDOw9-Ip-UKCc-A20yj-WVWIeb-QJ9-Qpg-W.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
 .ordering_sysyem-heading {
-    font-size: 32px;
+    font-size: 40px;
     width: 100%;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+    padding-top:25px;
+    font-weight:400;
+    color:white;
 
 }
 .border_bottom {
     height: 4px;
-    width: 120px;
+    width: 250px;
     margin: auto;
-    margin-bottom: 20;
+    margin-bottom: 20px;
     background-color: orange;
 }
 
@@ -211,27 +301,58 @@
     align-items: center;
     font-size: 2em;
     color: #ffeead;
-    background-color: black;
+    background-color:black;
     transition: 0.5s;
     border-radius: 10px;
 }
+.Pizza{
+    background:url('https://i.postimg.cc/y6tnDzdc/1200px-Pizza-3007395.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+.Burger{
+    background:url('https://i.postimg.cc/PJSMfBPV/burger-black-background-menu-127425-580.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.Ice-Cream{
+    background:url('https://i.postimg.cc/Kv3vxtkx/cookies-black-background-mint-dessert-wallpaper-preview.jpg');
+    background-size: fit;
+    background-position: center;
+    
+    background-repeat: no-repeat;
+}
+.Wrap{
+    background:url('https://i.postimg.cc/FFGtJzS8/54347365-close-up-still-life-trio-of-tex-mex-fajita-wraps-on-dark-background-variety-of-gourmet-gril.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.Thali{
+    background:url('https://i.postimg.cc/Px47ZVCY/indian-thali-dark-background-traditional-food-concept-organic-dishes-appetisers-indeed-cuisine-top-v.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.Biryani{
+    background:url('https://i.postimg.cc/XJJqSm6Y/360-F-490192375-qg0-In7-Wbt4dh5zx18y-Eazvz-PYyd-N2-YOO.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 
 .ordering_sysyem>div:hover {
     transform: scale(1.05);
 
 }
 
-.ordering_system_box .icon {
-    margin: auto;
-    font-size: 18px;
-    padding: 5px;
-    filter: brightness(85%);
-}
 
-.ordering_system_box h5 {
-    color: white;
-    margin: auto;
-}
+
+
 
 
 
@@ -244,7 +365,7 @@
     padding: 40px;
     border-radius: 15px;
     height: auto;
-    background: linear-gradient(to left, black, rgb(69, 41, 3));
+    background: linear-gradient(to left, black, rgb(217, 113, 2));
     color: rgb(197, 193, 193);
     margin: 4%;
     display: flex;
@@ -307,17 +428,24 @@
         margin-right: 100px;
         ;
     }
+   
 
 }
 {%endblock%}
 
 {% block body %}
-<div class="center">
-    <div class="title">Eatswift</div>
-    <div class="sub_title">Discover India's finest restaurants,<br> cafés and bars here</div>
-    <div class="buttons" style="margin-top:20px">
+<section class="showcase-area" id="showcase">
+    <div class="showcase-container">
+        <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+
+        <svg viewBox="0 0 1320 300">
+          <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+            Eat-Swift
+          </text>
+        </svg> 
+      
     </div>
-</div>
+  </section>
 <div class="three-box">
     <div class="container-body">
         <div class="drop" style="--clr: #FF0F5B">
@@ -345,77 +473,27 @@
 </div>
 
 
-
-<div class="ordering_sysyem-heading">Our Online Food Ordering System Caters</div>
+<div class="orange_bg">
+<div class="ordering_sysyem-heading">What's In Your Mind?</div>
 <div class="border_bottom"></div>
 <div class="ordering_sysyem">
-    <div>
-        <div class="ordering_system_box">
-            <div class="icon">
-                <img src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Pizza-Ordering-System.svg?tr=w-50,h-50"
-                    class="icon" alt="Pizza Ordering System" loading="lazy"
-                    data-src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Pizza-Ordering-System.svg?tr=w-50,h-50"
-                    Title="Pizza Ordering System">
-                <h5>Pizza Ordering System</h5>
-            </div>
-        </div>
+    <div class="Pizza">
+
     </div>
-    <div>
-        <div class="ordering_system_box">
-            <div class="icon">
-                <img src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Digital-Food-Ordering-System.svg?tr=w-50,h-50"
-                    class="icon" alt="Digital Food Ordering System" loading="lazy"
-                    data-src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Digital-Food-Ordering-System.svg?tr=w-50,h-50"
-                    Title="Digital Food Ordering System">
-                <h5>Cafe Ordering System</h5>
-            </div>
-        </div>
+    <div class="Burger">
     </div>
-    <div>
-        <div class="ordering_system_box">
-            <div class="icon">
-                <img src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Catering-Ordering-System.svg?tr=w-50,h-50"
-                    class="icon" alt="Catering Ordering System" loading="lazy"
-                    data-src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Catering-Ordering-System.svg?tr=w-50,h-50"
-                    Title="Catering Ordering System">
-                <h5>Cloud Kitchen Ordering System</h5>
-            </div>
-        </div>
+    
+    <div class="Wrap">
     </div>
-    <div>
-        <div class="ordering_system_box">
-            <div class="icon">
-                <img src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Digital-Ordering-Systems-for-Bars.png?tr=w-50,h-50"
-                    class="icon" alt="Digital Ordering Systems for Bars" loading="lazy"
-                    data-src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Digital-Ordering-Systems-for-Bars.png?tr=w-50,h-50"
-                    Title="Digital Ordering Systems for Bars">
-                <h5>Beverage Delivery Software</h5>
-            </div>
-        </div>
+    <div class="Thali">
     </div>
-    <div>
-        <div class="ordering_system_box">
-            <div class="icon">
-                <img src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Burgers-Ordering-System.svg?tr=w-50,h-50"
-                    class="icon" alt="Burgers Ordering System" loading="lazy"
-                    data-src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Burgers-Ordering-System.svg?tr=w-50,h-50"
-                    Title="Burgers Ordering System">
-                <h5>Burgers Ordering System</h5>
-            </div>
-        </div>
+    <div class="Biryani">
     </div>
-    <div>
-        <div class="ordering_system_box">
-            <div class="icon">
-                <img src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Fast-Food-Ordering-System.svg?tr=w-50,h-50"
-                    class="icon" alt="Fast Food Ordering System" loading="lazy"
-                    data-src="https://www.foodiv.com/wp-content/themes/foodiv/img/Food_ordering/Fast-Food-Ordering-System.svg?tr=w-50,h-50"
-                    Title="Fast Food Ordering System">
-                <h5>Fast Food Ordering System</h5>
-            </div>
-        </div>
+    <div class="Ice-Cream">
     </div>
-</div>
+    
+    </div>
+
 
 
 
@@ -425,7 +503,7 @@
         <a href="#" class="getstarted">Add Your Restaurant</a>
     </div>
 </div>
-
+</div>
  {% endblock %}
  {% block js %}
   <script>
