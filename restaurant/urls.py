@@ -11,6 +11,7 @@ urlpatterns = [
    path('profile/update/<int:id>',views.profileupdate,name="profileupdate"),
    path('add_your_resta',views.add_your_resta,name="add_your_resta"),
   path('restaurant_MPO',views.restaurant_MPO,name="restaurant_MPO"),
+  path('menu',views.Menu,name="menu"),
  
 ]
 

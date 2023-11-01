@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from restaurant.models import Userprofile
+from restaurant.models import Userprofile,Restaurant,Item
 
 def home(request):
     return render(request,"home.html")
@@ -114,3 +114,9 @@ def add_your_resta(request):
     return render (request,"add_rest.html")
 def restaurant_MPO(request):
     return render (request ,"restaurant_MPO.html")
+def Menu(request):
+    Menu_Item = Item.objects.all()
+    return render (request ,"menu.html",{"Menu_Item":"Menu_Item"})
+
+def Filter(request):
+    return render(request ,"menu.html")
