@@ -48,11 +48,11 @@ def register_restaurant(request):
         existing_restaurant = Restaurant.objects.filter(name=restaurant_name).exists()
         if existing_restaurant:
             messages.warning(request,'Restaurant already exists')
-            return render(request,"restaurants.html",restaurant=existing_restaurant)
+            return render(request,"index3.html",restaurant=existing_restaurant)
         
         restaurant= Restaurant.objects.create(name=restaurant_name,location=restaurant_location,city=restaurant_city,pin=restaurant_pin ,state=restaurant_state ,country=restaurant_country ,no=restaurant_no ,ownerno=restaurant_ownerno,ownername=restaurant_ownername,owneremail=restaurant_owneremail,open_time=open_time,close_time=close_time)
         messages.success(request, 'Your account has been created successfully!')
-        return render(request,"restaurants.html",restaurant=restaurant)
+        return render(request,"index3.html",restaurant=restaurant)
 # THIS IS FOR THE FILTER THAT WE WILL APPLY ON OUR FOOD MENU CATEGORY
 
 # def category(request):
