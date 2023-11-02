@@ -161,13 +161,34 @@ def resta_form_save(request):
         restaurant.save()
         messages.success(request, 'Your Restaurant has been successfully Registered!')
         return redirect('home')  
-    return render(request, 'regist_rest.html')
+    return redirect('restaurant_MPO')
 
 
 
-
+@login_required
 def restaurant_MPO(request):
-    return render (request ,"restaurant_MPO.html")
+    user = request.user
+    restaurant = Restaurant.objects.get(user = user)
+    restaurant_menu = Item.objects.filter(restaurant = restaurant)
+    context = {'restaurant':restaurant,
+               'restaurant_menu':restaurant_menu
+               }
+    return render (request ,"restaurant_MPO.html",context)
+
+
+def add_item(request, restaurant_id):
+    if request.method == 'POST':
+        item_name = request.POST.get('item_name')
+        price = request.POST.get('price')
+        restaurant = Restaurant.objects.get(id=restaurant_id)
+        item = Item(restaurant=restaurant, item_name=item_name, price=price)
+        item.save()
+        messages.success(request,"Item is Successfully Added")
+    return redirect('restaurant_MPO',)  
+
+
+
+
 def Menu(request):
     Menu_Item = Item.objects.all()
     return render (request ,"menu.html",{"Menu_Item":Menu_Item})
