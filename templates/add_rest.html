@@ -686,9 +686,16 @@ details[open] summary~* {
         <h1 class="main-title" id="home">Partner With Our Eatswift</h1>
         <p class="ya">Enjoy Your Exciting & Sizzling Journey With Us!</p>
         <div class="f">
-          <div class="u"><a href="/regist_your_resta" style="color:white"class="btn btn-primary">Register Your Restaurant</a></div>
-          <div class="u"><a href="#" style="color:white" class="btn btn-primary">View Your Existing Restaurant</a></div>
-
+            {% if user.is_authenticated %}
+               {%if your_restaurant|length < 1%}
+              <div class="u"><a href="/regist_your_resta" style="color:white"class="btn btn-primary">Register Your Restaurant</a></div>
+              {% else %}
+               <div class="u"><a href="#" style="color:white" class="btn btn-primary">View Your Existing Restaurant</a></div>
+              {%endif%}
+            {% else%}
+            <div class="u"><a href="/regist_your_resta" style="color:white"class="btn btn-primary">Register Your Restaurant</a></div>
+            <div class="u"><a href="#" style="color:white" class="btn btn-primary">View Your Existing Restaurant</a></div>
+            {%endif%}
         </div>
       </div>
 
