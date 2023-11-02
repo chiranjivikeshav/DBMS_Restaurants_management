@@ -16,7 +16,7 @@
             <div class=" registration-form card px-3 pt-4  pb-0 mt-3 mb-3">
                 <h2 id="heading">Create your restaurant page</h2>
                 <p>Fill all form field to go to next step</p>
-                <form id="msform" action="resta_form_save" method="post">
+                <form id="msform" action="resta_form_save" method="post" enctype="multipart/form-data">
                     {%csrf_token%}
                     <ul id="progressbar">
                         <li class="active" id="account"><strong>Restaurant Information</strong></li>
@@ -170,12 +170,12 @@
                             </div>
                             <label class="fieldlabels" style="color:white">Menu image:</label>
                             <div class="file-wrapper">
-                                <input type="file" name="upload-img" accept="image/*" required/>
+                                <input type="file" name="menu_image" accept="image/*" required/>
                                 <div class="close-btn">×</div>
                             </div>
                             <label class="fieldlabels" style="color:white">Restaurant image:</label>
                             <div class="file-wrapper-for-rest">
-                                <input type="file" name="upload-img-for-rest" accept="image/*" required/>
+                                <input type="file" name="restaurant_image" accept="image/*" required/>
                                 <div class="close-btn-for-rest">×</div>
                             </div>
                         </div>
@@ -294,17 +294,11 @@
 
 
 
-    $('input[name="upload-img"]').on('change', function () {
+    $('input[name="menu_image"]').on('change', function () {
         readURL(this, $('.file-wrapper'));  //Change the image
     });
 
-    $('.close-btn').on('click', function () { //Unset the image
-        let file = $('input[name="upload-img"]');
-        $('.file-wrapper').css('background-image', 'unset');
-        $('.file-wrapper').removeClass('file-set');
-        file.replaceWith(file = file.clone(true));
-    });
-
+    
     //FILE
     function readURL(input, obj) {
         if (input.files && input.files[0]) {
@@ -317,16 +311,11 @@
         }
     };
 
-    $('input[name="upload-img-for-rest"]').on('change', function () {
+    $('input[name="restaurant_image"]').on('change', function () {
         readURL(this, $('.file-wrapper-for-rest'));  //Change the image
     });
 
-    $('.close-btn-for-rest').on('click', function () { //Unset the image
-        let file = $('input[name="upload-img-for-rest"]');
-        $('.file-wrapper-for-rest').css('background-image', 'unset');
-        $('.file-wrapper-for-rest').removeClass('file-set-for-rest');
-        file.replaceWith(file = file.clone(true));
-    });
+    
 
     //FILE
     function readURL(input, obj) {
