@@ -82,6 +82,8 @@ def profileupdate(request,id):
        user_country = request.POST['user_country'] 
        user_state = request.POST['user_state'] 
        user_ZIPCODE = request.POST['user_ZIPCODE']
+       if user_ZIPCODE=='':
+           user_ZIPCODE = 0
     try:
         profile = Userprofile.objects.get(user=user)
         profile.user_name = user_name
@@ -112,6 +114,52 @@ def profileupdate(request,id):
     return redirect('user_profile')
 def add_your_resta(request):
     return render (request,"add_rest.html")
+
+def regist_your_resta(request):
+    if request.user.is_authenticated:
+        return render (request,"regist_rest.html")
+    return redirect("authpage")
+
+def resta_form_save(request):
+    if request.method == 'POST':
+        restaurant_name = request.POST.get('restaurant_name')
+        restaurant_address = request.POST.get('Restaurant_address')
+        restaurant_country = request.POST.get('restaurant_country')
+        restaurant_state = request.POST.get('restaurant_state')
+        restaurant_city = request.POST.get('restaurant_city')
+        restaurant_pincode = request.POST.get('restaurant_pincode')
+        restaurant_phone = request.POST.get('restaurant_phone')
+        restaurant_owner_phone = request.POST.get('restaurant_owner_phone')
+        restaurant_owner_name = request.POST.get('restaurant_owner_name')
+        restaurant_owner_email = request.POST.get('restaurant_owner_email')
+        open_time = request.POST.get('open_time')
+        close_time = request.POST.get('close_time')
+        menu_image = request.FILES.get('upload-img')
+        restaurant_image = request.FILES.get('upload-img-for-rest')
+        restaurant = Restaurant(
+            rest_name=restaurant_name,
+            location=restaurant_address,
+            city=restaurant_city,
+            country=restaurant_country,
+            pin=restaurant_pincode,
+            state=restaurant_state,
+            rest_cantact_no=restaurant_phone,
+            owner_contact_no=restaurant_owner_phone,
+            ownername=restaurant_owner_name,
+            owneremail=restaurant_owner_email,
+            open_time=open_time,
+            close_time=close_time,
+            menu_image=menu_image,
+            restaurant_image=restaurant_image,
+        )
+        restaurant.save()
+        messages.success(request, 'Your Restaurant has been successfully Registered!')
+        return redirect('home')  
+    return render(request, 'regist_rest.html')
+
+
+
+
 def restaurant_MPO(request):
     return render (request ,"restaurant_MPO.html")
 def Menu(request):

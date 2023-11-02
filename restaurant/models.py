@@ -12,7 +12,7 @@ class Userprofile(models.Model):
     user_city = models.CharField(max_length=100)
     user_country = models.CharField(max_length=100)
     user_state = models.CharField(max_length=100,null=True)
-    user_ZIPCODE = models.IntegerField(null=True)
+    user_ZIPCODE = models.IntegerField(default=000000)
     def __str__(self):
         return self.user_name
 
