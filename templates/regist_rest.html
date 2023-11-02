@@ -1,0 +1,822 @@
+{% extends 'base.html' %}
+{% block title %}Register your Restaurant{% endblock title %}
+{% block link %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+{% endblock link %}
+
+
+{% block body %}
+<div class="container-fluid">
+    <div class="registration-restaurant">
+        <div class="    text-center p-0 ">
+            <div class=" registration-form card px-3 pt-4  pb-0 mt-3 mb-3">
+                <h2 id="heading">Create your restaurant page</h2>
+                <p>Fill all form field to go to next step</p>
+                <form id="msform" action="resta_form_save" method="post">
+                    {%csrf_token%}
+                    <ul id="progressbar">
+                        <li class="active" id="account"><strong>Restaurant Information</strong></li>
+                        <li id="personal"><strong>Restaurant Timings</strong></li>
+                        <li id="payment"><strong>Upload Images</strong></li>
+                        <li id="confirm"><strong>Finish</strong></li>
+                    </ul>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> <br>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Restaurant Information:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 1 - 4</h2>
+                                </div>
+                            </div> <label class="fieldlabels">Restaurant Name: *</label>
+                            <input type="name" name="restaurant_name" placeholder="Restaurant Name" required>
+                            <label class="fieldlabels">Restaurant complete address: *</label>
+                            <input type="address" name="Restaurant_address" placeholder="Restaurant address"
+                                required>
+                            <label class="fieldlabels">Restaurant address details: *</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" name="restaurant_country" placeholder="Country" required>
+                                </div>
+                                <div class="col">
+                                    <input type="text" name="restaurant_state" placeholder="State" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" name="restaurant_city" placeholder="City" required>
+                                </div>
+                                <div class="col">
+                                    <input type="number" name="restaurant_pincode" placeholder="PIN code" required>
+                                </div>
+                            </div>
+
+                            <label class="fieldlabels">Contact number at restaurant: *</label>
+                            <div class="" style="display: flex; flex-flow: row;">
+                                <div class="" style="width: 70%;">
+                                    <input type="tel" name="restaurant_phone" 
+                                        placeholder="+91 | Contact No">
+                                </div>
+                                <div class="" style="width: 30%;">
+                                    <button class="btn btn-primary mx-3 my-1"> Verify</button>
+                                </div>
+                            </div>
+                            <label class="fieldlabels">Restaurant owner details: *</label>
+                            <div class="" style="display: flex; flex-flow: row;">
+                                <div class="" style="width: 70%;">
+                                    <input type="tel" name="restaurant_owner_phone" placeholder="+91 | Contact No">
+                                </div>
+                                <div class="" style="width: 30%;">
+                                    <button class="btn btn-primary mx-3 my-1"> Verify</button>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" name="restaurant_owner_name"
+                                        placeholder="Restaurant owner name" required>
+                                </div>
+                                <div class="col">
+                                    <input type="email" name="restaurant_owner_email"
+                                        placeholder="Restaurant owner Email" required>
+                                </div>
+                            </div>
+
+
+                        </div> <input type="button" name="next" class="next action-button" value="Next" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Restaurant Timings:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 2 - 4</h2>
+                                </div>
+                            </div>
+
+                            <label class="fieldlabels">Restaurant operational hours:*</label>
+                            <div class="form-row">
+
+                                <div class="cs-form mx-3">
+                                    <p style="color: white;">Opens at</p>
+                                    <input type="time" class="form-control" name="open_time" required/>
+
+                                </div>
+
+                                <div class="cs-form mx-3">
+                                    <p style="color: white;">Closes at</p>
+                                    <input type="time" class="form-control" name="close_time" required />
+                                </div>
+                            </div>
+                            <label class="fieldlabels">Mark open days:*</label>
+                            <div class="dowPicker">
+                                <div class="dowPickerOption">
+                                    <input type="checkbox" id="dow1">
+                                    <label for="dow1">S</label>
+                                </div>
+                                <div class="dowPickerOption">
+                                    <input type="checkbox" id="dow2">
+                                    <label for="dow2">M</label>
+                                </div>
+                                <div class="dowPickerOption">
+                                    <input type="checkbox" id="dow3">
+                                    <label for="dow3">T</label>
+                                </div>
+                                <div class="dowPickerOption">
+                                    <input type="checkbox" id="dow4">
+                                    <label for="dow4">W</label>
+                                </div>
+                                <div class="dowPickerOption">
+                                    <input type="checkbox" id="dow5">
+                                    <label for="dow5">T</label>
+                                </div>
+                                <div class="dowPickerOption">
+                                    <input type="checkbox" id="dow6">
+                                    <label for="dow6">F</label>
+                                </div>
+                                <div class="dowPickerOption">
+                                    <input type="checkbox" id="dow7">
+                                    <label for="dow7">S</label>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <input type="button" name="next" class="next action-button" value="Next" /> <input
+                            type="button" name="previous" class="previous action-button-previous"
+                            value="Previous" />
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Image Upload:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 3 - 4</h2>
+                                </div>
+                            </div>
+                            <label class="fieldlabels" style="color:white">Menu image:</label>
+                            <div class="file-wrapper">
+                                <input type="file" name="upload-img" accept="image/*" required/>
+                                <div class="close-btn">×</div>
+                            </div>
+                            <label class="fieldlabels" style="color:white">Restaurant image:</label>
+                            <div class="file-wrapper-for-rest">
+                                <input type="file" name="upload-img-for-rest" accept="image/*" required/>
+                                <div class="close-btn-for-rest">×</div>
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous"
+                        value="Previous" />
+            
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Finish:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 4 - 4</h2>
+                                </div>
+                            </div> <br><br>
+                            <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+                            <div class="row justify-content-center">
+                                <!-- <div class="col-3"> <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIRcwF_vMx7mRaVB-PPiXSXbfvCmvxQmrWA&usqp=CAU" class="fit-image">
+                                </div> -->
+                            </div> <br><br>
+                            <div class="row justify-content-center">
+                                <div class="col-7 text-center">
+                                    <h5 class="purple-text text-center">You Have Successfully register Your Restaurant</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <button class="btn btn-primary my-3" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+ {% endblock %}
+ {% block js %}
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var opacity;
+        var current = 1;
+        var steps = $("fieldset").length;
+
+        setProgressBar(current);
+
+        $(".next").click(function () {
+
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+
+            //Add Class Active
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({ opacity: 0 }, {
+                step: function (now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    next_fs.css({ 'opacity': opacity });
+                },
+                duration: 500
+            });
+            setProgressBar(++current);
+        });
+
+        $(".previous").click(function () {
+
+            current_fs = $(this).parent();
+            previous_fs = $(this).parent().prev();
+
+            //Remove class active
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+            //show the previous fieldset
+            previous_fs.show();
+
+            //hide the current fieldset with style
+            current_fs.animate({ opacity: 0 }, {
+                step: function (now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    previous_fs.css({ 'opacity': opacity });
+                },
+                duration: 500
+            });
+            setProgressBar(--current);
+        });
+
+        function setProgressBar(curStep) {
+            var percent = parseFloat(100 / steps) * curStep;
+            percent = percent.toFixed();
+            $(".progress-bar")
+                .css("width", percent + "%")
+        }
+
+        $(".submit").click(function () {
+            return false;
+        })
+
+    });
+
+
+
+    $('input[name="upload-img"]').on('change', function () {
+        readURL(this, $('.file-wrapper'));  //Change the image
+    });
+
+    $('.close-btn').on('click', function () { //Unset the image
+        let file = $('input[name="upload-img"]');
+        $('.file-wrapper').css('background-image', 'unset');
+        $('.file-wrapper').removeClass('file-set');
+        file.replaceWith(file = file.clone(true));
+    });
+
+    //FILE
+    function readURL(input, obj) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                obj.css('background-image', 'url(' + e.target.result + ')');
+                obj.addClass('file-set');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
+
+    $('input[name="upload-img-for-rest"]').on('change', function () {
+        readURL(this, $('.file-wrapper-for-rest'));  //Change the image
+    });
+
+    $('.close-btn-for-rest').on('click', function () { //Unset the image
+        let file = $('input[name="upload-img-for-rest"]');
+        $('.file-wrapper-for-rest').css('background-image', 'unset');
+        $('.file-wrapper-for-rest').removeClass('file-set-for-rest');
+        file.replaceWith(file = file.clone(true));
+    });
+
+    //FILE
+    function readURL(input, obj) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                obj.css('background-image', 'url(' + e.target.result + ')');
+                obj.addClass('file-set-for-rest');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
+    
+
+ </script>
+  {% endblock js %} 
+
+{%block css%}
+
+
+.registration-restaurant {
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: 992px) {
+    .registration-restaurant {
+        width: auto;
+    }
+}
+
+.registration-form {
+    /* box-shadow: rgba(200, 144, 89, 0.56) 0px 22px 70px 40px; */
+    background-color: #000000;
+
+}
+
+
+p {
+    color: grey
+}
+
+#heading {
+    text-transform: uppercase;
+    color: #9b3900;
+    font-size: 30px;
+    font-weight: 900;
+}
+
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+
+}
+
+#msform fieldset {
+    background-color: black;
+    border: 0 none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.form-card {
+    text-align: left;
+    background-color: black;
+}
+
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+#msform input,
+#msform textarea {
+    padding: 8px 15px 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    background-color: #ECEFF1;
+    font-size: 16px;
+    letter-spacing: 1px
+}
+
+#msform input:focus,
+#msform textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #9b3900;
+    outline-width: 0
+}
+
+#msform .action-button {
+    width: 100px;
+    background: #9b3900;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 0px 10px 5px;
+    float: right
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+    background-color: #311B92
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px 10px 0px;
+    float: right
+}
+
+#msform .action-button-previous:hover,
+#msform .action-button-previous:focus {
+    background-color: #000000
+}
+
+.card {
+    z-index: 0;
+    border: none;
+    position: relative;
+}
+
+
+@media (min-width: 992px) {
+    .card {
+        width: 670px;
+    }
+}
+
+.fs-title {
+    font-size: 25px;
+    color: gray;
+    margin-bottom: 15px;
+    font-weight: normal;
+    text-align: left
+}
+
+.purple-text {
+    color: #9b3900;
+    font-weight: normal
+}
+
+.steps {
+    font-size: 18px;
+    color: gray;
+    margin-bottom: 10px;
+    font-weight: normal;
+    text-align: right
+}
+
+.fieldlabels {
+    color: gray;
+    text-align: left
+}
+
+#progressbar {
+    margin-bottom: 30px;
+    padding: 0;
+    overflow: hidden;
+    color: lightgrey
+}
+
+#progressbar .active {
+    color: #9b3900
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 25%;
+    float: left;
+    position: relative;
+    font-weight: 400
+}
+
+#progressbar #account:before {
+    font-family: FontAwesome;
+    content: "\f13e"
+}
+
+#progressbar #personal:before {
+    font-family: FontAwesome;
+    content: "\f007"
+}
+
+#progressbar #payment:before {
+    font-family: FontAwesome;
+    content: "\f030"
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "\f00c"
+}
+
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 20px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #9b3900;
+}
+
+.progress {
+    height: 20px
+}
+
+.progress-bar {
+    background-color: #9b3900
+}
+
+.fit-image {
+    width: 100%;
+
+    object-fit: cover
+}
+
+
+
+
+
+.dowPicker {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+
+}
+
+.dowPickerOption {
+    display: inline-block;
+
+
+}
+
+.dowPickerOption input[type=checkbox] {
+    display: none;
+}
+
+.dowPickerOption label {
+    font-size: 50px;
+    color: white;
+    cursor: pointer;
+}
+
+.dowPickerOption input[type=checkbox]:checked~label {
+    color: #9b3900;
+    font-weight: 500;
+}
+
+
+
+
+.file-wrapper {
+    width: 300px;
+    height: 200px;
+    border: 10px solid gray;
+    position: relative;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.file-wrapper:after {
+    content: '+';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: max-content;
+    height: max-content;
+    display: block;
+    max-height: 85px;
+    font-size: 70px;
+    font-weight: bolder;
+    color: gray;
+}
+
+.file-wrapper:before {
+    
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 35px;
+    width: max-content;
+    height: max-content;
+    font-size: 0.75em;
+    color: gray;
+}
+
+.file-wrapper:hover:after {
+    font-size: 73px;
+}
+
+.file-wrapper .close-btn {
+    display: none;
+}
+
+input[type="file"] {
+    position: absolute;
+    width: auto;
+    height: 200px;
+    opacity: 0;
+    z-index: 99999;
+    cursor: pointer;
+}
+
+.file-set {
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: transparent;
+    padding: 10px;
+    border-width: 0px;
+}
+
+.file-set:hover {
+    transition: all 0.5s ease-out;
+    filter: brightness(110%);
+}
+
+.file-set:before {
+    color: transparent;
+}
+
+.file-set:after {
+    color: transparent;
+}
+
+.file-set .close-btn{
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    display: block;
+    background: #000;
+    color: #fff;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+    text-align: center;
+    line-height: 1.5;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.file-set>input {
+    pointer-events: none;
+}
+
+
+
+
+.file-wrapper-for-rest {
+    width: 300px;
+    height: 200px;
+    border: 10px solid gray;
+    position: relative;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.file-wrapper-for-rest:after {
+    content: '+';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: max-content;
+    height: max-content;
+    display: block;
+    max-height: 85px;
+    font-size: 70px;
+    font-weight: bolder;
+    color: gray;
+}
+
+.file-wrapper-for-rest:before {
+    
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 35px;
+    width: max-content;
+    height: max-content;
+    font-size: 0.75em;
+    color: gray;
+}
+
+.file-wrapper-for-rest:hover:after {
+    font-size: 73px;
+}
+
+.file-wrapper-for-rest .close-btn-for-rest{
+    display: none;
+}
+
+input[type="file"] {
+    position: absolute;
+    width: auto;
+    height: 200px;
+    opacity: 0;
+    z-index: 99999;
+    cursor: pointer;
+}
+
+.file-set-for-rest {
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: transparent;
+    padding: 10px;
+    border-width: 0px;
+}
+
+.file-set-for-rest:hover {
+    transition: all 0.5s ease-out;
+    filter: brightness(110%);
+}
+
+.file-set-for-rest:before {
+    color: transparent;
+}
+
+.file-set-for-rest:after {
+    color: transparent;
+}
+
+.file-set-for-rest.close-btn-for-rest{
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    display: block;
+    background: #000;
+    color: #fff;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+    text-align: center;
+    line-height: 1.5;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.file-set-for-rest>input {
+    pointer-events: none;
+}
+{%endblock%}

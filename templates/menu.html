@@ -1,0 +1,341 @@
+{% extends 'base.html' %}
+{% block title %}Find Menu{% endblock title %}
+{% block link %}
+
+{% endblock link %}
+{%block css%}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* body {
+font-family: Arial, Helvetica, sans-serif;
+} */
+
+  .column {
+    height: 50vh;
+    float: left;
+    width: 20%;
+    padding: 0 10px;
+    margin-top:12px;
+  } 
+  
+  .row {
+    padding:10px;
+    display: flex;
+    justify-content: center;
+    margin: 0 -5px;
+    margin-top:20px;
+  }
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  @media screen and (max-width: 700px) {
+    .column {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    @media screen and (max-width: 700px) {
+      .f1 {
+
+        text-align: center;
+      }
+
+      .f2 {
+
+        text-align: center;
+      }
+
+    }
+
+  }
+
+  .column:hover {
+    scale: 0.95;
+    border-color: black;
+
+  }
+
+  .box-img {
+    height: 70%;
+    width: 100%;
+    /* background-image: url("https://source.unsplash.com/random/1600x900?samosa"); */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+
+
+  }
+
+  .box-img .text {
+    height: 10px;
+    width: 90px;
+    color: rgb(249, 245, 241);
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 150px;
+  }
+
+  .title p {
+
+    font-size: 0.7rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+  }
+
+
+  .title {
+    height: 25%;
+    margin-top: 12px;
+    margin-left: 12px;
+
+  }
+
+  .p {
+    font-size: 0.2rem;
+
+
+  }
+
+  p.k {
+    font-size: large;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .title {
+    margin-left: 8px;
+    margin-top: 8px;
+
+
+  }
+
+  i {
+    color: green;
+
+
+  }
+
+  .filter {
+    height: 60vh;
+    width: 100%;
+    background-color: rgba(62, 57, 57, 0.3)
+    margin-bottom: 12px;
+
+  }
+
+  .f1 {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .f1 p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #fb6107;
+    font-weight: 1451;
+    font-size: 2rem;
+
+
+
+  }
+
+  .f2 {
+    height: 9vh;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+  }
+
+  .f2 p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: aliceblue;
+    font-weight: 1451;
+    font-size: 1.1rem;
+
+
+
+
+  }
+
+  .f3 {
+    height: 7vh;
+    display: flex;
+    margin-top: 12px;
+
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .f3 input {
+    height: 7vh;
+    width: 70vw;
+    font-size: 1.2rem;
+    padding-left: 20px;
+    border-radius: 30px;
+  }
+
+  .f3 input:hover {
+    border: 2px solid yellow;
+    border-radius: 30px;
+  }
+
+  .f4 {
+    height: 7vh;
+    display: flex;
+    margin-top: 12px;
+
+    align-items: center;
+    justify-content: center;
+  }
+
+  .f4 input {
+    height: 7vh;
+    width: 70vw;
+    font-size: 1.2rem;
+    padding-left: 20px;
+    border-radius: 30px;
+  }
+
+  .f4 input:hover {
+    border: 2px solid yellow;
+    border-radius: 30px;
+  }
+
+  .f5 {
+    height: 7vh;
+    display: flex;
+    margin-top: 12px;
+
+    align-items: center;
+    justify-content: center;
+  }
+
+  .f5 input {
+    height: 7vh;
+    width: 70vw;
+    font-size: 1.2rem;
+    padding-left: 20px;
+    border-radius: 30px;
+  }
+
+  .f5 input:hover {
+    border: 2px solid yellow;
+    border-radius: 30px;
+  }
+
+  .f6 {
+    height: 9vh;
+    display: flex;
+    margin-top: 18px;
+
+    align-items: center;
+    justify-content: center;
+  }
+
+  .f6 button {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: none;
+    padding: 16px 32px;
+    font-size: 15px;
+    margin: 4px 2px;
+    background-color: #fb6107;
+    height: 12px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .f6 button:hover {
+    scale: 0.95;
+    color:white;
+    cursor: pointer;
+  }
+{%endblock%}
+
+{% block body %}
+   
+<div class="filter" style="background-color: rgba(62, 57, 57, 0.3);">
+
+    <div class="f1">
+      <p>Find your favourite Dishes </p>
+    </div>
+    <meta>
+    <div class="f2">
+      <p>Order dishes from your favourite restaurants</p>
+    </div>
+    <div class="f3">
+      <form action="/action_page.php">
+
+        <input type="text" id="fname" name="fname" placeholder="Search Dishes">
+
+      </form>
+    </div>
+    <div class="f4">
+      <form action="/action_page.php">
+
+        <input type="text" id="fname" name="fname" placeholder="Search by Restaurants">
+
+      </form>
+    </div>
+    <div class="f5">
+      <form action="/action_page.php/">
+
+        <input type="text" id="fname" name="fname" placeholder="Search by Locations">
+
+      </form>
+    </div>
+    <div class="f6">
+      <button type="button" class="btn btn-primary">Filter</button>
+    </div>
+  </div>
+  <div class="row">
+  {% for item in Menu_Item %}
+    <div class="column">
+      <div class="box-img" style="background-image: url('https://source.unsplash.com/random/1600x900?susi')" ;>
+        
+      </div>
+      <div class="title">
+        <p class="k">{{ item.item_name }}</p>
+        <i class="fa-regular fa-star">{{ item.price }} </i>
+        <p>{{ item.restaurant.rest_name  }}</p>
+        <p>{{ item.restaurant.location }} </p>
+      </div> 
+    </div>
+    {% endfor %}
+    
+    
+</div>
+    
+
+
+
+
+  
+
+
+ {% endblock %}
+ {% block js %}
+  <script>
+
+ </script>
+ 
+
+  {% endblock js %} 
