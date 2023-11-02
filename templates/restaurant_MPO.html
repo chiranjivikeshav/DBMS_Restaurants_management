@@ -411,6 +411,64 @@ a {
       width: 180px;
     }
   }
+/* ==========================*/
+/* CSS FOR MENU FORM*/
+
+
+.custom-container {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top:30px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-container  h1 {
+  text-align: center;
+  color: #333;
+}
+
+.custom-form-group {
+  margin-bottom: 20px;
+}
+
+.custom-container  label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.custom-container  input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.custom-button ,.custom-container button{
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color:orange;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.custom-button:hover {
+  background-color: #555;
+}
+
+.custom-container h1{
+  font-size:22px;
+}
+
+
+
+
 {%endblock%}
 
 {% block body %}
@@ -426,10 +484,6 @@ a {
     
     
     <div class="main">
-
-
-
-
         <div class="box-container">
 
             <div class="box box1">
@@ -453,9 +507,24 @@ a {
 "https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
                      alt="manager">
             </div>
-
-            
         </div>
+        
+      <div class="custom-container">
+      <h1>Add Menu Item</h1>
+      <form action="/add_item/{{restaurant.id}}" method="post">
+          {% csrf_token %}
+          <div class="custom-form-group">
+              <label for="item_name">Item Name:</label>
+              <input type="text" id="item_name" name="item_name" required>
+          </div>
+          <div class="custom-form-group">
+              <label for="price">Price(Rs.):</label>
+              <input type="text" id="price" name="price" required>
+          </div>
+          <button class="custom-button" type="submit">Add Item</button>
+      </form>
+      </div>
+
 
         <div class="report-container">
             <div class="report-header">
@@ -466,7 +535,7 @@ a {
             <div class="report-body">
                 <div class="report-topic-heading">
                     <h2 class="t-op">Food-Item</h2>
-                    <h2 class="price">Price</h2>
+                    <h2 class="price">Price(Rs.)</h2>
                  
                     <h2 class="edit">Edit Item</h2>
                     <h2 class="details"> Details</h2>
@@ -474,9 +543,13 @@ a {
                 </div>
 
                 <div class="items">
+                   {%if restaurant_menu|length < 1%}
+                   <div style="margin-top:20px;display:flex;justify-content:center;"><b>You have not added any Item<b></div>
+                    {%else %}
+                  {%for menu  in restaurant_menu%}
                     <div class="item1">
-                        <h3 class="t-op-nextlvl">Pasta</h3>
-                        <h3 class="t-op-nextlvl">350</h3>
+                        <h3 class="t-op-nextlvl">{{menu.item_name }}</h3>
+                        <h3 class="t-op-nextlvl">{{menu.price}}</h3>
                         
                         <div class="edit-buttons">
                           <h3 class="t-op-nextlvl label-tag update-btn">Update</h3>
@@ -485,79 +558,14 @@ a {
                         <a class="t-op-nextlvl details">View  </a>
                         
                     </div>
-                    <div class="item1">
-                      <h3 class="t-op-nextlvl">Pasta</h3>
-                      <h3 class="t-op-nextlvl">350</h3>
-                      
-                      <div class="edit-buttons">
-                        <h3 class="t-op-nextlvl label-tag update-btn">Update</h3>
-                        <h3 class="t-op-nextlvl label-tag delete-btn">Delete</h3>
-                    </div>
-                      <a class="t-op-nextlvl details ">View</a>
-                      
-                  </div>
-                  <div class="item1">
-                    <h3 class="t-op-nextlvl">Pasta</h3>
-                    <h3 class="t-op-nextlvl">350</h3>
-                    
-                    <div class="edit-buttons">
-                      <h3 class="t-op-nextlvl label-tag update-btn">Update</h3>
-                      <h3 class="t-op-nextlvl label-tag delete-btn">Delete</h3>
-                  </div>
-                    <a class="t-op-nextlvl details">View</a>
-                    
+                  {% endfor%}
+                  {%endif%}
                 </div>
-                <div class="item1">
-                  <h3 class="t-op-nextlvl">Pasta</h3>
-                  <h3 class="t-op-nextlvl">350</h3>
-                  
-                  <div class="edit-buttons">
-                    <h3 class="t-op-nextlvl label-tag update-btn">Update</h3>
-                    <h3 class="t-op-nextlvl label-tag delete-btn">Delete</h3>
-                </div>
-                  <a class="t-op-nextlvl details">View</a>
-                  
-              </div>
-              <div class="item1">
-                <h3 class="t-op-nextlvl">Pasta</h3>
-                <h3 class="t-op-nextlvl">350</h3>
-                
-                <div class="edit-buttons">
-                  <h3 class="t-op-nextlvl label-tag update-btn">Update</h3>
-                  <h3 class="t-op-nextlvl label-tag delete-btn">Delete</h3>
-              </div>
-                <a class="t-op-nextlvl details">View</a>
-                
-            </div>
-            <div class="item1">
-              <h3 class="t-op-nextlvl">Pasta</h3>
-              <h3 class="t-op-nextlvl">350</h3>
-              
-              <div class="edit-buttons">
-                <h3 class="t-op-nextlvl label-tag update-btn">Update</h3>
-                <h3 class="t-op-nextlvl label-tag delete-btn">Delete</h3>
-            </div>
-              <a class="t-op-nextlvl details">View</a>
-              
-          </div>
-          <div class="item1">
-            <h3 class="t-op-nextlvl">Pasta</h3>
-            <h3 class="t-op-nextlvl">350</h3>
-            
-            <div class="edit-buttons">
-              <h3 class="t-op-nextlvl label-tag update-btn">Update</h3>
-              <h3 class="t-op-nextlvl label-tag delete-btn">Delete</h3>
-          </div>
-            <a class="t-op-nextlvl details">View</a>
-            
-        </div>
-                   
 
 
-                    
 
-                </div>
             </div>
+
         </div>
     </div>
 </section>

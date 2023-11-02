@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from restaurant.models import Userprofile
+from restaurant.models import Userprofile,Restaurant,Item
 
 def home(request):
     return render(request,"home.html")
@@ -82,6 +82,8 @@ def profileupdate(request,id):
        user_country = request.POST['user_country'] 
        user_state = request.POST['user_state'] 
        user_ZIPCODE = request.POST['user_ZIPCODE']
+       if user_ZIPCODE=='':
+           user_ZIPCODE = 0
     try:
         profile = Userprofile.objects.get(user=user)
         profile.user_name = user_name
@@ -111,6 +113,85 @@ def profileupdate(request,id):
         profile.save()
     return redirect('user_profile')
 def add_your_resta(request):
+    if request.user.is_authenticated:
+        user_id = request.user
+        your_restaurant = Restaurant.objects.filter(user = user_id )
+        return render (request,"add_rest.html",{"your_restaurant":your_restaurant})
     return render (request,"add_rest.html")
+
+def regist_your_resta(request):
+    if request.user.is_authenticated:
+        return render (request,"regist_rest.html")
+    return redirect("authpage")
+
+def resta_form_save(request):
+    if request.method == 'POST':
+        restaurant_name = request.POST.get('restaurant_name')
+        restaurant_address = request.POST.get('Restaurant_address')
+        restaurant_country = request.POST.get('restaurant_country')
+        restaurant_state = request.POST.get('restaurant_state')
+        restaurant_city = request.POST.get('restaurant_city')
+        restaurant_pincode = request.POST.get('restaurant_pincode')
+        restaurant_phone = request.POST.get('restaurant_phone')
+        restaurant_owner_phone = request.POST.get('restaurant_owner_phone')
+        restaurant_owner_name = request.POST.get('restaurant_owner_name')
+        restaurant_owner_email = request.POST.get('restaurant_owner_email')
+        open_time = request.POST.get('open_time')
+        close_time = request.POST.get('close_time')
+        menu_image = request.FILES.get('menu_image')
+        restaurant_image = request.FILES.get('restaurant_image')
+        user  = request.user
+        restaurant = Restaurant(
+            rest_name=restaurant_name,
+            location=restaurant_address,
+            city=restaurant_city,
+            country=restaurant_country,
+            pin=restaurant_pincode,
+            state=restaurant_state,
+            rest_cantact_no=restaurant_phone,
+            owner_contact_no=restaurant_owner_phone,
+            ownername=restaurant_owner_name,
+            owneremail=restaurant_owner_email,
+            open_time=open_time,
+            close_time=close_time,
+            menu_image=menu_image,
+            restaurant_image=restaurant_image,
+            user = user,
+        )
+        restaurant.save()
+        messages.success(request, 'Your Restaurant has been successfully Registered!')
+        return redirect('home')  
+    return redirect('restaurant_MPO')
+
+
+
+@login_required
 def restaurant_MPO(request):
-    return render (request ,"restaurant_MPO.html")
+    user = request.user
+    restaurant = Restaurant.objects.get(user = user)
+    restaurant_menu = Item.objects.filter(restaurant = restaurant)
+    context = {'restaurant':restaurant,
+               'restaurant_menu':restaurant_menu
+               }
+    return render (request ,"restaurant_MPO.html",context)
+
+
+def add_item(request, restaurant_id):
+    if request.method == 'POST':
+        item_name = request.POST.get('item_name')
+        price = request.POST.get('price')
+        restaurant = Restaurant.objects.get(id=restaurant_id)
+        item = Item(restaurant=restaurant, item_name=item_name, price=price)
+        item.save()
+        messages.success(request,"Item is Successfully Added")
+    return redirect('restaurant_MPO',)  
+
+
+
+
+def Menu(request):
+    Menu_Item = Item.objects.all()
+    return render (request ,"menu.html",{"Menu_Item":Menu_Item})
+
+def Filter(request):
+    return render(request ,"menu.html")
