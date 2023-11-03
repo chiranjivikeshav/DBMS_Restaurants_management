@@ -511,7 +511,7 @@ a {
         
       <div class="custom-container">
       <h1>Add Menu Item</h1>
-      <form action="/add_item/{{restaurant.id}}" method="post">
+      <form action="/add_item/{{restaurant.id}}" method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="custom-form-group">
               <label for="item_name">Item Name:</label>
@@ -520,6 +520,10 @@ a {
           <div class="custom-form-group">
               <label for="price">Price(Rs.):</label>
               <input type="text" id="price" name="price" required>
+          </div>
+          <div class="custom-form-group">
+              <label for="price">Item Image:</label>
+              <input type="file" name="item_image" accept="image/*" required/>
           </div>
           <button class="custom-button" type="submit">Add Item</button>
       </form>
@@ -552,8 +556,8 @@ a {
                         <h3 class="t-op-nextlvl">{{menu.price}}</h3>
                         
                         <div class="edit-buttons">
-                          <h3 class="t-op-nextlvl label-tag update-btn">Update</h3>
-                          <h3 class="t-op-nextlvl label-tag delete-btn">Delete</h3>
+                          <a href="#"><h3 class="t-op-nextlvl label-tag update-btn">Update</h3></a>
+                          <a href="/delete-menu/{{menu.id}}"><h3 class="t-op-nextlvl label-tag delete-btn">Delete</h3></a>
                       </div>
                         <a class="t-op-nextlvl details">View  </a>
                         
