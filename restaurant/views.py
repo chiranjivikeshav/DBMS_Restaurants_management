@@ -159,8 +159,7 @@ def resta_form_save(request):
             user = user,
         )
         restaurant.save()
-        messages.success(request, 'Your Restaurant has been successfully Registered!')
-        return redirect('home')  
+        messages.success(request, 'Your Restaurant has been successfully Registered!')  
     return redirect('restaurant_MPO')
 
 
