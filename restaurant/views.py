@@ -193,5 +193,30 @@ def Menu(request):
     Menu_Item = Item.objects.all()
     return render (request ,"menu.html",{"Menu_Item":Menu_Item})
 
+
+
+
 def Filter(request):
-    return render(request ,"menu.html")
+  if request.method=="POST":
+    location = request.POST.get('location')
+    restaurant_name = request.POST.get('restaurant_name')
+    item_name = request.POST.get('item_name')
+
+
+    if location and restaurant_name:
+       restaurants = Restaurant.objects.filter(Q(location_icontains=location) & Q(rest_name_icontains=restaurant_name))
+    if location==None and restaurant_name:
+       restaurants = Restaurant.objects.filter(rest_name__icontains=restaurant_name)
+    if restaurant_name==None and location:  
+       restaurants = Restaurant.objects.filter(location__icontains=location) 
+    else:
+       restaurants=restaurants.objects.all() 
+
+    restaurant_names = restaurants.values_list('rest_name', flat=True)
+    Menu_Item = Item.objects.filter(restaurant__in=restaurants)
+
+    if item_name :
+       Menu_Item = Item.objects.filter(Q(item_name__icontains=item_name))
+    
+    return render(request ,"menu.html",{"Menu_Item":Menu_Item})
+  return redirect('menu')
