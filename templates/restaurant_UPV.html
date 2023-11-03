@@ -1,0 +1,983 @@
+{% extends 'base.html' %}
+{% block title %}Resataurant page{% endblock title %}
+{% block link %}
+<link rel="stylesheet" href="./style3.css">
+    <link rel="stylesheet" href="./media.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock link %}
+{%block css%}
+     
+/*=============================================  */
+/* css for body */
+/* =========================================== */
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap");
+/* Base */
+:root {
+  --clr-primary: #fe5722;
+  --clr-secondary: #272d36;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(249, 246, 246);
+  color: var(--clr-secondary);
+  overflow-x: hidden;
+}
+
+.section {
+  width: 100%;
+  
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  padding: 0 30px;
+}
+
+.primary {
+  font-size: 64px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.secondary {
+  font-size: 44px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.tertiary {
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 14px 20px;
+  background: var(--clr-primary);
+  border-radius: 4px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 22px;
+  display: inline-block;
+  margin: 20px 0;
+}
+
+/* End Base */
+
+
+
+/* Hero Section */
+#hero-section {
+  background-image:url(https://i.pinimg.com/originals/5e/2f/59/5e2f595b587a012a79b00e20e5c807a3.jpg);
+ 
+  color: #ddd;
+  padding:40px;
+}
+
+.text,
+.visual {
+  width: 20%;
+}
+
+.text {
+  margin: 0 20px;
+}
+
+.visual img {
+  width: 80%;
+  height: auto;
+  display: block;
+}
+
+#hero-section .text {
+  margin-left: 30px;
+}
+
+
+/* End Hero Section */
+/* testimonial */
+#testimonials {
+  padding: 5rem 0;
+ margin:0;
+  background-image:url(https://www.wallpapertip.com/wmimgs/39-390146_black-pattern-design.jpg) ;
+}
+
+.testimonial-title {
+ 
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 400;
+  color:orangered;
+  padding: 20px;
+  justify-content: space-between;
+  
+}
+
+.testimonial-container {
+  display: flex;
+  background-color: #272d36;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  
+  width: 100%;
+  
+  
+}
+.customer-name{
+  color:orangered;
+}
+.testimonial-box{
+  
+  flex: 3;
+  
+}
+.customer-photo img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  margin: auto;
+  border-right: 5px solid #119764;
+}
+
+.testimonial-box .checked {
+  color: #119764;
+}
+
+.testimonial-box .testimonial-text {
+  margin: 1rem 0;
+  color:#aaa;
+}
+
+.testimonial-box {
+  text-align: center;
+  
+  color: #faf0f0;
+}
+/* testimonial end */
+/* How It Works */
+#how-it-works {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  
+}
+
+.box {
+  border: 1px solid #b2b2b2;
+  padding: 25px 5px;
+  margin: 0 10px;
+  border-radius: 8px;
+  font-size: 18px;
+  transition: 0.3s ease;
+  cursor: pointer;
+  background-color: black;
+}
+
+.box ion-icon {
+  font-size: 35px;
+  color: var(--clr-primary);
+  margin: 15px 0;
+}
+
+.box.active,
+.box:hover {
+  color: #fff;
+  border-color: var(--clr-primary);
+  background: var(--clr-primary);
+}
+.input-group{
+  display:flex;
+  justify-content: flex-end;
+}
+.ya{
+  height:50px;
+  width:250px;
+  background-color: #272d36;
+  color:white;
+}
+.yo{
+  height:50px;
+  width:100px;
+  background-color: #fe5722;
+  color: white;
+}
+.second{
+  color:#ddd
+}
+.box.active ion-icon,
+.box:hover ion-icon {
+  color: #fff;
+}
+/* End How It Works */
+
+/* About */
+#about{
+  padding:40px;
+}
+#about .visual img,
+#app .visual img {
+  margin-right: auto;
+}
+.text{
+  color:#ddd
+}
+#i{
+  color:black;
+}
+/* End About */
+
+/* Restaurant Menu */
+.containe{
+  background-color: #000;
+}
+.category {
+  list-style: none;
+  text-align: center;
+  margin: 20px 0 40px 0;
+}
+
+.category li {
+  display: inline-block;
+  margin: 0 15px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.category li.active {
+  color: var(--clr-primary);
+}
+
+.restaurant-menu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  
+}
+
+.menu-item {
+  width: 260px;
+  margin: 0 auto;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.menu-item img {
+  width: 100%;
+}
+.po{
+  color:#ddd
+}
+.order {
+  justify-content: space-between;
+}
+
+.btn-menu {
+  padding: 6px 10px;
+  font-size: 16px;
+  text-align: center;
+  background-color: orangered;
+  border: 1px solid var(--clr-primary);
+  color:white;
+}
+
+.o{
+  display: flex;
+  gap:10px;
+  color:white;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 8px 0;
+  color: #ddd;
+}
+.price{
+  color:#ddd
+}
+.location {
+  font-size: 18px;
+  font-weight: 300;
+  color: #b2b2b2;
+}
+/* End Restaurant Menu */
+
+/* Testimonial */
+#testimonial .visual img {
+  margin-left: auto;
+}
+
+.user {
+  margin-top: 30px;
+  justify-content: start;
+}
+
+.user img {
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+/* End Testimonial */
+
+/* FAQ */
+#faq .secondary {
+  text-align: center;
+}
+
+.faq {
+  width: 60%;
+  margin: 50px auto 20px auto;
+}
+
+summary {
+  padding: 1em;
+  border: 1px solid #b2b2b2;
+  margin-bottom: 1em;
+  cursor: pointer;
+  outline: none;
+  border-radius: 0.3em;
+  font-weight: 600;
+}
+
+details[open] summary ~ * {
+  animation: open 1s ease-in-out;
+}
+
+@keyframes open {
+  from {
+    opacity: 1;
+    margin-top: -10px;
+  }
+
+  top {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+/* End FAQ */
+
+/* App */
+#app {
+  text-align: center;
+}
+
+.app-store {
+  background: #000;
+  margin: 0 10px;
+  padding: 4px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.app-store p {
+  margin-top: 8px;
+}
+
+.app-store span {
+  font-size: 16px;
+  line-height: 25px;
+}
+
+.app-store ion-icon {
+  font-size: 30px;
+  margin-right: 10px;
+}
+
+.download {
+  margin: 30px 0;
+}
+/* End App */
+
+/* Footer */
+.footer {
+  background: var(--clr-secondary);
+  color: #b2b2b2;
+  padding: 30px 0;
+}
+
+.footer .container {
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.footer ul {
+  list-style: none;
+  line-height: 30px;
+  font-size: 16px;
+}
+
+.footer ul li {
+  cursor: pointer;
+}
+
+.footer-about {
+  width: 35%;
+}
+
+.copyright {
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 30px;
+  border-top: 1px solid #b2b2b2;
+}
+/* End Footer */
+
+/* Responsive  */
+@media (max-width: 952px) {
+  label.logo {
+    font-size: 30px;
+    padding-left: 20px;
+  }
+
+  nav ul li a {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 858px) {
+  .checkbtn {
+    display: block;
+    color: var(--clr-primary);
+  }
+
+  ul {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 80px;
+    left: -100%;
+    top: 80px;
+    transition: all 0.5s;
+    text-align: center;
+    background: #fff5f2;
+  }
+
+  nav ul li {
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+
+  nav ul li a {
+    font-size: 20px;
+  }
+
+  .menu a:hover,
+  .menu a.active {
+    background: none;
+    color: var(--clr-primary);
+  }
+
+  #check:checked ~ ul {
+    left: 0;
+  }
+
+  #hero-section {
+   
+  }
+
+  #hero-section .text {
+    margin-left: auto;
+  }
+
+  .flex {
+    flex-direction: column;
+  }
+
+  .visual,
+  .text {
+    width: 70%;
+    margin: 15px auto;
+    text-align: center;
+  }
+
+  .download,
+  .user {
+    flex-direction: row;
+  }
+
+  .user {
+    justify-content: center;
+  }
+
+  .visual img {
+    margin: 0 auto;
+  }
+
+  .box {
+    margin: 15px 0;
+  }
+
+  .restaurant-menu {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+
+  .faq,
+  .menu-item {
+    width: 80%;
+  }
+
+  .primary {
+    font-size: 56px;
+  }
+
+  .secondary {
+    font-size: 40px;
+  }
+
+  .tertiary {
+    font-size: 20px;
+  }
+
+  .footer-about {
+    width: 100%;
+    text-align: center;
+  }
+
+  .quick-links,
+  .get-in-touch,
+  .footer-category {
+    display: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  .text,
+  .visual {
+    width: 90%;
+  }
+
+  .restaurant-menu {
+    grid-template-columns: 1fr;
+  }
+
+  .faq {
+    width: 90%;
+  }
+
+  .app-store {
+    margin: 10px 0;
+  }
+
+  .download {
+    flex-direction: column;
+  }
+
+  .primary {
+    font-size: 48px;
+  }
+
+  .secondary {
+    font-size: 32px;
+  }
+
+  .tertiary {
+    font-size: 17px;
+  }
+}
+/* End Responsive  */
+
+
+
+
+
+.youtube {
+  position: fixed;
+  bottom: 40px;
+  right: 70px;
+  text-decoration: none;
+  padding: 8px 12px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 6px;
+  box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.youtube p {
+  font-size: 22px;
+}
+/* contact form */
+#contact {
+    background-color: #f5f5f5;
+    padding: 5rem 0;
+}
+
+.contact-container {
+    display:flex;
+}
+
+.contact-img {
+    width: 50%;
+}
+
+.contact-img img {
+    display: block;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.form-container {
+    padding: 1rem;
+    width: 50%;
+    margin: auto;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container textarea {
+    display: block;
+    width: 100%;
+    border:none;
+    outline:none;
+    border-bottom: 2px solid #ddd;
+    padding: 1rem 0;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color:#117964;
+    font-weight: 600;
+}
+
+
+.form-container h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #117964;
+    margin-bottom: 1rem;
+    text-align: center;
+    margin-top: -1.2rem;
+}
+/* contact form ends */
+
+.no {
+  width: 100%; /* Full width of the screen */
+  padding: 40px 0; /* Adjust padding as needed */
+  text-align: center;
+  border-radius: 0; /* Remove border-radius */
+}
+
+
+
+{%endblock%}
+
+{% block body %}
+
+
+
+  <!-- Hero Section -->
+  <div class="section flex" id="hero-section">
+    <div class="text">
+      <h1>Restaurant's Name</h1>
+   
+      <h2>Location</h2>
+      
+        
+     
+
+      
+
+      <a href="#menu" class="btn">Explore Menu</a>
+     
+    </div>
+    <div class="visual">
+      <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/home-banner.png" alt="" />
+    </div>
+  </div>
+  <!-- End Hero Section -->
+
+  <!-- How It Works -->
+  <div class="section" id="how-it-works">
+      <h2 class="testimonial-title">Special Offers</h2>
+<br/>
+    <div class="container flex">
+      <div class="box">
+        <h3 class="second">Flat $25 OFF</h3>
+        <ion-icon name="timer-outline"></ion-icon>
+        <p class="second">
+          USE DEALICIOUS|ABOVE $50
+        </p>
+      </div>
+
+      <div class="box">
+        <h3 class="second">Flat 40% OFF</h3>
+        <ion-icon name="trophy-outline"></ion-icon>
+        <p class="second">
+          USE PARTY|ABOVE $100
+        </p>
+      </div>
+
+      <div class="box">
+        <h3 class="second">FLAT $15 OFF</h3>
+        <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+        <p class="second">
+          NO CODE REQUIRED|ABOVE $150
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- End How It Works -->
+
+  <!-- About -->
+  <div class="fu">
+   
+    
+    <div class="section" id="about">
+      <div class="container flex">
+        <div class="visual">
+          <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/about.png" alt="" />
+        </div>
+        <div class="text" id="i">
+          <div class="secondary">About Our Restaurant</div>
+          <h2 class="primary">150+</h2>
+
+          <h3 class="tertiary">Our Delicious Food</h3>
+
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia
+            itaque saepe id hic rem doloribus quas esse voluptatibus eius sequi,
+            possimus maxime dolores tempore facilis fugit porro mollitia, est
+            consequuntur.
+          </p>
+
+          <a href="#menu" class="btn">Explore More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- End About -->
+
+  <!-- Restaurant Menu -->
+  <div class="section" id="menu">
+    <div class="containe">
+      <h2 class="testimonial-title">Our Menu</h2>
+      <div class="input-group">
+          <input type="search"class="ya"placeholder="Search Your Favourite Food" aria-label="Search" aria-describedby="search-addon" />
+          <button type="btn" class="yo">SEARCH</button>
+        </div>
+      <ul class="category">
+        <li class="active">All</li>
+        <li class="po">Starters</li>
+        <li class="po">Main Course</li>
+        <li class="po">Special Meal</li>
+        <li class="po">Beverages</li>
+        
+        <li class="po">Desserts</li>
+      </ul>
+
+      <div class="container">
+        <div class="restaurant-menu">
+          <div class="menu-item">
+            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-1.jpg" alt="" />
+
+            <div class="title">Food Restaurant | Chineese & Thai</div>
+
+            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
+            <div class="price">Price : $25.00</div>
+            <div class="order flex">
+              
+              <div class="o">
+                <a href="#" class="btn btn-menu">ORDER NOW</a>
+                <a href="#" class="btn btn-menu">ADD TO CART</a>
+             
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="menu-item">
+            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-2.jpg" alt="" />
+
+            <div class="title">Food Restaurant | Chineese & Thai</div>
+
+            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
+
+            <div class="price">Price : $25.00</div>
+            <div class="order flex">
+              
+              <div class="o">
+                <a href="#" class="btn btn-menu">ORDER NOW</a>
+                <a href="#" class="btn btn-menu">ADD TO CART</a>
+             
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-3.jpg" alt="" />
+
+            <div class="title">Food Restaurant | Chineese & Thai</div>
+
+            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
+
+            <div class="price">Price : $25.00</div>
+            <div class="order flex">
+              
+              <div class="o">
+                <a href="#" class="btn btn-menu">ORDER NOW</a>
+                <a href="#" class="btn btn-menu">ADD TO CART</a>
+             
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-4.jpg" alt="" />
+
+            <div class="title">Food Restaurant | Chineese & Thai</div>
+
+            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
+
+            <div class="price">Price : $25.00</div>
+            <div class="order flex">
+              
+              <div class="o">
+                <a href="#" class="btn btn-menu">ORDER NOW</a>
+                <a href="#" class="btn btn-menu">ADD TO CART</a>
+             
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-5.jpg" alt="" />
+
+            <div class="title">Food Restaurant | Chineese & Thai</div>
+
+            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
+
+            <div class="price">Price : $25.00</div>
+            <div class="order flex">
+              
+              <div class="o">
+                <a href="#" class="btn btn-menu">ORDER NOW</a>
+                <a href="#" class="btn btn-menu">ADD TO CART</a>
+             
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-6.jpg" alt="" />
+
+            <div class="title">Food Restaurant | Chineese & Thai</div>
+
+            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
+            <div class="price">Price : $25.00</div>
+            <div class="order flex">
+              
+              <div class="o">
+                <a href="#" class="btn btn-menu">ORDER NOW</a>
+                <a href="#" class="btn btn-menu">ADD TO CART</a>
+             
+              </div>
+            </div>
+            </div>
+           
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Restaurant Menu -->
+
+  
+
+
+  <!-- Footer -->
+  <!-- contact section -->
+ 
+  <div class="footer">
+    <div class="container flex">
+      
+
+      <div class="footer-category">
+        <h2>Our Menu</h2>
+
+        <ul>
+          <li>Starters</li>
+          <li>Main Course</li>
+          <li>Special Meals</li>
+          <li>Beverages</li>
+          <li>Desserts</li>
+        </ul>
+      </div>
+
+      <div class="quick-links">
+        <h2>Quick Links</h2>
+
+        <ul>
+          <li>About Us</li>
+          <li>Contact Us</li>
+          <li>Menu</li>
+          <li>Order</li>
+          <li>Services</li>
+        </ul>
+      </div>
+
+      <div class="get-in-touch">
+        <h2>Get in touch</h2>
+        <ul>
+          <li>Account</li>
+          <li>Support Center</li>
+          <li>Feedback</li>
+          <li>Suggession</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <p>Copyright &copy; 2022. All Rights Reserved.</p>
+    </div>
+  </div>
+  
+ {% endblock %}
+ {% block js %}
+ <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"
+    ></script>
+ 
+
+  {% endblock js %}

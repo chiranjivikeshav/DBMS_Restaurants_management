@@ -19,10 +19,13 @@ font-family: Arial, Helvetica, sans-serif;
     float: left;
     width: 20%;
     padding: 0 10px;
-  }
-
+    margin-top:12px;
+  } 
+  
   .row {
     padding:10px;
+    display: flex;
+    justify-content: center;
     margin: 0 -5px;
     margin-top:20px;
   }
@@ -278,46 +281,48 @@ font-family: Arial, Helvetica, sans-serif;
     <div class="f2">
       <p>Order dishes from your favourite restaurants</p>
     </div>
+    <form action="/filter" method ="post">
     <div class="f3">
-      <form action="/action_page.php">
+     {% csrf_token %}
+        <input type="text" id="fname" name="item_name" placeholder="Search Dishes">
 
-        <input type="text" id="fname" name="fname" placeholder="Search Dishes">
-
-      </form>
+    
     </div>
     <div class="f4">
-      <form action="/action_page.php">
+      
 
-        <input type="text" id="fname" name="fname" placeholder="Search by Restaurants">
+        <input type="text" id="fname" name="restaurant_name" placeholder="Search by Restaurants">
 
-      </form>
+   
     </div>
     <div class="f5">
-      <form action="/action_page.php/">
+    
 
-        <input type="text" id="fname" name="fname" placeholder="Search by Locations">
+        <input type="text" id="fname" name="location" placeholder="Search by Locations">
 
-      </form>
-    </div>
-    <div class="f6">
-      <button type="button" class="btn btn-primary">Filter</button>
-    </div>
+      </div>
+      <div class="f6">
+        <button type="submit" class="btn btn-primary">Filter</button>
+      </div>
+    </form>
   </div>
   <div class="row">
-    
+  {% for item in Menu_Item %}
     <div class="column">
-      <div class="box-img" style="background-image: url('https://source.unsplash.com/random/1600x900?susi')" ;>
-        <div class="text">
-          <p class="f">20% OFF...</p>
-        </div>
+      <div class="box-img" style="background-image: url('{{ item.image.url }}');">
+
+        
       </div>
       <div class="title">
-        <p class="k">Susi</p>
-        <i class="fa-regular fa-star"> 4.5</i>
-        <p>Lorem, ipsum dolor. </p>
-        <p>Lorem, ipsum </p>
-      </div>
+        <p class="k">{{ item.item_name }}</p>
+         <i>{{ item.price }} Rs</i>
+        <p>{{ item.restaurant.rest_name  }}</p>
+        <p>{{ item.restaurant.location }} </p>
+      </div> 
     </div>
+    {% endfor %}
+    
+    
 </div>
     
 

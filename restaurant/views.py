@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from restaurant.models import Userprofile,Restaurant,Item
-
-def home(request):
+from django.db.models import Q
+def home(request): 
     return render(request,"home.html")
 
 def authpage(request):
@@ -179,18 +179,47 @@ def add_item(request, restaurant_id):
     if request.method == 'POST':
         item_name = request.POST.get('item_name')
         price = request.POST.get('price')
+        image = request.FILES.get('item_image')
         restaurant = Restaurant.objects.get(id=restaurant_id)
-        item = Item(restaurant=restaurant, item_name=item_name, price=price)
+        item = Item(restaurant=restaurant, item_name=item_name, price=price,image =image)
         item.save()
-        messages.success(request,"Item is Successfully Added")
+        messages.success(request,"Item Added Successfully")
     return redirect('restaurant_MPO',)  
-
-
+def delete_menu(request,id):
+    item = Item.objects.get(id = id)
+    item.delete()
+    messages.success(request,"Item deleted Successfully")
+    return redirect('restaurant_MPO',) 
 
 
 def Menu(request):
     Menu_Item = Item.objects.all()
     return render (request ,"menu.html",{"Menu_Item":Menu_Item})
 
+
+
+
 def Filter(request):
-    return render(request ,"menu.html")
+  if request.method=="POST":
+    location = request.POST.get('location')
+    restaurant_name = request.POST.get('restaurant_name')
+    item_name = request.POST.get('item_name')
+
+
+    if location and restaurant_name:
+       restaurants = Restaurant.objects.filter(Q(location_icontains=location) & Q(rest_name_icontains=restaurant_name))
+    if location==None and restaurant_name:
+       restaurants = Restaurant.objects.filter(rest_name__icontains=restaurant_name)
+    if restaurant_name==None and location:  
+       restaurants = Restaurant.objects.filter(location__icontains=location) 
+    else:
+       restaurants=Restaurant.objects.all() 
+
+    restaurant_names = restaurants.values_list('rest_name', flat=True)
+    Menu_Item = Item.objects.filter(restaurant__in=restaurants)
+
+    if item_name :
+       Menu_Item = Item.objects.filter(Q(item_name__icontains=item_name))
+    
+    return render(request ,"menu.html",{"Menu_Item":Menu_Item})
+  return redirect('menu')

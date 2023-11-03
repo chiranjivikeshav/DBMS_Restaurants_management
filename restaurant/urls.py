@@ -12,9 +12,11 @@ urlpatterns = [
    path('add_your_resta',views.add_your_resta,name="add_your_resta"),
    path('restaurant_MPO',views.restaurant_MPO,name="restaurant_MPO"),
    path('menu',views.Menu,name="menu"),
+   path('delete-menu/<int:id>',views.delete_menu,name="delete_menu"),
    path('regist_your_resta',views.regist_your_resta,name="regist_your_resta"),
    path('resta_form_save',views.resta_form_save,name="resta_form_save"),
    path('add_item/<int:restaurant_id>',views.add_item,name="add_item"),
+   path('filter',views.Filter,name="Filter"),
 ]
 
     
