@@ -14,6 +14,7 @@ urlpatterns = [
    path('menu',views.Menu,name="menu"),
    path('regist_your_resta',views.regist_your_resta,name="regist_your_resta"),
    path('resta_form_save',views.resta_form_save,name="resta_form_save"),
+   path('add_item/<int:restaurant_id>',views.add_item,name="add_item"),
 ]
 
     
