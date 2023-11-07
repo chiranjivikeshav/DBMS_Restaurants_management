@@ -5,8 +5,12 @@
     
 {% endblock link %}
 {%block css%}
+@import url(
+"https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 .container{
     margin-top:20px;
+    font-family: "Poppins", sans-serif;
+    
     
 }
 
@@ -63,19 +67,58 @@
 }
 
 .card {
-    background:#212F3D;
+    background-size: 400% 400%;
+    background: linear-gradient(150deg, #ad3c03,#bf5a08,#a65b07,#ed9015);
+
+    animation: gradient 5s ease infinite;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     border: 0;
     margin-bottom: 1rem;
     color:#ffffff;
+   
 }
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 50% 100%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 textarea{
     background-color:#BFC9CA; 
 
 }
+.btn-primary.update_b{
+    border:3px solid #0942e0;
+    border-radius: 20px;
+}
+.btn-secondary.cancel_b{
+    border:3px solid #0942e0;
+    border-radius: 20px;
+}
+/* Change background color of Update button to green on hover */
+.btn-primary.update_b:hover {
+    background-color: green;
+}
 
+/* Change background color of Cancel button to red on hover */
+.btn-secondary.cancel_b:hover {
+    background-color: red;
+}
+.section-heading {
+    text-align: center;
+    font-size: 24px; /* Adjust font size as needed */
+    font-weight: 700; /* Enhance the font style */
+    color: #04014a; /* Modify the color if needed */
+    margin-bottom: 15px;
+    text-decoration: underline; }
 {%endblock%}
 
 {% block body %}
@@ -107,7 +150,7 @@ textarea{
         <div class="card-body">
             <div class="row gutters">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h4 class="mb-2 text-primary">Personal Details</h4>
+                    <h4 class="section-heading">Personal Details</h4>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
@@ -136,7 +179,7 @@ textarea{
             </div>
             <div class="row gutters">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h4 class="mt-3 mb-2 text-primary">Other Details</h4>
+                    <h4 class="section-heading">Other Details</h4>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
@@ -166,8 +209,8 @@ textarea{
             <div class="row gutters">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="text-right">
-                        <button type="button" id="cancelButton"  class="btn btn-secondary">Cancel</button>
-                        <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+                        <button type="button" id="cancelButton" class="btn btn-secondary cancel_b">Cancel</button>
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary update_b">Update</button>
                     </div>
                 </div>
             </div>
