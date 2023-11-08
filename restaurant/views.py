@@ -173,6 +173,8 @@ def restaurant_MPO(request):
                'restaurant_menu':restaurant_menu
                }
     return render (request ,"restaurant_MPO.html",context)
+def restaurant_UPV(request):
+    return render (request ,"restaurant_UPV.html")
 
 
 def add_item(request, restaurant_id):
