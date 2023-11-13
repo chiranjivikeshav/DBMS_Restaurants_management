@@ -225,3 +225,7 @@ def Filter(request):
     
     return render(request ,"menu.html",{"Menu_Item":Menu_Item})
   return redirect('menu')
+
+def manager_dash(request,id):
+    restaurant = Restaurant.objects.get(id=id)
+    return render(request,"manager_dash.html",{'restaurant':restaurant})
