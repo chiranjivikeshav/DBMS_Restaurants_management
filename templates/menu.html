@@ -307,6 +307,8 @@ font-family: Arial, Helvetica, sans-serif;
     </form>
   </div>
   <div class="row">
+    {% if Menu_Item|length < 1%}
+    {% else%}
   {% for item in Menu_Item %}
     <div class="column">
       <div class="box-img" style="background-image: url('{{ item.image.url }}');">
@@ -317,11 +319,11 @@ font-family: Arial, Helvetica, sans-serif;
         <p class="k">{{ item.item_name }}</p>
          <i>{{ item.price }} Rs</i>
         <p>{{ item.restaurant.rest_name  }}</p>
-        <p>{{ item.restaurant.location }} </p>
+        <a href="/restaurant_UPV"><p>{{ item.restaurant.location }} </p></a>
       </div> 
     </div>
     {% endfor %}
-    
+    {%endif%} 
     
 </div>
     

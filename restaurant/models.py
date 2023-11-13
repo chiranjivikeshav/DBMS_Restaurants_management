@@ -42,3 +42,17 @@ class Item(models.Model):
     image = models.ImageField(upload_to='item_images/',null=True)
     def __str__(self):
         return self.item_name
+
+class Manager(models.Model):
+    restaurant = models.OneToOneField(Restaurant,on_delete=models.CASCADE)
+    Name = models.TextField()
+    Contact = models.TextField()
+    Email = models.TextField()
+    Address = models.TextField()
+    BankName = models.TextField()
+    BankBranch = models.TextField()
+    BankIFSC = models.TextField()
+    BankAccount = models.TextField()
+    About = models.TextField()
+    def __str__(self):
+        return self.restaurant.rest_name

@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from restaurant.models import Userprofile,Restaurant,Item
+from restaurant.models import Userprofile,Restaurant,Item,Manager
 from django.db.models import Q
 def home(request): 
     return render(request,"home.html")
@@ -173,6 +173,8 @@ def restaurant_MPO(request):
                'restaurant_menu':restaurant_menu
                }
     return render (request ,"restaurant_MPO.html",context)
+def restaurant_UPV(request):
+    return render (request ,"restaurant_UPV.html")
 
 
 def add_item(request, restaurant_id):
@@ -223,3 +225,77 @@ def Filter(request):
     
     return render(request ,"menu.html",{"Menu_Item":Menu_Item})
   return redirect('menu')
+
+def manager_dash(request,id):
+    restaurant = Restaurant.objects.get(id=id)
+    manager = Manager.objects.filter(restaurant=restaurant)
+    context ={
+          'restaurant':restaurant,
+          'managers':manager,
+    }
+    return render(request,"manager_dash.html",context)
+
+
+def manager(request):
+    id =''
+    if request.method == 'POST':
+        restaurant_id = request.POST['restaurant_id']
+        manager_name = request.POST['managername']
+        manager_contact = request.POST['managercontact']
+        manager_email = request.POST['manageremail']
+        manager_address = request.POST['manageraddress']
+        manager_bank_name = request.POST['managerbankname']
+        manager_bank_branch = request.POST['managerbankbranch']
+        manager_bank_ifsc = request.POST['managerbankIFSC']
+        manager_bank_account = request.POST['managerbankaccount']
+        manager_about = request.POST['managerabout']
+        restaurant = Restaurant.objects.get(id=restaurant_id)
+        manager=Manager(
+            restaurant=restaurant,
+            Name = manager_name,
+            Contact = manager_contact,
+            Email = manager_email,
+            Address = manager_address,
+            BankName = manager_bank_name,
+            BankAccount = manager_bank_account,
+            BankBranch = manager_bank_branch,
+            BankIFSC = manager_bank_ifsc,
+            About = manager_about,
+             )
+        manager.save()
+        id = restaurant_id
+        messages.success(request, 'Manager Details Added successfully!')
+    return redirect("manager_dash", id)
+
+def manager_update(request):
+    id =''
+    if request.method == 'POST':
+        restaurant_id = request.POST['restaurant_id']
+        manager_name = request.POST['managername']
+        manager_contact = request.POST['managercontact']
+        manager_email = request.POST['manageremail']
+        manager_address = request.POST['manageraddress']
+        manager_bank_name = request.POST['managerbankname']
+        manager_bank_branch = request.POST['managerbankbranch']
+        manager_bank_ifsc = request.POST['managerbankIFSC']
+        manager_bank_account = request.POST['managerbankaccount']
+        manager_about = request.POST['managerabout']
+        restaurant = Restaurant.objects.get(id=restaurant_id)
+
+        manager = Manager.objects.get(restaurant=restaurant)
+
+        manager.restaurant=restaurant
+        manager.Name = manager_name
+        manager.Contact = manager_contact
+        manager.Email = manager_email
+        manager.Address = manager_address
+        manager.BankName = manager_bank_name
+        manager.BankAccount = manager_bank_account
+        manager.BankBranch = manager_bank_branch
+        manager.BankIFSC = manager_bank_ifsc
+        manager.About = manager_about
+             
+        manager.save()
+        id = restaurant_id
+        messages.success(request, 'Manager Details Updated successfully!')
+    return redirect("manager_dash", id)
