@@ -173,8 +173,13 @@ def restaurant_MPO(request):
                'restaurant_menu':restaurant_menu
                }
     return render (request ,"restaurant_MPO.html",context)
-def restaurant_UPV(request):
-    return render (request ,"restaurant_UPV.html")
+def restaurant_UPV(request,id):
+    restaurant = Restaurant.objects.get(id = id)
+    menu_items = Item.objects.filter(restaurant=restaurant)
+    context = {'restaurant':restaurant,
+               'menu_items':menu_items
+               }
+    return render (request ,"restaurant_UPV.html",context)
 
 
 def add_item(request, restaurant_id):
@@ -299,3 +304,66 @@ def manager_update(request):
         id = restaurant_id
         messages.success(request, 'Manager Details Updated successfully!')
     return redirect("manager_dash", id)
+
+@login_required
+def restaurant_update(request,id):
+    try:
+        restaurant = Restaurant.objects.get(id=id)
+    except Restaurant.DoesNotExist:
+        return render(request, 'pagenotfound.html')
+    return render(request,"edit_restaurant_details.html",{'restaurant':restaurant})
+@login_required
+def restaurantupdate(request,id):
+    restaurant=Restaurant.objects.get(id=id)
+    if request.method == 'POST':
+        restaurant_name = request.POST.get('restaurant_name')
+        restaurant_address = request.POST.get('Restaurant_address')
+        restaurant_country = request.POST.get('restaurant_country')
+        restaurant_state = request.POST.get('restaurant_state')
+        restaurant_city = request.POST.get('restaurant_city')
+        restaurant_pincode = request.POST.get('restaurant_pincode')
+        restaurant_phone = request.POST.get('restaurant_phone')
+        restaurant_owner_phone = request.POST.get('restaurant_owner_phone')
+        restaurant_owner_name = request.POST.get('restaurant_owner_name')
+        restaurant_owner_email = request.POST.get('restaurant_owner_email')
+        open_time = request.POST.get('open_time')
+        close_time = request.POST.get('close_time')
+        menu_image = request.FILES.get('menu_image')
+        restaurant_image = request.FILES.get('restaurant_image')
+    try:
+        profile = Restaurant.objects.get(restaurant=restaurant)
+        profile.rest_name = restaurant_name
+        profile.location = restaurant_address
+        profile.city = restaurant_country
+        profile.country = restaurant_state
+        profile.pin = restaurant_city
+        profile.state = restaurant_pincode
+        profile.rest_cantact_no = restaurant_phone
+        profile.owner_contact_no=restaurant_owner_phone
+        profile.ownername = restaurant_owner_name
+        profile.owneremail= restaurant_owner_email
+        profile.open_time = open_time
+        profile.close_time = close_time
+        profile.menu_image = menu_image
+        profile.restaurant_image = restaurant_image
+        profile.save()
+        messages.success(request, 'Your Restaurant details updated successfully!')
+    except Restaurant.DoesNotExist:
+        profile=Restaurant(
+        rest_name=restaurant_name,
+            location=restaurant_address,
+            city=restaurant_city,
+            country=restaurant_country,
+            pin=restaurant_pincode,
+            state=restaurant_state,
+            rest_cantact_no=restaurant_phone,
+            owner_contact_no=restaurant_owner_phone,
+            ownername=restaurant_owner_name,
+            owneremail=restaurant_owner_email,
+            open_time=open_time,
+            close_time=close_time,
+            menu_image=menu_image,
+            restaurant_image=restaurant_image,
+        )
+        profile.save()
+    return redirect('restaurant_update')

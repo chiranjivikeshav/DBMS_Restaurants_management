@@ -1,16 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Resataurant page{% endblock title %}
 {% block link %}
-<link rel="stylesheet" href="./style3.css">
-    <link rel="stylesheet" href="./media.css">
+    <link rel="stylesheet" href="./style3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock link %}
 {%block css%}
      
-/*=============================================  */
-/* css for body */
-/* =========================================== */
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap");
+
 /* Base */
 :root {
   --clr-primary: #fe5722;
@@ -612,80 +608,8 @@ details[open] summary ~ * {
     font-size: 17px;
   }
 }
-/* End Responsive  */
 
 
-
-
-
-.youtube {
-  position: fixed;
-  bottom: 40px;
-  right: 70px;
-  text-decoration: none;
-  padding: 8px 12px;
-  background: rgba(0,0,0,0.6);
-  border-radius: 6px;
-  box-shadow: 0 2px 2px 3px rgba(0, 0, 0, 0.2);
-  color: #fff;
-}
-
-.youtube p {
-  font-size: 22px;
-}
-/* contact form */
-#contact {
-    background-color: #f5f5f5;
-    padding: 5rem 0;
-}
-
-.contact-container {
-    display:flex;
-}
-
-.contact-img {
-    width: 50%;
-}
-
-.contact-img img {
-    display: block;
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    object-position: center;
-}
-
-.form-container {
-    padding: 1rem;
-    width: 50%;
-    margin: auto;
-}
-
-.form-container input[type="text"],
-.form-container input[type="email"],
-.form-container textarea {
-    display: block;
-    width: 100%;
-    border:none;
-    outline:none;
-    border-bottom: 2px solid #ddd;
-    padding: 1rem 0;
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    color:#117964;
-    font-weight: 600;
-}
-
-
-.form-container h2 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: #117964;
-    margin-bottom: 1rem;
-    text-align: center;
-    margin-top: -1.2rem;
-}
-/* contact form ends */
 
 .no {
   width: 100%; /* Full width of the screen */
@@ -705,9 +629,9 @@ details[open] summary ~ * {
   <!-- Hero Section -->
   <div class="section flex" id="hero-section">
     <div class="text">
-      <h1>Restaurant's Name</h1>
+      <h1>{{restaurant.rest_name}}</h1>
    
-      <h2>Location</h2>
+      <h2>{{restaurant.location}}</h2>
       
         
      
@@ -789,48 +713,18 @@ details[open] summary ~ * {
   <div class="section" id="menu">
     <div class="containe">
       <h2 class="testimonial-title">Our Menu</h2>
-      <div class="input-group">
-          <input type="search"class="ya"placeholder="Search Your Favourite Food" aria-label="Search" aria-describedby="search-addon" />
-          <button type="btn" class="yo">SEARCH</button>
-        </div>
-      <ul class="category">
-        <li class="active">All</li>
-        <li class="po">Starters</li>
-        <li class="po">Main Course</li>
-        <li class="po">Special Meal</li>
-        <li class="po">Beverages</li>
-        
-        <li class="po">Desserts</li>
-      </ul>
-
       <div class="container">
-        <div class="restaurant-menu">
+        <div class="restaurant-menu my-3">
+
+          {% if menu_items|length < 1%}
+
+          {% else %}
+          {% for item in menu_items %}
           <div class="menu-item">
-            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-1.jpg" alt="" />
+            <img src="{{item.image.url}} " alt=" " />
 
-            <div class="title">Food Restaurant | Chineese & Thai</div>
-
-            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
-            <div class="price">Price : $25.00</div>
-            <div class="order flex">
-              
-              <div class="o">
-                <a href="#" class="btn btn-menu">ORDER NOW</a>
-                <a href="#" class="btn btn-menu">ADD TO CART</a>
-             
-              </div>
-            </div>
-            
-          </div>
-
-          <div class="menu-item">
-            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-2.jpg" alt="" />
-
-            <div class="title">Food Restaurant | Chineese & Thai</div>
-
-            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
-
-            <div class="price">Price : $25.00</div>
+            <div class="title">{{item.item_name}}</div>
+            <div class="price">Price : Rs.{{item.price}}</div>
             <div class="order flex">
               
               <div class="o">
@@ -840,133 +734,16 @@ details[open] summary ~ * {
               </div>
             </div>
           </div>
-
-          <div class="menu-item">
-            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-3.jpg" alt="" />
-
-            <div class="title">Food Restaurant | Chineese & Thai</div>
-
-            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
-
-            <div class="price">Price : $25.00</div>
-            <div class="order flex">
-              
-              <div class="o">
-                <a href="#" class="btn btn-menu">ORDER NOW</a>
-                <a href="#" class="btn btn-menu">ADD TO CART</a>
-             
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-item">
-            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-4.jpg" alt="" />
-
-            <div class="title">Food Restaurant | Chineese & Thai</div>
-
-            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
-
-            <div class="price">Price : $25.00</div>
-            <div class="order flex">
-              
-              <div class="o">
-                <a href="#" class="btn btn-menu">ORDER NOW</a>
-                <a href="#" class="btn btn-menu">ADD TO CART</a>
-             
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-item">
-            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-5.jpg" alt="" />
-
-            <div class="title">Food Restaurant | Chineese & Thai</div>
-
-            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
-
-            <div class="price">Price : $25.00</div>
-            <div class="order flex">
-              
-              <div class="o">
-                <a href="#" class="btn btn-menu">ORDER NOW</a>
-                <a href="#" class="btn btn-menu">ADD TO CART</a>
-             
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-item">
-            <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/menu-6.jpg" alt="" />
-
-            <div class="title">Food Restaurant | Chineese & Thai</div>
-
-            <div class="location">Very Spicy | Serves 1 | Served Dry |</div>
-            <div class="price">Price : $25.00</div>
-            <div class="order flex">
-              
-              <div class="o">
-                <a href="#" class="btn btn-menu">ORDER NOW</a>
-                <a href="#" class="btn btn-menu">ADD TO CART</a>
-             
-              </div>
-            </div>
-            </div>
            
+        {% endfor%}
+        {% endif %}
+
         </div>
       </div>
     </div>
   </div>
   <!-- End Restaurant Menu -->
 
-  
-
-
-  <!-- Footer -->
-  <!-- contact section -->
- 
-  <div class="footer">
-    <div class="container flex">
-      
-
-      <div class="footer-category">
-        <h2>Our Menu</h2>
-
-        <ul>
-          <li>Starters</li>
-          <li>Main Course</li>
-          <li>Special Meals</li>
-          <li>Beverages</li>
-          <li>Desserts</li>
-        </ul>
-      </div>
-
-      <div class="quick-links">
-        <h2>Quick Links</h2>
-
-        <ul>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Menu</li>
-          <li>Order</li>
-          <li>Services</li>
-        </ul>
-      </div>
-
-      <div class="get-in-touch">
-        <h2>Get in touch</h2>
-        <ul>
-          <li>Account</li>
-          <li>Support Center</li>
-          <li>Feedback</li>
-          <li>Suggession</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="copyright">
-      <p>Copyright &copy; 2022. All Rights Reserved.</p>
-    </div>
-  </div>
   
  {% endblock %}
  {% block js %}

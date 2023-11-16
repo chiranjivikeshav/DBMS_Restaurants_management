@@ -319,7 +319,7 @@ font-family: Arial, Helvetica, sans-serif;
         <p class="k">{{ item.item_name }}</p>
          <i>{{ item.price }} Rs</i>
         <p>{{ item.restaurant.rest_name  }}</p>
-        <a href="/restaurant_UPV"><p>{{ item.restaurant.location }} </p></a>
+        <a href="/restaurant_UPV/{{item.restaurant.id}}"><p>{{ item.restaurant.location }} </p></a>
       </div> 
     </div>
     {% endfor %}
