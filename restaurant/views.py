@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from restaurant.models import Userprofile,Restaurant,Item,Manager
+from restaurant.models import Userprofile,Restaurant,Item,Manager,Cart
 from django.db.models import Q
 def home(request): 
     return render(request,"home.html")
@@ -375,9 +375,36 @@ def menu_update(request, item_id):
         menu_item.item_name = request.POST.get('item_name')
         menu_item.price = request.POST.get('item_price')
         if request.FILES.get('item_image'):
-            menu_item.item_image = request.FILES['item_image']
+            print(1)
+            menu_item.image = request.FILES['item_image']
         menu_item.save()
         messages.success(request, 'Item details updated successfully!')
         return redirect('restaurant_MPO',)
 
     return redirect('restaurant_MPO',)
+
+def add_to_cart(request, item_id):
+    item = Item.objects.get(id =item_id)
+    user = request.user
+    cart_item, created = Cart.objects.get_or_create(item=item, user=user, defaults={'item_count': 1})
+    id = item.restaurant.id
+    if not created:
+        messages.error(request, 'Item allready in cart!')
+        return redirect('restaurant_UPV', id=id)
+    messages.error(request, 'Item added to cart!')
+    return redirect('restaurant_UPV', id=id)
+def add_to_cart2(request, item_id):
+    item = Item.objects.get(id =item_id)
+    user = request.user
+    cart_item, created = Cart.objects.get_or_create(item=item, user=user, defaults={'item_count': 1})
+    id = item.restaurant.id
+    if not created:
+        messages.error(request, 'Item allready in cart!')
+        return redirect('menu')
+    messages.error(request, 'Item added to cart!')
+    return redirect('menu')
+
+def cart_display(request):
+    user =  request.user
+    cart_items = Cart.objects.filter(user = user)
+    return render(request ,"cart.html",{"cart_items" : cart_items})

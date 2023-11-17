@@ -571,7 +571,7 @@ a {
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-body">
-              <form role="form" method="POST" action="menu_update/{{menu.id}}">
+              <form role="form" method="POST" action="menu_update/{{menu.id}}"enctype="multipart/form-data" >
                 {% csrf_token %}
                   <input type="hidden" name="_token" value="">
                   <div class="form-group">

@@ -268,6 +268,21 @@ font-family: Arial, Helvetica, sans-serif;
     color:white;
     cursor: pointer;
   }
+  #ModalLoginForm .modal-content {
+    text-align: center;
+}
+.orange-btn {
+background-color: orange;
+color: white; /* text color */
+}
+.btn-menu {
+  padding: 6px 10px;
+  font-size: 16px;
+  text-align: center;
+  background-color: orangered;
+  border: 1px solid var(--clr-primary);
+  color:white;
+}
 {%endblock%}
 
 {% block body %}
@@ -301,8 +316,8 @@ font-family: Arial, Helvetica, sans-serif;
     {% if Menu_Item|length < 1%}
     {% else%}
     {% for item in Menu_Item %}
-    <div class="column">
-      <div class="box-img" style="background-image: url('{{ item.image.url }}');">
+    <div class="column" >
+      <div class="box-img" data-toggle="modal" data-target="#ModalLoginForm-{{item.id}}" style="background-image: url('{{ item.image.url }}');">
       </div>
       <div class="title">
         <p class="k">{{ item.item_name }}</p>
@@ -311,6 +326,43 @@ font-family: Arial, Helvetica, sans-serif;
         <a href="/restaurant_UPV/{{item.restaurant.id}}"><p>{{ item.restaurant.location }} </p></a>
       </div> 
     </div>
+      
+
+    
+<!-- Modal HTML Markup -->
+<div id="ModalLoginForm-{{item.id}}" class="modal fade">
+  <div class="modal-dialog justify-content-center align-items-center" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3 class="modal-title">Details</h3>
+          </div>
+          <div class="modal-body">
+                  <input type="hidden" name="_token" value="">
+                  <div class="form-group">
+                      <img src="{{ item.image.url }}"  style="margin:auto;"
+                           alt="Description of the image" 
+                           class="img-fluid " 
+                           style="width: 200px; height: 200px;">
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label"><h2>{{ item.item_name }}</h2></label>
+                  </div>
+                  <div class="form-group">
+                    <a href="/restaurant_UPV/{{item.restaurant.id}}"><label class="control-label"><h3>{{item.restaurant.rest_name}}</h3></label></a>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label"><h4>{{item.restaurant.location}}</h4></label>
+                  </div>
+                  <div class="form-group">
+                      <div class="d-flex justify-content-between">
+                        <a href="#" class="btn btn-menu">ORDER NOW</a>
+                        <a href="/add_to_cart2/{{item.id}}" class="btn btn-menu">ADD TO CART</a>
+                      </div>
+                    </div>
+          </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
     {% endfor %}
     {%endif%} 
     
@@ -321,3 +373,10 @@ font-family: Arial, Helvetica, sans-serif;
  
 
   {% endblock js %} 
+
+
+
+
+
+
+
