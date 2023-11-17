@@ -367,3 +367,17 @@ def restaurantupdate(request,id):
         )
         profile.save()
     return redirect('restaurant_update')
+
+
+def menu_update(request, item_id):
+    menu_item =Item.objects.get(id =item_id)
+    if request.method == 'POST':
+        menu_item.item_name = request.POST.get('item_name')
+        menu_item.price = request.POST.get('item_price')
+        if request.FILES.get('item_image'):
+            menu_item.item_image = request.FILES['item_image']
+        menu_item.save()
+        messages.success(request, 'Item details updated successfully!')
+        return redirect('restaurant_MPO',)
+
+    return redirect('restaurant_MPO',)

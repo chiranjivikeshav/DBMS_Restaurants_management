@@ -56,3 +56,10 @@ class Manager(models.Model):
     About = models.TextField()
     def __str__(self):
         return self.restaurant.rest_name
+class Cart(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item_count = models.IntegerField()
+    def __str__(self):
+        return self.item.item_name
+

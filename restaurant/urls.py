@@ -23,6 +23,7 @@ urlpatterns = [
    path('manager_update',views.manager_update,name='manager_update'),
    path('restaurant_update/<int:id>',views.restaurant_update,name='restaurant_update'),
    path('restaurantupdate/<int:id>',views.restaurantupdate,name='restaurantupdate'),
+   path('menu_update/<int:item_id>', views.menu_update, name='menu_update'),
 ]
 
     
