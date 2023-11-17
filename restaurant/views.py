@@ -391,7 +391,7 @@ def add_to_cart(request, item_id):
     if not created:
         messages.error(request, 'Item allready in cart!')
         return redirect('restaurant_UPV', id=id)
-    messages.error(request, 'Item added to cart!')
+    messages.success(request, 'Item added to cart!')
     return redirect('restaurant_UPV', id=id)
 def add_to_cart2(request, item_id):
     item = Item.objects.get(id =item_id)
@@ -401,10 +401,21 @@ def add_to_cart2(request, item_id):
     if not created:
         messages.error(request, 'Item allready in cart!')
         return redirect('menu')
-    messages.error(request, 'Item added to cart!')
+    messages.success(request, 'Item added to cart!')
     return redirect('menu')
 
 def cart_display(request):
     user =  request.user
     cart_items = Cart.objects.filter(user = user)
     return render(request ,"cart.html",{"cart_items" : cart_items})
+
+def order_now(request, item_id):
+    item = Item.objects.get(id =item_id)
+    user = request.user
+    cart_item, created = Cart.objects.get_or_create(item=item, user=user, defaults={'item_count': 1})
+    id = item.restaurant.id
+    if not created:
+        messages.error(request, 'Item allready in cart!')
+        return redirect('cart_display')
+    messages.success(request, 'Item added to cart!')
+    return redirect('cart_display')
