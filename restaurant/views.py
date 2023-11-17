@@ -419,3 +419,11 @@ def order_now(request, item_id):
         return redirect('cart_display')
     messages.success(request, 'Item added to cart!')
     return redirect('cart_display')
+
+def checkout(request):
+    user = request.user
+    cart_items = Cart.objects.filter(user = user)
+    total_cost  = 0
+    for cart_item in  cart_items:
+        total_cost += cart_item.item.price
+    return render (request,"payment.html",{"total_cost":total_cost})
