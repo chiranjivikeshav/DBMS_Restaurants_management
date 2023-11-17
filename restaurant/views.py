@@ -426,4 +426,7 @@ def checkout(request):
     total_cost  = 0
     for cart_item in  cart_items:
         total_cost += cart_item.item.price
+    if total_cost == 0:
+        messages.success(request,"Please Add Item In the Cart")
+        return redirect('cart_display')
     return render (request,"payment.html",{"total_cost":total_cost})
