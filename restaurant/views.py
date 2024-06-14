@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from restaurant.models import Userprofile,Restaurant,Item,Manager,Cart
-from django.db.models import Q
+# from django.db.models import Q
+from django.shortcuts import get_object_or_404
 def home(request): 
     return render(request,"home.html")
 
@@ -403,6 +404,11 @@ def add_to_cart2(request, item_id):
         return redirect('menu')
     messages.success(request, 'Item added to cart!')
     return redirect('menu')
+    
+def remove_from_cart(request, item_id):
+    cart_item = get_object_or_404(Cart, id=item_id)
+    cart_item.delete()
+    return redirect('cart_display')
 
 def cart_display(request):
     user =  request.user

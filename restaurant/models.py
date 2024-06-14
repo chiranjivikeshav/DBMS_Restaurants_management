@@ -38,6 +38,7 @@ class Restaurant(models.Model):
 class Item(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     item_name = models.CharField(max_length=255)
+    item_description = models.CharField(max_length=1000)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='item_images/',null=True)
     def __str__(self):

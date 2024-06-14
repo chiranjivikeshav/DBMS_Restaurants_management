@@ -9,7 +9,7 @@
 @import url(https://fonts.googleapis.com/css?family=Fredoka+One);
 
 body{
-    background:black;
+    {% comment %} background:black; {% endcomment %}
 }
 
 ::selection { background: #bdc0e8; }
@@ -91,23 +91,22 @@ h1 {
 #cart thead th {
   padding: 8px 0;
   font-weight: bold;
+  text-align:center;
 }
 
 #cart thead th.first {
-  width: 175px;
+  width: 100px;
 }
 #cart thead th.second {
-  width: 45px;
+  width: 200px;
 }
 #cart thead th.third {
-  width: 230px;
+  width: 150px;
 }
 #cart thead th.fourth {
-  width: 130px;
+  width: 30px;
 }
-#cart thead th.fifth {
-  width: 20px;
-}
+
 
 #cart tbody td {
   text-align: center;
@@ -118,6 +117,9 @@ tr.productitm {
   height: 65px;
   line-height: 65px;
   border-bottom: 1px solid #d7dbe0;
+  td a{
+    text-decoration:none;
+  }
 }
 
 
@@ -182,8 +184,8 @@ td.checkout {
 
 /* https://codepen.io/guvootes/pen/eyDAb */
 #submitbtn {
-  width: 150px;
-  height: 35px;
+  width: 300px;
+  height: 50px;
   outline: none;
   border: none;
   border-radius: 5px;
@@ -233,8 +235,9 @@ td.checkout {
           <thead>
             <tr>
               <th class="first">Photo</th>
-              <th class="third mx-3">Item</th>
-              <th class="fourth">Price</th>
+              <th class="second">Item</th>
+              <th class="third">Price</th>
+              <th class="fourth">Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -245,13 +248,14 @@ td.checkout {
               <td><img src="{{cart.item.image.url }}" class="thumb"></td>
               <td> {{cart.item.item_name}}</td>
               <td>Rs. {{cart.item.price}}</td>
+              <td><i class="material-icons"><a href="/remove_from_cart/{{cart.id}}">delete</a></i></td>
             </tr>
             
            {% endfor%}
             
             <!-- checkout btn -->
            
-             <td colspan="5" class="checkout" style="background:grey"> <a href="/checkout" ><button id="submitbtn">Checkout Now!</button></a></td>
+             <td colspan="5" class="checkout" style="background:grey "> <a href="/checkout" ><button id="submitbtn">Payment Now!</button></a></td>
         
           </tbody>
         </table>
