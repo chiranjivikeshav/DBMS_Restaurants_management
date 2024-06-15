@@ -1,243 +1,24 @@
 {% extends 'base.html' %}
-{% block title %}Resataurant page{% endblock title %}
+{% block title %}Restaurant Page{% endblock title %}
 {% block link %}
-   {% endblock link %}
-{%block css%}
-     
+{% endblock link %}
 
-/* Base */
-:root {
-  --clr-primary: #fe5722;
-  --clr-secondary: #272d36;
-}
-
-
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: rgb(249, 246, 246);
-  color: var(--clr-secondary);
-  overflow-x: hidden;
-}
-
-.section {
-  width: 100%;
-  
-}
-
-.flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.container {
-  padding: 0 30px;
-}
-
-.primary {
-  font-size: 64px;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-.secondary {
-  font-size: 44px;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-.tertiary {
-  font-size: 24px;
-  font-weight: 400;
-  margin-bottom: 20px;
-}
-
-.btn {
-  padding: 14px 20px;
-  background: var(--clr-primary);
-  border-radius: 4px;
-  color: #fff;
-  text-decoration: none;
-  font-size: 22px;
-  display: inline-block;
-  margin: 20px 0;
-}
-
-/* End Base */
-
-
-
-/* Hero Section */
-#hero-section {
-  background-image:url(https://i.pinimg.com/originals/5e/2f/59/5e2f595b587a012a79b00e20e5c807a3.jpg);
- 
-  color: #ddd;
-  padding:40px;
-}
-
-.text,
-.visual {
-  width: 20%;
-}
-
-.text {
-  margin: 0 20px;
-}
-
-.visual img {
-  width: 80%;
-  height: auto;
-  display: block;
-}
-
-#hero-section .text {
-  margin-left: 30px;
-}
-
-
-/* End Hero Section */
-/* testimonial */
-#testimonials {
-  padding: 5rem 0;
- margin:0;
-  background-image:url(https://www.wallpapertip.com/wmimgs/39-390146_black-pattern-design.jpg) ;
-}
+{% block css %}
+/* Restaurant Menu */
 
 .testimonial-title {
- 
   text-align: center;
   font-size: 2.8rem;
   font-weight: 400;
-  color:orangered;
+  color: orangered; 
   padding: 20px;
   justify-content: space-between;
-  
 }
 
-.testimonial-container {
-  display: flex;
-  background-color: #272d36;
-  justify-content: space-between;
-  font-size: 1.4rem;
-  
-  width: 100%;
-  
-  
-}
-.customer-name{
-  color:orangered;
-}
-.testimonial-box{
-  
-  flex: 3;
-  
-}
-.customer-photo img {
-  display: block;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
-  margin: auto;
-  border-right: 5px solid #119764;
-}
-
-.testimonial-box .checked {
-  color: #119764;
-}
-
-.testimonial-box .testimonial-text {
-  margin: 1rem 0;
-  color:#aaa;
-}
-
-.testimonial-box {
-  text-align: center;
-  
-  color: #faf0f0;
-}
-/* testimonial end */
-/* How It Works */
-#how-it-works {
-  width: 80%;
-  margin: 0 auto;
-  text-align: center;
-  
-}
-
-.box {
-  border: 1px solid #b2b2b2;
-  padding: 25px 5px;
-  margin: 0 10px;
-  border-radius: 8px;
-  font-size: 18px;
-  transition: 0.3s ease;
-  cursor: pointer;
-  background-color: black;
-}
-
-.box ion-icon {
-  font-size: 35px;
-  color: var(--clr-primary);
-  margin: 15px 0;
-}
-
-.box.active,
-.box:hover {
-  color: #fff;
-  border-color: var(--clr-primary);
-  background: var(--clr-primary);
-}
-.input-group{
-  display:flex;
-  justify-content: flex-end;
-}
-.ya{
-  height:50px;
-  width:250px;
-  background-color: #272d36;
-  color:white;
-}
-.yo{
-  height:50px;
-  width:100px;
-  background-color: #fe5722;
-  color: white;
-}
-.second{
-  color:#ddd
-}
-.box.active ion-icon,
-.box:hover ion-icon {
-  color: #fff;
-}
-/* End How It Works */
-
-/* About */
-#about{
-  padding:40px;
-}
-#about .visual img,
-#app .visual img {
-  margin-right: auto;
-}
-.text{
-  color:#ddd
-}
-#i{
-  color:black;
-}
-/* End About */
-
-/* Restaurant Menu */
-.containe{
+.containe {
   background-color: #000;
 }
+
 .category {
   list-style: none;
   text-align: center;
@@ -259,7 +40,6 @@ body {
 .restaurant-menu {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  
 }
 
 .menu-item {
@@ -267,14 +47,17 @@ body {
   margin: 0 auto;
   border-radius: 6px;
   overflow: hidden;
+  margin-bottom: 70px;
 }
 
 .menu-item img {
   width: 100%;
 }
-.po{
-  color:#ddd
+
+.po {
+  color: #ddd;
 }
+
 .order {
   justify-content: space-between;
 }
@@ -285,13 +68,13 @@ body {
   text-align: center;
   background-color: orangered;
   border: 1px solid var(--clr-primary);
-  color:white;
+  color: white; 
 }
 
-.o{
+.o {
   display: flex;
-  gap:10px;
-  color:white;
+  gap: 10px;
+  color: white; 
 }
 
 .title {
@@ -300,452 +83,155 @@ body {
   margin: 8px 0;
   color: #ddd;
 }
-.price{
-  color:#ddd
+
+.price {
+  color: #ddd;
 }
+
 .location {
   font-size: 18px;
   font-weight: 300;
   color: #b2b2b2;
 }
-/* End Restaurant Menu */
 
-/* Testimonial */
-#testimonial .visual img {
-  margin-left: auto;
-}
 
-.user {
-  margin-top: 30px;
-  justify-content: start;
-}
 
-.user img {
-  width: 50px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-/* End Testimonial */
 
-/* FAQ */
-#faq .secondary {
-  text-align: center;
-}
-
-.faq {
-  width: 60%;
-  margin: 50px auto 20px auto;
-}
-
-summary {
-  padding: 1em;
-  border: 1px solid #b2b2b2;
-  margin-bottom: 1em;
-  cursor: pointer;
-  outline: none;
-  border-radius: 0.3em;
-  font-weight: 600;
-}
-
-details[open] summary ~ * {
-  animation: open 1s ease-in-out;
-}
-
-@keyframes open {
-  from {
-    opacity: 1;
-    margin-top: -10px;
-  }
-
-  top {
-    opacity: 1;
-    margin-top: 0;
-  }
-}
-/* End FAQ */
-
-/* App */
-#app {
-  text-align: center;
-}
-
-.app-store {
-  background: #000;
-  margin: 0 10px;
-  padding: 4px 16px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #fff;
-  cursor: pointer;
-}
-
-.app-store p {
-  margin-top: 8px;
-}
-
-.app-store span {
-  font-size: 16px;
-  line-height: 25px;
-}
-
-.app-store ion-icon {
-  font-size: 30px;
-  margin-right: 10px;
-}
-
-.download {
-  margin: 30px 0;
-}
-/* End App */
-
-/* Footer */
-.footer {
-  background: var(--clr-secondary);
-  color: #b2b2b2;
-  padding: 30px 0;
-}
-
-.footer .container {
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.footer h2 {
-  font-size: 22px;
-  margin-bottom: 10px;
-  color: #fff;
-}
-
-.footer ul {
-  list-style: none;
-  line-height: 30px;
-  font-size: 16px;
-}
-
-.footer ul li {
-  cursor: pointer;
-}
-
-.footer-about {
-  width: 35%;
-}
-
-.copyright {
-  text-align: center;
-  padding: 20px 0;
-  margin-top: 30px;
-  border-top: 1px solid #b2b2b2;
-}
-/* End Footer */
-
-/* Responsive  */
-@media (max-width: 952px) {
-  label.logo {
-    font-size: 30px;
-    padding-left: 20px;
-  }
-
-  nav ul li a {
-    font-size: 16px;
+/* Responsive Design for Restaurant Information */
+@media (max-width: 680px) {
+  .restaurant-info img,
+  .menu-image {
+    max-width: 100%;
   }
 }
 
+/* Responsive Design for Restaurant Menu */
 @media (max-width: 858px) {
-  .checkbtn {
-    display: block;
-    color: var(--clr-primary);
-  }
-
-  ul {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    top: 80px;
-    left: -100%;
-    top: 80px;
-    transition: all 0.5s;
-    text-align: center;
-    background: #fff5f2;
-  }
-
-  nav ul li {
-    display: block;
-    margin: 50px 0;
-    line-height: 30px;
-  }
-
-  nav ul li a {
-    font-size: 20px;
-  }
-
-  .menu a:hover,
-  .menu a.active {
-    background: none;
-    color: var(--clr-primary);
-  }
-
-  #check:checked ~ ul {
-    left: 0;
-  }
-
-  #hero-section {
-   
-  }
-
-  #hero-section .text {
-    margin-left: auto;
-  }
-
-  .flex {
-    flex-direction: column;
-  }
-
-  .visual,
-  .text {
-    width: 70%;
-    margin: 15px auto;
-    text-align: center;
-  }
-
-  .download,
-  .user {
-    flex-direction: row;
-  }
-
-  .user {
-    justify-content: center;
-  }
-
-  .visual img {
-    margin: 0 auto;
-  }
-
-  .box {
-    margin: 15px 0;
-  }
-
   .restaurant-menu {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
   }
-
-  .faq,
-  .menu-item {
-    width: 80%;
-  }
-
-  .primary {
-    font-size: 56px;
-  }
-
-  .secondary {
-    font-size: 40px;
-  }
-
-  .tertiary {
-    font-size: 20px;
-  }
-
-  .footer-about {
-    width: 100%;
-    text-align: center;
-  }
-
-  .quick-links,
-  .get-in-touch,
-  .footer-category {
-    display: none;
-  }
 }
 
 @media (max-width: 680px) {
-  .container {
-    padding: 0 10px;
-  }
-
-  .text,
-  .visual {
-    width: 90%;
-  }
-
   .restaurant-menu {
     grid-template-columns: 1fr;
   }
-
-  .faq {
-    width: 90%;
-  }
-
-  .app-store {
-    margin: 10px 0;
-  }
-
-  .download {
-    flex-direction: column;
-  }
-
-  .primary {
-    font-size: 48px;
-  }
-
-  .secondary {
-    font-size: 32px;
-  }
-
-  .tertiary {
-    font-size: 17px;
-  }
 }
 
-
-
-.no {
-  width: 100%; /* Full width of the screen */
-  padding: 40px 0; /* Adjust padding as needed */
-  text-align: center;
-  border-radius: 0; /* Remove border-radius */
+.half-half-image-text{
+  padding: 30px 30px;
+  h1{
+    color: #800000;
+  }
+  .content{
+    padding:30px;
+    background-color:#FFFAFA;
+    border-radius: 5px;
+    .restaurant_name{
+      font-size:30px;
+      font-weight:900;
+    }
+    .restaurant-location{
+      font-size: 1.2rem;
+      color: black;
+      margin: 5px 0;
+    }
+    .restaurant-contact,
+    .restaurant-hours {
+      font-size: 1.2rem;
+      color: grey;
+      margin: 5px 0;
+    }
+    }
+    .menu-image{
+      margin-top:40px;
+      max-height:550px;
+    }
+    .img{
+    min-height: 320px;
+    height: 100%;
+    border-radius: 5px;
+  }
 }
-
-
-
-{%endblock%}
+{% endblock css %}
 
 {% block body %}
 
-
-
-  <!-- Hero Section -->
-  <div class="section flex" id="hero-section">
-    <div class="text">
-      <h1 style="font-size:2rem;align:center; text-transform:uppercase">{{restaurant.rest_name}}</h1><hr>
-   
-      <h2 style="font-size:1.3rem">Location: {{restaurant.location}}</h2>
-      
-        
-     
-
-      
-
-      <a href="#menu" class="btn">Explore Menu</a>
-     
-    </div>
-    <div class="visual">
-      <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/home-banner.png" alt="" />
-    </div>
-  </div>
-  <!-- End Hero Section -->
-
-  <!-- How It Works -->
-  <div class="section" id="how-it-works">
-      <h2 class="testimonial-title">Special Offers</h2>
-<br/>
-    <div class="container flex">
-      <div class="box">
-        <h3 class="second">Flat $25 OFF</h3>
-        <ion-icon name="timer-outline"></ion-icon>
-        <p class="second">
-          USE DEALICIOUS|ABOVE $50
-        </p>
-      </div>
-
-      <div class="box">
-        <h3 class="second">Flat 40% OFF</h3>
-        <ion-icon name="trophy-outline"></ion-icon>
-        <p class="second">
-          USE PARTY|ABOVE $100
-        </p>
-      </div>
-
-      <div class="box">
-        <h3 class="second">FLAT $15 OFF</h3>
-        <ion-icon name="checkmark-done-circle-outline"></ion-icon>
-        <p class="second">
-          NO CODE REQUIRED|ABOVE $150
-        </p>
-      </div>
-    </div>
-  </div>
-  <!-- End How It Works -->
-
-  <!-- About -->
-  <div class="fu">
-   
-    
-    <div class="section" id="about">
-      <div class="container flex">
-        <div class="visual">
-          <img src="https://raw.githubusercontent.com/programmercloud/foodlover/main/img/about.png" alt="" />
+  <!-- Restaurant Details -->
+  <div class="half-half-image-text">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-lg-6 my-3">
+          <div class="content">
+            <p class="restaurant_name">{{ restaurant.rest_name }}</p>
+            <div class="restaurant-location">
+              {{ restaurant.location }}, {{ restaurant.city }}, {{ restaurant.state }} - {{ restaurant.pin }}, {{ restaurant.country }}
+            </div>
+            <div class="restaurant-hours">
+              Openping Hours: {{ restaurant.open_time }} - {{ restaurant.close_time }}
+            </div>
+            <div class="restaurant-contact">
+              Contact: {{ restaurant.rest_cantact_no }} 
+            </div>
+            <div class="restaurant-contact">
+              Email: {{ restaurant.owneremail }} 
+            </div>
+            <div class="restaurant-contact">
+              Owner: {{ restaurant.ownername  }} 
+            </div>
+            <div class="restaurant-contact">
+              Owner Contact: {{ restaurant.owner_contact_no  }} 
+            </div>
+          </div>
         </div>
-        <div class="text" id="i">
-          <div class="secondary">About Our Restaurant</div>
-          <h2 class="primary">150+</h2>
-
-          <h3 class="tertiary">Our Delicious Food</h3>
-
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia
-            itaque saepe id hic rem doloribus quas esse voluptatibus eius sequi,
-            possimus maxime dolores tempore facilis fugit porro mollitia, est
-            consequuntur.
-          </p>
-
-          <a href="#menu" class="btn">Explore More</a>
+        <div class="col-12 col-lg-6">
+          <div class="img" style="background: url({{ restaurant.restaurant_image.url }})no-repeat center;background-size:cover;"></div>
         </div>
+        <img class="menu-image" src="{{ restaurant.menu_image.url }}" alt="Menu Image" class="menu-image">
       </div>
-    </div>
+      </div>
   </div>
+
   
-  <!-- End About -->
 
   <!-- Restaurant Menu -->
   <div class="section" id="menu">
     <div class="containe">
       <h2 class="testimonial-title">Our Menu</h2>
       <div class="container">
-        <div class="restaurant-menu my-3">
-
-          {% if menu_items|length < 1%}
-
+        <div class="restaurant-menu">
+          {% if menu_items|length < 1 %}
+          <p class="no-menu-items">No menu items available at the moment.</p>
           {% else %}
           {% for item in menu_items %}
           <div class="menu-item">
-            <img src="{{item.image.url}} " alt=" " />
-
-            <div class="title">{{item.item_name}}</div>
-            <div class="price">Price : Rs.{{item.price}}</div>
+            <img src="{{ item.image.url }}" alt="{{ item.item_name }}" />
+            <div class="title">{{ item.item_name }}</div>
+            <div class="price">Price: Rs.{{ item.price }}</div>
             <div class="order flex">
-              
               <div class="o">
-                <a href="/order_now/{{item.id}}" class="btn btn-menu">ORDER NOW</a>
-                <a href="/add_to_cart/{{item.id}}" class="btn btn-menu">ADD TO CART</a>
-                
+                <a href="/order_now/{{ item.id }}" class="btn btn-menu">ORDER NOW</a>
+                <a href="/add_to_cart/{{ item.id }}" class="btn btn-menu">ADD TO CART</a>
               </div>
             </div>
           </div>
-           
-        {% endfor%}
-        {% endif %}
-
+          {% endfor %}
+          {% endif %}
         </div>
       </div>
     </div>
   </div>
   <!-- End Restaurant Menu -->
+{% endblock %}
 
-  
- {% endblock %}
- {% block js %}
- <script
-      type="module"
-      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"
-    ></script>
- 
-
-  {% endblock js %}
+{% block js %}
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"
+></script>
+<script
+  nomodule
+  src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"
+></script>
+{% endblock js %}

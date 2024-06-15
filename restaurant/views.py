@@ -186,10 +186,11 @@ def restaurant_UPV(request,id):
 def add_item(request, restaurant_id):
     if request.method == 'POST':
         item_name = request.POST.get('item_name')
+        item_description = request.POST.get('item_description')
         price = request.POST.get('price')
         image = request.FILES.get('item_image')
         restaurant = Restaurant.objects.get(id=restaurant_id)
-        item = Item(restaurant=restaurant, item_name=item_name, price=price,image =image)
+        item = Item(restaurant=restaurant, item_name=item_name,item_description= item_description, price=price,image =image)
         item.save()
         messages.success(request,"Item Added Successfully")
     return redirect('restaurant_MPO',)  
@@ -374,9 +375,9 @@ def menu_update(request, item_id):
     menu_item =Item.objects.get(id =item_id)
     if request.method == 'POST':
         menu_item.item_name = request.POST.get('item_name')
+        menu_item.item_description = request.POST.get('item_description')
         menu_item.price = request.POST.get('item_price')
         if request.FILES.get('item_image'):
-            print(1)
             menu_item.image = request.FILES['item_image']
         menu_item.save()
         messages.success(request, 'Item details updated successfully!')

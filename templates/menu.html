@@ -362,14 +362,15 @@ font-family: Arial, Helvetica, sans-serif;
 .content-box .btn1 a {
   flex: 1;
   height: 40px;
+  width:100px;
   font-size: 15px;
   text-align: center;
-  padding: 10px;
   text-decoration: none;
   border: none;
   color: #fff;
   font-weight: 700;
-  background-color: #f9b02d;
+  background:transparent;
+  border:2px solid #e09e24;
   border-radius: 7px;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -478,10 +479,14 @@ font-family: Arial, Helvetica, sans-serif;
             <div class="content-box">
               <h4 class="name">{{ item.item_name }}</h4>
               <p>{{item.item_description}}</p>
-              <p><a href="/restaurant_UPV/{{item.restaurant.id}}"><label class="control-label">{{item.restaurant.rest_name}}, {{item.restaurant.location}}</label></a></p>
+              <p>{{item.restaurant.rest_name}}, {{item.restaurant.location}}</p>
               <div class="btn1">
                 <h2 class="price">{{ item.price }} .RS</h2>
                 <a href="/order_now/{{item.id}}" class="btn btn-menu">ORDER NOW</a>
+              </div>
+              <div class="btn1">
+                <a href="/restaurant_UPV/{{item.restaurant.id}}" class="btn btn-menu">RESTAURANT</a>
+                <a href="/add_to_cart2/{{item.id}}" class="btn btn-menu">SAVE ITEM</a>
               </div>
             </div>
           </div>
