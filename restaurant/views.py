@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from restaurant.models import Userprofile,Restaurant,Item,Manager,Cart
-# from django.db.models import Q
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 def home(request): 
     return render(request,"home.html")
@@ -56,13 +56,14 @@ def user_login(request):
             f =1
             return render(request,"auth.html",{"f":f})
     return render(request, 'auth.html')
-@login_required
+
+
 def user_logout(request):
     logout(request)
     messages.success(request, 'Loged out successfully!')
     return redirect('home')
 
-@login_required
+@login_required(login_url='/authpage')
 def user_profile(request):
     user = request.user
     try:
@@ -71,6 +72,7 @@ def user_profile(request):
         return render(request, 'pagenotfound.html')
     return render(request,"profile.html",{'profile':profile})
 
+@login_required(login_url='/authpage')
 def profileupdate(request,id):
     user=User.objects.get(id=id)
     if request.method == 'POST':
@@ -113,6 +115,8 @@ def profileupdate(request,id):
         )
         profile.save()
     return redirect('user_profile')
+
+@login_required(login_url='/authpage')
 def add_your_resta(request):
     if request.user.is_authenticated:
         user_id = request.user
@@ -120,11 +124,13 @@ def add_your_resta(request):
         return render (request,"add_rest.html",{"your_restaurant":your_restaurant})
     return render (request,"add_rest.html")
 
+@login_required(login_url='/authpage')
 def regist_your_resta(request):
     if request.user.is_authenticated:
         return render (request,"regist_rest.html")
     return redirect("authpage")
 
+@login_required(login_url='/authpage')
 def resta_form_save(request):
     if request.method == 'POST':
         restaurant_name = request.POST.get('restaurant_name')
@@ -165,7 +171,7 @@ def resta_form_save(request):
 
 
 
-@login_required
+@login_required(login_url='/authpage')
 def restaurant_MPO(request):
     user = request.user
     restaurant = Restaurant.objects.get(user = user)
@@ -174,6 +180,7 @@ def restaurant_MPO(request):
                'restaurant_menu':restaurant_menu
                }
     return render (request ,"restaurant_MPO.html",context)
+
 def restaurant_UPV(request,id):
     restaurant = Restaurant.objects.get(id = id)
     menu_items = Item.objects.filter(restaurant=restaurant)
@@ -182,7 +189,7 @@ def restaurant_UPV(request,id):
                }
     return render (request ,"restaurant_UPV.html",context)
 
-
+@login_required(login_url='/authpage')
 def add_item(request, restaurant_id):
     if request.method == 'POST':
         item_name = request.POST.get('item_name')
@@ -193,7 +200,9 @@ def add_item(request, restaurant_id):
         item = Item(restaurant=restaurant, item_name=item_name,item_description= item_description, price=price,image =image)
         item.save()
         messages.success(request,"Item Added Successfully")
-    return redirect('restaurant_MPO',)  
+    return redirect('restaurant_MPO',) 
+
+@login_required(login_url='/authpage') 
 def delete_menu(request,id):
     item = Item.objects.get(id = id)
     item.delete()
@@ -213,26 +222,23 @@ def Filter(request):
     location = request.POST.get('location')
     restaurant_name = request.POST.get('restaurant_name')
     item_name = request.POST.get('item_name')
-
-
     if location and restaurant_name:
        restaurants = Restaurant.objects.filter(Q(location_icontains=location) & Q(rest_name_icontains=restaurant_name))
     if location==None and restaurant_name:
-       restaurants = Restaurant.objects.filter(rest_name__icontains=restaurant_name)
+       restaurants = Restaurant.objects.filter(Q(rest_name__icontains=restaurant_name))
     if restaurant_name==None and location:  
-       restaurants = Restaurant.objects.filter(location__icontains=location) 
+       restaurants = Restaurant.objects.filter(Q(location__icontains=location)) 
     else:
        restaurants=Restaurant.objects.all() 
-
-    restaurant_names = restaurants.values_list('rest_name', flat=True)
     Menu_Item = Item.objects.filter(restaurant__in=restaurants)
 
     if item_name :
-       Menu_Item = Item.objects.filter(Q(item_name__icontains=item_name))
+       Menu_Item = Menu_Item.filter(Q(item_name__icontains=item_name))
     
     return render(request ,"menu.html",{"Menu_Item":Menu_Item})
   return redirect('menu')
 
+@login_required(login_url='/authpage')
 def manager_dash(request,id):
     restaurant = Restaurant.objects.get(id=id)
     manager = Manager.objects.filter(restaurant=restaurant)
@@ -242,7 +248,7 @@ def manager_dash(request,id):
     }
     return render(request,"manager_dash.html",context)
 
-
+@login_required(login_url='/authpage')
 def manager(request):
     id =''
     if request.method == 'POST':
@@ -274,6 +280,8 @@ def manager(request):
         messages.success(request, 'Manager Details Added successfully!')
     return redirect("manager_dash", id)
 
+
+@login_required(login_url='/authpage')
 def manager_update(request):
     id =''
     if request.method == 'POST':
@@ -307,14 +315,15 @@ def manager_update(request):
         messages.success(request, 'Manager Details Updated successfully!')
     return redirect("manager_dash", id)
 
-@login_required
+@login_required(login_url='/authpage')
 def restaurant_update(request,id):
     try:
         restaurant = Restaurant.objects.get(id=id)
     except Restaurant.DoesNotExist:
         return render(request, 'pagenotfound.html')
     return render(request,"edit_restaurant_details.html",{'restaurant':restaurant})
-@login_required
+
+@login_required(login_url='/authpage')
 def restaurantupdate(request,id):
     restaurant=Restaurant.objects.get(id=id)
     if request.method == 'POST':
@@ -370,7 +379,7 @@ def restaurantupdate(request,id):
         profile.save()
     return redirect('restaurant_update')
 
-
+@login_required(login_url='/authpage')
 def menu_update(request, item_id):
     menu_item =Item.objects.get(id =item_id)
     if request.method == 'POST':
@@ -385,6 +394,8 @@ def menu_update(request, item_id):
 
     return redirect('restaurant_MPO',)
 
+
+@login_required(login_url='/authpage')
 def add_to_cart(request, item_id):
     item = Item.objects.get(id =item_id)
     user = request.user
@@ -395,6 +406,8 @@ def add_to_cart(request, item_id):
         return redirect('restaurant_UPV', id=id)
     messages.success(request, 'Item added to cart!')
     return redirect('restaurant_UPV', id=id)
+
+@login_required(login_url='/authpage')
 def add_to_cart2(request, item_id):
     item = Item.objects.get(id =item_id)
     user = request.user
@@ -416,6 +429,7 @@ def cart_display(request):
     cart_items = Cart.objects.filter(user = user)
     return render(request ,"cart.html",{"cart_items" : cart_items})
 
+@login_required(login_url='/authpage')
 def order_now(request, item_id):
     item = Item.objects.get(id =item_id)
     user = request.user
