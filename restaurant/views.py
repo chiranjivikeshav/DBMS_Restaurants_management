@@ -440,6 +440,17 @@ def order_now(request, item_id):
     messages.success(request, 'Item added to cart!')
     return redirect('cart_display')
 
+@login_required(login_url='/authpage')
+def order_detail(request):
+    user =  request.user
+    total_cost  = 0
+    cart_items = Cart.objects.filter(user = user)
+    for cart_item in  cart_items:
+        total_cost += cart_item.item.price
+    return render (request,"order_details.html",{"cart_items":cart_items,"total_cost":total_cost})
+
+
+
 def checkout(request):
     user = request.user
     cart_items = Cart.objects.filter(user = user)
