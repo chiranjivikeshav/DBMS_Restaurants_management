@@ -41,6 +41,8 @@ class Item(models.Model):
     item_description = models.CharField(max_length=1000)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='item_images/',null=True)
+    item_rating = models.DecimalField(max_digits=3,decimal_places=2,default=0.00)
+    people_rated = models.PositiveIntegerField(default=0)
     def __str__(self):
         return self.item_name
 

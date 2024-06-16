@@ -116,7 +116,6 @@ def profileupdate(request,id):
         profile.save()
     return redirect('user_profile')
 
-@login_required(login_url='/authpage')
 def add_your_resta(request):
     if request.user.is_authenticated:
         user_id = request.user

@@ -39,6 +39,7 @@
 
 .restaurant-menu {
   display: grid;
+  color:#fff;
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -154,6 +155,28 @@
     border-radius: 5px;
   }
 }
+/*Rating CSS*/
+.star-rating {
+  font-size: 0;
+  display: inline-block;
+  position: relative;
+  width: auto; 
+}
+.star-rating::before {
+  content: '★★★★★';
+  font-size: 20px;
+  color: #ccc;
+}
+.star-rating::after {
+  content: '★★★★★'; 
+  font-size: 20px;
+  color: gold;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--rating) / 5 * 100%);
+  overflow: hidden;
+}
 {% endblock css %}
 
 {% block body %}
@@ -209,6 +232,7 @@
             <img src="{{ item.image.url }}" alt="{{ item.item_name }}" />
             <div class="title">{{ item.item_name }}</div>
             <div class="price">Price: Rs.{{ item.price }}</div>
+            {{item.item_rating|floatformat:1}} <div class="star-rating" style="--rating: {{item.item_rating}};"></div>
             <div class="order flex">
               <div class="o">
                 <a href="/order_now/{{ item.id }}" class="btn btn-menu">ORDER NOW</a>
