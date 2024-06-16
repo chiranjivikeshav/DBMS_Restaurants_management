@@ -40,13 +40,11 @@ table { border-collapse: collapse; border-spacing: 0; }
 img { border: 0; max-width: 100%; }
 
 h1 {
-  font-family: 'Fredoka One', Helvetica, Tahoma, sans-serif;
   color: #fff;
-  text-shadow: 1px 2px 0 #7184d8;
-  font-size: 3.5em;
+  font-size: 24px;
   line-height: 1.1em;
   padding: 6px 0;
-  font-weight: normal;
+  font-weight: bold;
   text-align: center;
 }
 
@@ -157,7 +155,6 @@ tr.extracosts {
 
 .light {
   color: #888b8d;
-  text-shadow: 1px 1px 0 rgba(255,255,255,0.45);
   font-size: 1.1em;
   font-weight: normal;
 }
@@ -231,6 +228,7 @@ td.checkout {
         <h1>Item Cart</h1>
       </header>
       <div id="page" style="padding:30px;">
+        {% if cart_items %}
         <table id="cart">
           <thead>
             <tr>
@@ -252,13 +250,15 @@ td.checkout {
             </tr>
             
            {% endfor%}
-            
-            <!-- checkout btn -->
+           <!-- checkout btn -->
+           <td colspan="5" class="checkout" style="background:grey "> <a href="/order_details" ><button id="submitbtn">Order Now!</button></a></td>
            
-             <td colspan="5" class="checkout" style="background:grey "> <a href="/order_details" ><button id="submitbtn">Order Now!</button></a></td>
-        
+           
           </tbody>
         </table>
+        {% else%}
+        <h1 style="font-size:30px;color:black;margin:100px 0 100Px 0">Your Cart is Empty !</h1>
+        {% endif %}
       </div>
     </div>
 
