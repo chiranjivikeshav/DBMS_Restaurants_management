@@ -490,12 +490,13 @@ def order(request):
                 price=(cart_item.item.price)*(cart_item.item_count),
             )
             cart_item.delete()
-        return redirect('checkout')
+        return redirect('checkout',order.id)
     return redirect('order_detail')  
 
 
-def checkout(request):
+def checkout(request,order_id):
     user = request.user
+    print(order_id)
     cart_items = Cart.objects.filter(user = user)
     total_cost  = 0
     for cart_item in  cart_items:
