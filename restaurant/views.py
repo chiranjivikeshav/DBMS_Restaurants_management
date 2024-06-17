@@ -448,6 +448,9 @@ def order_detail(request):
     cart_items = Cart.objects.filter(user = user)
     for cart_item in  cart_items:
         total_cost += cart_item.item.price
+    if total_cost == 0:
+        messages.success(request,"Please Add Item In the Cart")
+        return redirect('cart_display')
     return render (request,"order_details.html",{"cart_items":cart_items,"total_cost":total_cost})
 
 # ===========this is for collecting order detials===========
@@ -465,6 +468,9 @@ def order(request):
         user =  request.user
         cart_items = Cart.objects.filter(user = user)
         total_price = sum(item.item.price * item.item_count for item in cart_items)
+        if total_price == 0:
+            messages.success(request,"Please Add Item In the Cart")
+            return redirect('cart_display')
         order = Order.objects.create(
             user=user,
             name=name,
@@ -483,6 +489,7 @@ def order(request):
                 quantity=cart_item.item_count,
                 price=(cart_item.item.price)*(cart_item.item_count),
             )
+            cart_item.delete()
         return redirect('checkout')
     return redirect('order_detail')  
 
@@ -493,7 +500,4 @@ def checkout(request):
     total_cost  = 0
     for cart_item in  cart_items:
         total_cost += cart_item.item.price
-    if total_cost == 0:
-        messages.success(request,"Please Add Item In the Cart")
-        return redirect('cart_display')
     return render (request,"payment.html",{"total_cost":total_cost})
