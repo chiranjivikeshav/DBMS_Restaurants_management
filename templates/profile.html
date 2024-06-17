@@ -63,13 +63,17 @@
 }
 
 .card {
-    background:#212F3D;
+    background-size: 400% 400%;
+    background: linear-gradient(150deg, #ad3c03,#bf5a08,#a65b07,#ed9015);
+
+    animation: gradient 5s ease infinite;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     border: 0;
     margin-bottom: 1rem;
     color:#ffffff;
+   
 }
 textarea{
     background-color:#BFC9CA; 
@@ -130,7 +134,7 @@ textarea{
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="website">Address</label>
-                        <input type="url" class="form-control" value="{{profile.user_address}}" name="user_address" id="website" placeholder="Address">
+                        <input type="text" class="form-control" value="{{profile.user_address}}" name="user_address" id="website" placeholder="Address">
                     </div>
                 </div>
             </div>
@@ -202,3 +206,4 @@ form.reset();
  
 
 {% endblock js %}
+

@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% block title %}Restaurant Page{% endblock title %}
+{% block link %}
+{% endblock link %}
+
+{% block css %}
+/* Restaurant Menu */
+
+.testimonial-title {
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: orangered; 
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.containe {
+  background-color: #000;
+}
+
+.category {
+  list-style: none;
+  text-align: center;
+  margin: 20px 0 40px 0;
+}
+
+.category li {
+  display: inline-block;
+  margin: 0 15px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.category li.active {
+  color: var(--clr-primary);
+}
+
+.restaurant-menu {
+  display: grid;
+  color:#fff;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.menu-item {
+  width: 260px;
+  margin: 0 auto;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 70px;
+}
+
+.menu-item img {
+  width: 100%;
+}
+
+.po {
+  color: #ddd;
+}
+
+.order {
+  justify-content: space-between;
+}
+
+.btn-menu {
+  padding: 6px 10px;
+  font-size: 16px;
+  text-align: center;
+  background-color: orangered;
+  border: 1px solid var(--clr-primary);
+  color: white; 
+}
+
+.o {
+  display: flex;
+  gap: 10px;
+  color: white; 
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 8px 0;
+  color: #ddd;
+}
+
+.price {
+  color: #ddd;
+}
+
+.location {
+  font-size: 18px;
+  font-weight: 300;
+  color: #b2b2b2;
+}
+
+
+
+
+/* Responsive Design for Restaurant Information */
+@media (max-width: 680px) {
+  .restaurant-info img,
+  .menu-image {
+    max-width: 100%;
+  }
+}
+
+/* Responsive Design for Restaurant Menu */
+@media (max-width: 858px) {
+  .restaurant-menu {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+}
+
+@media (max-width: 680px) {
+  .restaurant-menu {
+    grid-template-columns: 1fr;
+  }
+}
+
+.half-half-image-text{
+  padding: 30px 30px;
+  h1{
+    color: #800000;
+  }
+  .content{
+    padding:30px;
+    background-color:#FFFAFA;
+    border-radius: 5px;
+    .restaurant_name{
+      font-size:30px;
+      font-weight:900;
+    }
+    .restaurant-location{
+      font-size: 1.2rem;
+      color: black;
+      margin: 5px 0;
+    }
+    .restaurant-contact,
+    .restaurant-hours {
+      font-size: 1.2rem;
+      color: grey;
+      margin: 5px 0;
+    }
+    }
+    .menu-image{
+      margin-top:40px;
+      max-height:550px;
+    }
+    .img{
+    min-height: 320px;
+    height: 100%;
+    border-radius: 5px;
+  }
+}
+/*Rating CSS*/
+.star-rating {
+  font-size: 0;
+  display: inline-block;
+  position: relative;
+  width: auto; 
+}
+.star-rating::before {
+  content: '★★★★★';
+  font-size: 20px;
+  color: #ccc;
+}
+.star-rating::after {
+  content: '★★★★★'; 
+  font-size: 20px;
+  color: gold;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--rating) / 5 * 100%);
+  overflow: hidden;
+}
+{% endblock css %}
+
+{% block body %}
+
+  <!-- Restaurant Details -->
+  <div class="half-half-image-text">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-lg-6 my-3">
+          <div class="content">
+            <p class="restaurant_name">{{ restaurant.rest_name }}</p>
+            <div class="restaurant-location">
+              {{ restaurant.location }}, {{ restaurant.city }}, {{ restaurant.state }} - {{ restaurant.pin }}, {{ restaurant.country }}
+            </div>
+            <div class="restaurant-hours">
+              Openping Hours: {{ restaurant.open_time }} - {{ restaurant.close_time }}
+            </div>
+            <div class="restaurant-contact">
+              Contact: {{ restaurant.rest_cantact_no }} 
+            </div>
+            <div class="restaurant-contact">
+              Email: {{ restaurant.owneremail }} 
+            </div>
+            <div class="restaurant-contact">
+              Owner: {{ restaurant.ownername  }} 
+            </div>
+            <div class="restaurant-contact">
+              Owner Contact: {{ restaurant.owner_contact_no  }} 
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="img" style="background: url({{ restaurant.restaurant_image.url }})no-repeat center;background-size:cover;"></div>
+        </div>
+        <img class="menu-image" src="{{ restaurant.menu_image.url }}" alt="Menu Image" class="menu-image">
+      </div>
+      </div>
+  </div>
+
+  
+
+  <!-- Restaurant Menu -->
+  <div class="section" id="menu">
+    <div class="containe">
+      <h2 class="testimonial-title">Our Menu</h2>
+      <div class="container">
+        <div class="restaurant-menu">
+          {% if menu_items|length < 1 %}
+          <p class="no-menu-items">No menu items available at the moment.</p>
+          {% else %}
+          {% for item in menu_items %}
+          <div class="menu-item">
+            <img src="{{ item.image.url }}" alt="{{ item.item_name }}" />
+            <div class="title">{{ item.item_name }}</div>
+            <div class="price">Price: Rs.{{ item.price }}</div>
+            {{item.item_rating|floatformat:1}} <div class="star-rating" style="--rating: {{item.item_rating}};"></div>
+            <div class="order flex">
+              <div class="o">
+                <a href="/order_now/{{ item.id }}" class="btn btn-menu">ORDER NOW</a>
+                <a href="/add_to_cart/{{ item.id }}" class="btn btn-menu">ADD TO CART</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Restaurant Menu -->
+{% endblock %}
+
+{% block js %}
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"
+></script>
+<script
+  nomodule
+  src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"
+></script>
+{% endblock js %}

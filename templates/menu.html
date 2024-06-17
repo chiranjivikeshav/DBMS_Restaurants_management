@@ -20,13 +20,21 @@ font-family: Arial, Helvetica, sans-serif;
     width: 20%;
     padding: 0 10px;
     margin-top:12px;
+<<<<<<< HEAD
+=======
+    margin-bottom:40px;
+>>>>>>> main
   } 
   
   .row {
     padding:10px;
     display: flex;
     justify-content: center;
+<<<<<<< HEAD
     margin: 0 -5px;
+=======
+    margin: 0;
+>>>>>>> main
     margin-top:20px;
   }
 
@@ -74,7 +82,7 @@ font-family: Arial, Helvetica, sans-serif;
     align-items: center;
     justify-content: center;
     border-radius: 12px;
-
+    cursor:pointer;
 
   }
 
@@ -82,9 +90,6 @@ font-family: Arial, Helvetica, sans-serif;
     height: 10px;
     width: 90px;
     color: rgb(249, 245, 241);
-
-    font-family: 'Poppins', sans-serif;
-
     font-size: 18px;
     font-weight: bold;
     margin-top: 150px;
@@ -123,11 +128,7 @@ font-family: Arial, Helvetica, sans-serif;
 
   }
 
-  i {
-    color: green;
-
-
-  }
+ 
 
   .filter {
     height: 60vh;
@@ -244,7 +245,6 @@ font-family: Arial, Helvetica, sans-serif;
     height: 9vh;
     display: flex;
     margin-top: 18px;
-
     align-items: center;
     justify-content: center;
   }
@@ -266,14 +266,194 @@ font-family: Arial, Helvetica, sans-serif;
   .f6 button:hover {
     scale: 0.95;
     color:white;
+    background:#fb6110;
     cursor: pointer;
   }
+  #ModalLoginForm .modal-content {
+    text-align: center;
+}
+
+
+
+
+
+/* Modal Background */
+
+
+.modal-dialog {
+  max-width: 1000px; /* Increased width for better fit */
+  width: 90%;
+  height: auto;
+  margin: 30px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Container for the modal content */
+.modal-content {
+  background-color: #fff;
+  border-radius: 20px;
+  max-width: 700px; /* Increased width for content fit */
+  width: 100%;
+}
+
+
+/* Item container */
+.item_container {
+  padding: 10px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  background: #26242e;
+}
+
+/* Image styling */
+.item_container img {
+  width: 350px; /* Slightly increased for better proportion */
+  height: auto; /* Maintain aspect ratio */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item_container img:hover {
+  transform: scale(1.05);
+}
+
+/* Content box */
+.content-box {
+  z-index: 1;
+  width: calc(100% - 365px); /* Adjusted to fit alongside the image */
+  max-width: 400px; /* Limit the maximum width */
+  color: #fff;
+  padding: 10px;
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.content-box h4 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.content-box p {
+  color: #a6a6a6;
+  font-size: 1em;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Price and buttons container */
+.content-box .btn1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.content-box .price {
+  font-size: 1.8em;
+  color: #f9b02d;
+}
+
+.content-box .btn1 a {
+  flex: 1;
+  height: 40px;
+  width:100px;
+  font-size: 15px;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  background:transparent;
+  border:2px solid #e09e24;
+  border-radius: 7px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.content-box .btn1 a:hover {
+  background-color: #e09e24;
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modal-dialog {
+    max-width: 95%;
+    margin: 20px auto;
+  }
+
+  
+
+  .item_container {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .item_container img {
+    max-width: 80%;
+    margin: 0 auto 20px;
+  }
+
+  .content-box {
+    width: 100%;
+    max-width: none;
+    padding: 0 10px;
+  }
+
+  .content-box .btn1 {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .content-box .price {
+    margin-bottom: 10px;
+  }
+
+  .content-box .btn1 a {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+
+/* rating of food items */
+.star-rating {
+  font-size: 0;
+  display: inline-block;
+  position: relative;
+  width: auto;
+}
+.star-rating::before {
+  content: '★★★★★'; 
+  font-size: 20px; 
+  color: #ccc;
+}
+.star-rating::after {
+  content: '★★★★★'; 
+  font-size: 20px;
+  color: gold; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--rating) / 5 * 100%);
+  overflow: hidden;
+}
+
+
 {%endblock%}
 
 {% block body %}
    
 <div class="filter" style="background-color: rgba(62, 57, 57, 0.3);">
-
     <div class="f1">
       <p>Find your favourite Dishes </p>
     </div>
@@ -281,61 +461,92 @@ font-family: Arial, Helvetica, sans-serif;
     <div class="f2">
       <p>Order dishes from your favourite restaurants</p>
     </div>
+    <form action="/filter" method ="post">
     <div class="f3">
-      <form action="/action_page.php">
-
-        <input type="text" id="fname" name="fname" placeholder="Search Dishes">
-
-      </form>
+     {% csrf_token %}
+        <input type="text" id="fname" name="item_name" placeholder="Search Dishes">
     </div>
     <div class="f4">
-      <form action="/action_page.php">
-
-        <input type="text" id="fname" name="fname" placeholder="Search by Restaurants">
-
-      </form>
+        <input type="text" id="fname" name="restaurant_name" placeholder="Search by Restaurants">
     </div>
     <div class="f5">
-      <form action="/action_page.php/">
-
-        <input type="text" id="fname" name="fname" placeholder="Search by Locations">
-
-      </form>
-    </div>
-    <div class="f6">
-      <button type="button" class="btn btn-primary">Filter</button>
-    </div>
+        <input type="text" id="fname" name="location" placeholder="Search by Locations">
+      </div>
+      <div class="f6">
+        <button type="submit" class="btn btn-primary">Filter</button>
+      </div>
+    </form>
   </div>
+<<<<<<< HEAD
   <div class="row">
   {% for item in Menu_Item %}
     <div class="column">
       <div class="box-img" style="background-image: url('https://source.unsplash.com/random/1600x900?susi')" ;>
         
+=======
+  <div class="row my-3">
+    {% if Menu_Item|length < 1%}
+    {% else%}
+    {% for item in Menu_Item %}
+    <div class="column" >
+      <div class="box-img" data-toggle="modal" data-target="#ModalLoginForm-{{item.id}}" style="background-image: url('{{ item.image.url }}');">
+>>>>>>> main
       </div>
       <div class="title">
         <p class="k">{{ item.item_name }}</p>
          <i>{{ item.price }} Rs</i>
+<<<<<<< HEAD
         <p>{{ item.restaurant.rest_name  }}</p>
         <p>{{ item.restaurant.location }} </p>
       </div> 
     </div>
     {% endfor %}
     
+=======
+         <a href="/restaurant_UPV/{{item.restaurant.id}}"><p>{{ item.restaurant.rest_name  }}, {{ item.restaurant.location }}</p></a>
+        {{item.item_rating|floatformat:1}} <div class="star-rating" style="--rating: {{item.item_rating}};" ></div>
+      </div> 
+    </div>
+      
+
+    
+<!-- Modal HTML Markup -->
+<div id="ModalLoginForm-{{item.id}}" class="modal fade">
+  <div class="modal-dialog justify-content-center align-items-center" role="document">
+      <div class="modal-content">
+          <div class="item_container">
+            <img src="{{ item.image.url }}" />
+            <div class="content-box">
+              <h4 class="name">{{ item.item_name }}</h4>
+              <p>{{item.item_description}}</p>
+              <p>{{item.restaurant.rest_name}}, {{item.restaurant.location}}</p>
+              <div class="btn1">
+                <h2 class="price">{{ item.price }} .RS</h2>
+                <a href="/order_now/{{item.id}}" class="btn btn-menu">ORDER NOW</a>
+              </div>
+              <div class="btn1">
+                <a href="/restaurant_UPV/{{item.restaurant.id}}" class="btn btn-menu">RESTAURANT</a>
+                <a href="/add_to_cart2/{{item.id}}" class="btn btn-menu">SAVE ITEM</a>
+              </div>
+            </div>
+          </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+    {% endfor %}
+    {%endif%} 
+>>>>>>> main
     
 </div>
     
-
-
-
-
-  
-
-
  {% endblock %}
  {% block js %}
-  <script>
-
- </script>
  
+{% endblock js %} 
 
-  {% endblock js %} 
+
+
+
+
+
+
