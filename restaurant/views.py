@@ -443,7 +443,7 @@ def order_now(request, item_id):
 @login_required(login_url='/authpage')
 def order_detail(request):
     user =  request.user
-    print("prince")
+    
     
     total_cost  = 0
     cart_items = Cart.objects.filter(user = user)
@@ -470,8 +470,11 @@ def submit_order(request):
             return redirect('checkout_page')  # Redirect back to the checkout page
 
         
-
-        # Create the OrderDetails instance
+         
+    
+    
+       
+        
         order = order_details(
             name=name,
             email=email,
@@ -480,7 +483,7 @@ def submit_order(request):
             city=city,
             state=state,
             pin_code=pincode,
-            orders=User.Cart,
+            orders=Item,
             payment_status=False
         )
 
