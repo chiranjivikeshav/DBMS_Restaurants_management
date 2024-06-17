@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from restaurant.models import Userprofile,Restaurant,Item,Manager,Cart
+from restaurant.models import Userprofile,Restaurant,Item,Manager,Cart,Order,OrderItem
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 def home(request): 
@@ -440,6 +440,7 @@ def order_now(request, item_id):
     messages.success(request, 'Item added to cart!')
     return redirect('cart_display')
 
+# ===========this is for order detail form rendering=========
 @login_required(login_url='/authpage')
 def order_detail(request):
     user =  request.user
@@ -449,6 +450,41 @@ def order_detail(request):
         total_cost += cart_item.item.price
     return render (request,"order_details.html",{"cart_items":cart_items,"total_cost":total_cost})
 
+# ===========this is for collecting order detials===========
+@login_required(login_url='/authpage')
+def order(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        pincode = request.POST.get('zip')
+
+        user =  request.user
+        cart_items = Cart.objects.filter(user = user)
+        total_price = sum(item.item.price * item.item_count for item in cart_items)
+        order = Order.objects.create(
+            user=user,
+            name=name,
+            email=email,
+            phone=phone,
+            address=address,
+            city=city,
+            state=state,
+            pin_code=pincode,
+            total_price=total_price
+        )
+        for cart_item in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                item=cart_item.item,
+                quantity=cart_item.item_count,
+                price=(cart_item.item.price)*(cart_item.item_count),
+            )
+        return redirect('checkout')
+    return redirect('order_detail')  
 
 
 def checkout(request):
