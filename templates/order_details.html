@@ -134,7 +134,8 @@
     <div class="order-form mx-3">
         <h2>Order Information</h2>
         <!-- Form to collect order information -->
-        <form action="/submit-order" method="post">
+        <form action="/submit_order" method="post">
+            {% csrf_token %}
             <!-- Contact Information Section -->
             <div class="form-section">
                 <label for="name">Full Name</label>

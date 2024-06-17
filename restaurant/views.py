@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from restaurant.models import Userprofile,Restaurant,Item,Manager,Cart
+from restaurant.models import Userprofile,Restaurant,Item,Manager,Cart,order_details
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 def home(request): 
@@ -443,12 +443,57 @@ def order_now(request, item_id):
 @login_required(login_url='/authpage')
 def order_detail(request):
     user =  request.user
+    print("prince")
+    
     total_cost  = 0
     cart_items = Cart.objects.filter(user = user)
     for cart_item in  cart_items:
         total_cost += cart_item.item.price
     return render (request,"order_details.html",{"cart_items":cart_items,"total_cost":total_cost})
 
+
+
+@login_required(login_url='/authpage')
+def submit_order(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        pincode = request.POST.get('zip')
+
+        # Validate the required fields
+        if not all([name, email, phone, address, city, state, pincode]):
+            messages.error(request, 'Please fill in all required fields.')
+            return redirect('checkout_page')  # Redirect back to the checkout page
+
+        
+
+        # Create the OrderDetails instance
+        order = order_details(
+            name=name,
+            email=email,
+            phone_number=phone,
+            address=address,
+            city=city,
+            state=state,
+            pin_code=pincode,
+            orders=User.Cart,
+            payment_status=False
+        )
+
+        # Save the order and clear the cart
+        order.save()
+        
+        messages.success(request, 'Order submitted successfully!')
+
+        return redirect('cart_display')
+
+    return redirect('checkout_page')  # Redirect to the checkout page if not POST
+
+    
 
 
 def checkout(request):

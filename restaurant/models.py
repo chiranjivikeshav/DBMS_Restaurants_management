@@ -65,4 +65,20 @@ class Cart(models.Model):
     item_count = models.IntegerField(default=1)
     def __str__(self):
         return self.item.item_name
+class order_details(models.Model):
+    Name = models.TextField()
+    phone_number = models.IntegerField()
+    Email = models.TextField()
+    Address = models.TextField()
+    city=models.TextField()
+    state=models.TextField()
+    pin_code=models.IntegerField()
+    orders=models.ForeignKey(Item, on_delete=models.CASCADE)
+    payment_status=models.BooleanField(default=False)
+    def __str__(self):
+        return self.Name
+    
+
+
+
 
