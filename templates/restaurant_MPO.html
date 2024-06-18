@@ -201,8 +201,6 @@ letter-spacing: 0px;
 font-weight: 200;
 }
 
-
-
 .label-tag {
 width: 100px;
 text-align: center;
@@ -213,7 +211,7 @@ border-radius: 4px;
 .edit-buttons {
   display: flex;
   justify-content: space-between;
-  width: 200px; /* Adjust width as needed */
+  width: 80px; /* Adjust width as needed */
 }
 
 .edit-buttons .label-tag {
@@ -493,7 +491,7 @@ a {
 "https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
                     alt="edit">
             </div>
-            <a href="manager_dash/{{restaurant.id}}">
+            <a href="manager_dash">
             <div class="box box2">
                 
                 <div class="text">
@@ -559,9 +557,9 @@ a {
                         
                         <div class="edit-buttons">
                           <button type="button" data-toggle="modal" data-target="#ModalLoginForm"><h3 class="t-op-nextlvl label-tag update-btn">Update</h3></button>
-                          <a href="/delete-menu/{{menu.id}}"><h3 class="t-op-nextlvl label-tag delete-btn">Delete</h3></a>
-                      </div>
-                        <a class="t-op-nextlvl details">View  </a>
+                        </div>
+                        <a class="t-op-nextlvl details" href="/delete-menu/{{menu.id}}"><h3 class="t-op-nextlvl label-tag delete-btn">Delete</h3></a>
+                        
                         
                     </div>
                   <!-- Modal HTML Markup -->

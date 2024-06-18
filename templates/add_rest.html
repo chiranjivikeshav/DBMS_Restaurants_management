@@ -7,36 +7,16 @@
      
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-.f{
-    display: flex;
-        }
-* {
-    font-family: 'Roboto', sans-serif;
-    box-sizing: border-box;
-    
-    color: #ddd;
-}
 
-body {
-    
-    margin: 0;
-    padding:0;
-}
+
 #home{
-    color:white;
     font-size: 54px;
+    color:white;
 }
 .ya{
     color:#ddd;
     font-size: larger;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-/* common classes */
-.container {
-    max-width: 1200px;
-    width: 90%;
-    margin: auto;
 }
 .f{
     display: flex;
@@ -47,7 +27,7 @@ gap: 30px;
 .u{
     gap: 10px;
 }
-.btn {
+.showcase-area .btn {
     display: inline-block;
     padding: 0.5rem 1.5rem;
     text-decoration: none;
@@ -58,75 +38,19 @@ gap: 30px;
     border-radius: 20px;
 }
 
-.btn-primary{
+.showcase-area .btn-primary{
     background-color: #119764;
     color:#fff;
 }
 
-.btn-primary:hover{
+.showcase-area .btn-primary:hover{
     background-color: #119764;
     transition: all 0.3s ease-in-out;
 }
 
-/* navbar style */
-.navbar input[type="checkbox"],
-.navbar .hamburger-lines {
-    display: none;
-}
 
-.navbar {
-    position:fixed;
-    width: 100%;
-    background: #fff;
-    color: #000;
-    height: 50px;
-    z-index: 12;
-    opacity: 0.85;
-    box-shadow: 0px 5px 10px 0px #aaa;
-}
 
-.navbar-container {
-    display:flex;
-    justify-content: space-between;
-    height: 64px;
-    align-items: center;
-}
 
-.menu-items {
-    order: 2;
-    display: flex;
-}
-
-.menu-items li {
-    list-style: none;
-    margin-left: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-}
-
-.menu-items a {
-    text-decoration: none;
-    color:#444;
-    font-weight: 500;
-    transition: color 0.3s ease-in-out;
-}
-
-.menu-items a:hover {
-    color: #117964;
-    transition: color 0.3s ease-in-out;
-}
-.card{
-    color:white;
-    font-size: 1.5rem;
-    background-color: #222;
-}
-
-.logo {
-    order: 1;
-    font-size: 2.3rem;
-    /* margin-bottom: 0.5rem; */
-}
-/* end of navbar */
 /* showcase style */
 .column {
     float: left;
@@ -168,6 +92,7 @@ gap: 30px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    text-align:center;
 }
 
 .back {

@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+
+{% block title %}User Orders{% endblock title %}
+{% block link %}
+    
+{% endblock link %}
+{%block css%}
+/* Reset and General Styles */
+
+
+body {
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.main-header {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.main-header h1 {
+    font-size: 2.5rem;
+    color: orange;
+}
+
+
+.order-section {
+    margin: 10px 0 50px;
+}
+
+.order-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.order-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.order-card {
+    background-color: #f0f2f5;
+    border-radius: 8px;
+
+    padding: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+.order-header {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.order-header h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    font-weight:600;
+}
+
+.order-header .order-date {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.order-details {
+    margin-bottom: 20px;
+}
+
+.order-details p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.order-details ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.order-details ul li {
+    background-color: #f8f9fa;
+    margin-bottom: 5px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.order-actions {
+    text-align: right;
+    bottom: 15px;
+    right: 15px;
+}
+
+.order-actions .btn {
+    display: inline-block;
+    padding: 8px;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.order-actions .track-order {
+    float:left;
+    background-color: orange;
+}
+.order-actions .cancel-order {
+    background-color: #dc3545;
+}
+
+.order-actions .pay-now {
+    float:left;
+    background-color: orange;
+}
+.order-actions .remove {
+    background-color: #dc3545;
+}
+
+.order-actions .feedback {
+    background-color: orange;
+}
+
+.order-actions .btn:hover {
+    opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .order-list {
+        grid-template-columns: 1fr;
+    }
+}
+.fa-check-circle{
+    color:green;
+    font-size:18px;
+}
+.fa-info-circle{
+    color:red;
+    font-size:18px;
+}
+.fa-times-circle{
+    color:red;
+    font-size:18px;
+}
+
+
+{%endblock%}
+
+{% block body %}
+<div class="container">
+    <header class="main-header">
+        <h1>My Orders</h1>
+    </header>
+
+    <section id="current-orders" class="order-section">
+        <h2>Current Orders</h2>
+        <div class="order-list">
+            {% for order in current_orders %}
+                <div class="order-card">
+                    <div class="order-header">
+                        <h3>{{ order.name }}</h3>
+                        <p class="order-date">Order Date: {{ order.order_date }}</p>
+                    </div>
+                    <div class="order-details">
+                        <ul>
+                            {% for item in order.orderitem_set.all %}
+                                <li>{{ item.item.item_name }} - Quantity: {{ item.quantity }}</li>
+                            {% endfor %}
+                        </ul>
+                        <p><i class="fa fa-check-circle"></i> Rs. {{ order.total_price }}</p>
+                        <p><i class="fa fa-info-circle"></i> Being Prepared</p>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn track-order"><a>Track Your Order</a></button>
+                        <button class="btn cancel-order"><a>Cancel Order</a></button>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No current orders.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="payment-left-orders" class="order-section">
+        <h2>Payment Left Orders</h2>
+        <div class="order-list">
+            {% for order in payment_left_orders %}
+                <div class="order-card">
+                    <div class="order-header">
+                        <h3>{{ order.name }}</h3>
+                        <p class="order-date">Order Date: {{ order.order_date }}</p>
+                    </div>
+                    <div class="order-details">
+                        <ul>
+                            {% for item in order.orderitem_set.all %}
+                                <li>{{ item.item.item_name }} - Quantity: {{ item.quantity }}</li>
+                            {% endfor %}
+                        </ul>
+                        <p><i class="fa fa fa-times-circle"></i> Rs. {{ order.total_price }}</p>
+                        <p><i class="fa fa-info-circle"></i> Payment Pending</p>
+                    </div>
+                    <div class="order-actions">
+                        <a href="checkout/{{order.id}}"><button class="btn pay-now">Pay Now</button></a>
+                        <a href="delete_order/{{order.id}}"><button class="btn remove">Remove</button></a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No orders with payment left.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="delivered-orders" class="order-section">
+        <h2>Delivered Orders</h2>
+        <div class="order-list">
+            {% for order in delivered_orders %}
+                <div class="order-card">
+                    <div class="order-header">
+                        <h3>{{ order.name }}</h3>
+                        <p class="order-date">Order Date: {{ order.order_date }}</p>
+                    </div>
+                    <div class="order-details">
+                        <ul>
+                            {% for item in order.orderitem_set.all %}
+                                <li>{{ item.item.item_name }} - Quantity: {{ item.quantity }}</li>
+                            {% endfor %}
+                        </ul>
+                        <p><i class="fa fa-check-circle"></i> Rs. {{ order.total_price }}</p>
+                        <p><i class="fa fa-check-circle"></i> Delivered</p>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn feedback">Feedback</button>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No delivered orders.</p>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+ {% endblock %}
+
+
+
+
+ {% block js %}
+
+{% endblock js %}
+

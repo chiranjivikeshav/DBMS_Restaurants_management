@@ -238,8 +238,9 @@ def Filter(request):
   return redirect('menu')
 
 @login_required(login_url='/authpage')
-def manager_dash(request,id):
-    restaurant = Restaurant.objects.get(id=id)
+def manager_dash(request):
+    user = request.user
+    restaurant = Restaurant.objects.get(user =user)
     manager = Manager.objects.filter(restaurant=restaurant)
     context ={
           'restaurant':restaurant,
@@ -502,3 +503,17 @@ def checkout(request,order_id):
     for cart_item in  cart_items:
         total_cost += cart_item.item.price
     return render (request,"payment.html",{"total_cost":total_cost})
+
+
+def myorder(request):
+    user = request.user
+    orders = Order.objects.filter(user=user)
+    current_orders = orders.filter(payment_status=True, delevery_status=False) 
+    payment_left_orders = orders.filter(payment_status=False)
+    delivered_orders = orders.filter(payment_status=True, delevery_status=True)
+    context = {
+        'current_orders': current_orders,
+        'payment_left_orders': payment_left_orders,
+        'delivered_orders': delivered_orders,
+    }
+    return render (request,"myorder.html",context)
