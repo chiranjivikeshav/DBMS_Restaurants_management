@@ -5,565 +5,425 @@
 <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
 {% endblock link %}
 
-{% block body %}
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <p class="display-6 my-8 fw-bold mx-3 ">Dashboard</p>
-                <p class="display-4 my-8 fw-bold mx-3">{{restaurant.rest_name}}</p>
-                {% if managers|length < 1 %}
-                <button class="btn btn-lg btn-dark my-8 mx-3" data-toggle="modal" data-target="#managerModal">Complete Manager Details</button>
-                <div class="modal fade" id="managerModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
-                    <div class="modal-dialog" >
-                      <div class="modal-content" style="font-weight:900" >
-                        <div class="modal-header" style="background:#AAA;">
-                          <h2 style="font-size:40px;">Manager Details</h2>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                        <form action="/manager" method ="post">{% csrf_token %}
-                
-                        <input type="hidden" name="restaurant_id" value="{{ restaurant.id }}">
-                        
-                          <div class="form-group">
-                            <label for="managername">Name</label>
-                            <input type="text" class="form-control" id="managername" name="managername" placeholder="Enter manager Name" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managercontact">Contact Number</label>
-                            <input type="text" class="form-control" id="managercontact" name="managercontact" placeholder="Enter Contact No" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="manageremail">Email Address</label>
-                            <input type="email" class="form-control"  id="manageremail" name="manageremail" placeholder="Enter Email Address" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="manageraddress">Address</label>
-                            <input type="text" class="form-control"id="manageraddress" name="manageraddress" placeholder="Enter Address" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managerbankname">Bank Name</label>
-                            <input type="text" class="form-control" id="managerbankname" name="managerbankname" placeholder="Enter Bank Name" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managerbankbranch">Bank Branch Name</label>
-                            <input type="text" class="form-control"  id="managerbankbranch" name="managerbankbranch" placeholder="Enter Bank Branch" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managerbankIFSC">IFSC Code</label>
-                            <input type="text" class="form-control" id="managerbankIFSC" name="managerbankIFSC" placeholder="Enter IFSC Code" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managerbankaccount">Account Number</label>
-                            <input type="text" class="form-control" id="managerbankaccount" name="managerbankaccount" placeholder="Enter Account Number" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managerabout">About manager</label>
-                            <input type="text" class="form-control" id="managerabout" name="managerabout" placeholder="write">
-                          </div>
-                          <button style="float:right;background:black"type="submit" class="btn mx-3 my-3 btn-dark">SAVE</button>
-                        </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                {% else %}
-                {% for manager in managers%}
-                <button class="btn btn-lg btn-dark my-8 mx-3" data-toggle="modal" data-target="#managerModal2">Edit Manager Details</button>
-                <div class="modal fade" id="managerModal2" tabindex="-1" aria-labelledby="loginModal2" aria-hidden="true">
-                    <div class="modal-dialog" >
-                      <div class="modal-content" style="font-weight:900" >
-                        <div class="modal-header" style="background:#AAA;">
-                          <h2 style="font-size:40px;">Manager Details</h2>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                        <form action="/manager_update" method ="post">{% csrf_token %}
-                
-                        <input type="hidden" name="restaurant_id" value="{{ restaurant.id }}">
-                        
-                          <div class="form-group">
-                            <label for="managername">Name</label>
-                            <input type="text" value="{{manager.Name}}" class="form-control" id="managername" name="managername" placeholder="Enter manager Name" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managercontact">Contact Number</label>
-                            <input type="text" value="{{manager.Contact}}" class="form-control" id="managercontact" name="managercontact" placeholder="Enter Contact No" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="manageremail">Email Address</label>
-                            <input type="email" value="{{manager.Email}}" class="form-control"  id="manageremail" name="manageremail" placeholder="Enter Email Address" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="manageraddress">Address</label>
-                            <input type="text" value="{{manager.Address}}" class="form-control"id="manageraddress" name="manageraddress" placeholder="Enter Address" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managerbankname">Bank Name</label>
-                            <input type="text" value="{{manager.BankName}}" class="form-control" id="managerbankname" name="managerbankname" placeholder="Enter Bank Name" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managerbankbranch">Bank Branch Name</label>
-                            <input type="text"value="{{manager.BankBranch}}"  class="form-control"  id="managerbankbranch" name="managerbankbranch" placeholder="Enter Bank Branch" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managerbankIFSC">IFSC Code</label>
-                            <input type="text" value="{{manager.BankIFSC}}" class="form-control" id="managerbankIFSC" name="managerbankIFSC" placeholder="Enter IFSC Code" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managerbankaccount">Account Number</label>
-                            <input type="text" value="{{manager.BankAccount}}" class="form-control" id="managerbankaccount" name="managerbankaccount" placeholder="Enter Account Number" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="managerabout">About manager</label>
-                            <input type="text" value="{{manager.About}}" class="form-control" id="managerabout" name="managerabout" placeholder="write">
-                          </div>
-                          <button style="float:right;background:black"type="submit" class="btn mx-3 my-3 btn-dark">UPDATE</button>
-                        </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                 {% endfor %}
-                {%endif%}
-                <a class="btn btn-lg btn-danger my-8 mx-3" href="/restaurant_MPO">Back</a>
-            </div>
-            
-            <div class="col-lg-4" ><img alt="" class="img-fluid"  width="380" src="{{ restaurant.restaurant_image.url }}"></div>
-        </div>
-        
-    </div>
-    
-</section>
-
-
-
-
-<div class="row " >
-    <div class="col-md-12" style="margin-right:-5px">
-        <div class="main-card mb-3 card">
-            <div class="card-header">New Orders
-                <div class="btn-actions-pane-right">
-                    
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Sr.No</th>
-                            <th class="text">Name</th>
-                            <th class="text-center">Location</th>
-                            <th class="text-center">Timing</th>
-                            <th class="text-center">Order Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center text-muted">#345</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                src="assets/images/avatars/4.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">John Doe</div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">Delhi</td>
-                            
-                            <td class="text-center text-muted">11:36 PM 02/10/2023 </td>
-                            
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-1"
-                                class="btn btn-primary btn-sm">VIEW-&gt;</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center text-muted">#347</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                src="assets/images/avatars/3.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">Ruben Tillman</div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">Surat</td>
-                            <td class="text-center text-muted">4:18 PM 02/10/2023</td>
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-2"
-                                class="btn btn-primary btn-sm">VIEW-&gt;</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center text-muted">#321</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                src="assets/images/avatars/2.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">Elliot Huber</div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">Ratlam</td>
-                            <td class="text-center text-muted">9:18 PM 02/10/2023</td>
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-3"
-                                class="btn btn-primary btn-sm">VIEW-&gt;</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center text-muted">#55</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                    src="assets/images/avatars/1.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">Vinnie Wagstaff</div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">Indore</td>
-                            <td class="text-center text-muted">9:18 PM 02/10/2023</td>
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-4"
-                                class="btn btn-primary btn-sm">VIEW-&gt;</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-block text-center card-footer">
-                
-                
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="main-card mb-3 card">
-            <div class="card-header">Orders Delivered
-                <div class="btn-actions-pane-right">
-                    <div role="group" class="btn-group-sm btn-group">
-                        <button class="active btn btn-focus">Last Week</button>
-                        <button class="btn btn-focus">All Month</button>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Sr.No</th>
-                            <th class="text">Name</th>
-                            <th class="text-center">Location</th>
-                            <th class="text-center">Timing</th>
-                            <th class="text-center">Order Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center text-muted">#345</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                src="assets/images/avatars/4.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">John Doe</div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">Delhi</td>
-                            
-                            <td class="text-center text-muted">11:36 PM 02/10/2023 </td>
-                            
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-1"
-                                class="btn btn-primary btn-sm">VIEW-&gt;</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center text-muted">#347</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                src="assets/images/avatars/3.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">Ruben Tillman</div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">Surat</td>
-                            <td class="text-center text-muted">4:18 PM 02/10/2023</td>
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-2"
-                                class="btn btn-primary btn-sm">VIEW-&gt;</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center text-muted">#321</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                    src="assets/images/avatars/2.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">Elliot Huber</div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">Ratlam</td>
-                            <td class="text-center text-muted">9:18 PM 02/10/2023</td>
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-3"
-                                class="btn btn-primary btn-sm">VIEW-&gt;</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center text-muted">#55</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                    src="assets/images/avatars/1.jpg" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left flex2">
-                                                <div class="widget-heading">Vinnie Wagstaff</div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                            </td>
-                            <td class="text-center">Indore</td>
-                            <td class="text-center text-muted">9:18 PM 02/10/2023</td>
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-4"
-                                class="btn btn-primary btn-sm">VIEW-&gt;</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="d-block text-center card-footer">
-                
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-</div>
-<div class="jvectormap-tip"></div>
-{% endblock %}
-{% block js %}
-
-
-{% endblock js %}
 {%block css%}
 
-body {
-    margin:0;
-    font-size: .88rem;
-    font-weight: 400;
-    line-height: 2;
-    color: #fb6107;
-    text-align: left;
-    background-color: black;
-
-}
+/*===========Dashboard CSS=========*/
 .modal{
     background:black;
 }
-.pb-5,
-.py-5 {
-    padding-bottom: 3rem !important;
+.dashboard {
+    display: flex;
+    width: 100%;
+    height: 100%;
 }
-
-.pt-5,
-.py-5 {
-    padding-top: 3rem !important;
+.dashboard h1{
+    font-size:2.0rem;
+    font-weight:900;
 }
-
-.bg-light {
-    
+.dashboard h2{
+    font-size:1.5rem;
+    margin-bottom:20px;
 }
-
-.card {
-    position: relative;
+.dashboard h3{
+    font-size:1.2rem;
+    margin-bottom:20px;
+}
+.dashboard h4{
+    font-size:1.05rem;
+    margin-bottom:20px;
+    font-weight:900;
+}
+.sidebar {
+    width: 250px;
     display: flex;
     flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: black;
-    background-clip: border-box;
-    border: 1px solid rgba(26, 54, 126, 0.125);
-    border-radius: 0.25rem;
-
+    border-right: 1px solid #cecaca;
 }
 
-.card-header,
-.card-title {
-    text-transform: uppercase;
-    color: #d3d3d3;
-    font-weight: bold;
-    font-size: .88rem;
-    background-color: black;
-    margin: 10px 10px 10px 10px;
+.sidebar-header {
+    padding: 20px 0 10px 20px;
+    border-bottom: 1px solid #cecaca;
 }
 
-.text-muted {
-    color: #9B3900 !important;
+.notifications-panel {
+    padding: 20px;
+    border-bottom: 1px solid #cecaca;
 }
 
-.card.mb-3 {
-    margin: 30px 30px 10px 30px !important;
-    border-color: #808080;
-    border-width: 5px;
+.notifications-list {
+    list-style: none;
 }
 
-.card-footer {
-    padding: 0.75rem 1.25rem;
-    background-color: black;
-    border-top: 1px solid rgba(26, 54, 126, .125);
-
+.notifications-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
 
-.text-center {
-    text-align: center !important;
-    color: #9B3900;
+.notifications-list i {
+    margin-right: 10px;
+    color: orange;
 }
 
-thead .text-center {
-    text-align: center !important;
-    color: #d3d3d3;
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
 }
 
-thead .text {
-    color: #d3d3d3;
+.sidebar-menu a,.sidebar-menu button{
+    text-decoration: none;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
 }
 
-.display-4 {
-    font-size: 3.5rem;
-
-    font-weight: 400;
-    line-height: 1.2;
+.sidebar-menu i {
+    margin-right: 10px;
+    color: orange;
 }
 
-.table-hover tbody tr:hover {
-    background-color: #808080;
+.sidebar-menu a:hover {
+    color:orange;
 }
 
-#hero-section {
-    background-color: #312e35;
-    margin-top: 60px;
-    color: #ddd;
-    padding: 40px;
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
 }
 
-.text,
-.visual {
-    width: 20%;
+.dashboard .section {
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 20px;
 }
 
-.text {
-    margin: 0 20px;
+.dashboard .stats {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
 }
 
-.visual img {
-    width: 80%;
-    height: auto;
-    display: block;
+.dashboard .stat {
+    background-color:black;
+    color: orange;
+    padding:30px 20px 30px 20px;
+    border-radius: 8px;
+    flex: 1;
+    margin: 0 10px;
+    transition: transform 0.3s;
 }
 
-#hero-section .text {
-    margin-left: 30px;
+.dashboard .stat:hover {
+    transform: scale(1.05);
+}
+
+.dashboard .order-filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.dashboard .search-bar {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 60%;
+}
+
+.dashboard .filter {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.dashboard .order-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dashboard .order-table th, .order-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.order-table th {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.order-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.order-table tbody tr:hover {
+    background-color: #ddd;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.chart-container canvas {
+    max-width: 45%;
+    max-height: 400px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    padding: 10px;
 }
 
 
-/* End Hero Section */
 
 
-@-webkit-keyframes chartjs-render-animation {
-    from {
-        opacity: 0.99
-    }
-
-    to {
-        opacity: 1
-    }
-}
-
-@keyframes chartjs-render-animation {
-    from {
-        opacity: 0.99
-    }
-
-    to {
-        opacity: 1
-    }
-}
-
-.chartjs-render-monitor {
-    -webkit-animation: chartjs-render-animation 0.001s;
-    animation: chartjs-render-animation 0.001s;
-}
 
 {%endblock%}
+
+{% block body %}
+
+<div class="dashboard">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>Dashboard</h1>
+        </div>
+        <div class="notifications-panel">
+            <h4>Order Notifications (5)</h4>
+            <ul class="notifications-list">
+                <li><i class="fas fa-bell"></i> New order from John Doe</li>
+                <li><i class="fas fa-bell"></i> New order from John Doe</li>
+                <li><i class="fas fa-bell"></i> New order from John Doe</li>
+            </ul>
+        </div>
+        <div class="sidebar-menu">
+            <a href="#order-summary"><i class="fas fa-chart-bar"></i> Summary</a>
+            <a href="#order-details"><i class="fas fa-list"></i> Order Details</a>
+            <a href="#charts"><i class="fa fa-line-chart"></i> Sales & Order Trends</a>
+            <a href="#user-management"><i class="fas fa-users"></i> Staff Management</a>
+            {% if managers|length < 1 %}
+             <button class="" data-toggle="modal" data-target="#managerModal"><i class="fas fa-pencil-alt"></i> Manager Details</button>
+            {% else %}
+             <button class="" data-toggle="modal" data-target="#managerModal2"><i class="fas fa-pencil-alt"></i> Manager Details</button>
+            {% endif %}
+             
+
+        </div>
+    </div>
+    
+    <!-- Main Content Area -->
+    <div class="main-content">
+        {% comment %} <a class="btn btn-lg btn-dark my-8 mx-3" href="/restaurant_MPO">Back</a> {% endcomment %}
+        <section id="order-summary" class="section">
+            <h2>Order Summary</h2>
+            <div class="stats">
+                <div class="stat">
+                    <h3>Total Orders</h3>
+                    <p>150</p>
+                </div>
+                <div class="stat">
+                    <h3>Pending Orders</h3>
+                    <p>20</p>
+                </div>
+                <div class="stat">
+                    <h3>Delivered Orders</h3>
+                    <p>120</p>
+                </div>
+                <div class="stat">
+                    <h3>Total Sales</h3>
+                    <p>$10,000</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Order Details -->
+        <section id="order-details" class="section">
+            <h2>Order Details</h2>
+            <div class="order-filters">
+                <input type="text" placeholder="Search orders or customers..." class="search-bar">
+                <select class="filter">
+                    <option value="all">All Orders</option>
+                    <option value="pending">Pending</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="payment-left">Payment Left</option>
+                </select>
+            </div>
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Items</th>
+                        <th>Total Price</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Orders will be dynamically populated here -->
+                    <tr>
+                        <td>1024</td>
+                        <td>John Doe</td>
+                        <td>Pizza, Burger</td>
+                        <td>$30.00</td>
+                        <td>2024-06-18</td>
+                        <td>Delivered</td>
+                    </tr>
+                    <!-- More rows -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Charts and Graphs -->
+        <section id="charts" class="section">
+            <h2>Sales & Order Trends</h2>
+            <div class="chart-container">
+                <!-- Integrate your preferred charting library -->
+                <canvas id="salesChart"></canvas>
+                <canvas id="orderTrendsChart"></canvas>
+            </div>
+        </section>
+
+        <!-- User Management -->
+        <section id="user-management" class="section">
+            <h2>User Management</h2>
+            <p>Manage user roles and permissions here.</p>
+            <!-- User management content -->
+        </section>
+
+    </div>
+</div>
+
+
+
+{% if managers|length < 1 %}
+<div class="modal fade" id="managerModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content" style="font-weight:900" >
+        <div class="modal-header" style="background:#AAA;">
+            <h2 style="font-size:40px;">Manager Details</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+        <form action="/manager" method ="post">{% csrf_token %}
+
+        <input type="hidden" name="restaurant_id" value="{{ restaurant.id }}">
+        
+            <div class="form-group">
+            <label for="managername">Name</label>
+            <input type="text" class="form-control" id="managername" name="managername" placeholder="Enter manager Name" required>
+            </div>
+            <div class="form-group">
+            <label for="managercontact">Contact Number</label>
+            <input type="text" class="form-control" id="managercontact" name="managercontact" placeholder="Enter Contact No" required>
+            </div>
+            <div class="form-group">
+            <label for="manageremail">Email Address</label>
+            <input type="email" class="form-control"  id="manageremail" name="manageremail" placeholder="Enter Email Address" required>
+            </div>
+            <div class="form-group">
+            <label for="manageraddress">Address</label>
+            <input type="text" class="form-control"id="manageraddress" name="manageraddress" placeholder="Enter Address" required>
+            </div>
+            <div class="form-group">
+            <label for="managerbankname">Bank Name</label>
+            <input type="text" class="form-control" id="managerbankname" name="managerbankname" placeholder="Enter Bank Name" required>
+            </div>
+            <div class="form-group">
+            <label for="managerbankbranch">Bank Branch Name</label>
+            <input type="text" class="form-control"  id="managerbankbranch" name="managerbankbranch" placeholder="Enter Bank Branch" required>
+            </div>
+            <div class="form-group">
+            <label for="managerbankIFSC">IFSC Code</label>
+            <input type="text" class="form-control" id="managerbankIFSC" name="managerbankIFSC" placeholder="Enter IFSC Code" required>
+            </div>
+            <div class="form-group">
+            <label for="managerbankaccount">Account Number</label>
+            <input type="text" class="form-control" id="managerbankaccount" name="managerbankaccount" placeholder="Enter Account Number" required>
+            </div>
+            <div class="form-group">
+            <label for="managerabout">About manager</label>
+            <input type="text" class="form-control" id="managerabout" name="managerabout" placeholder="write">
+            </div>
+            <button style="float:right;background:black"type="submit" class="btn mx-3 my-3 btn-dark">SAVE</button>
+        </form>
+        </div>
+        </div>
+    </div>
+    </div>
+{% else %}
+{% for manager in managers%}
+<div class="modal fade" id="managerModal2" tabindex="-1" aria-labelledby="loginModal2" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content" style="font-weight:900" >
+        <div class="modal-header" style="background:#AAA;">
+            <h2 style="font-size:40px;">Manager Details</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+        <form action="/manager_update" method ="post">{% csrf_token %}
+
+        <input type="hidden" name="restaurant_id" value="{{ restaurant.id }}">
+        
+            <div class="form-group">
+            <label for="managername">Name</label>
+            <input type="text" value="{{manager.Name}}" class="form-control" id="managername" name="managername" placeholder="Enter manager Name" required>
+            </div>
+            <div class="form-group">
+            <label for="managercontact">Contact Number</label>
+            <input type="text" value="{{manager.Contact}}" class="form-control" id="managercontact" name="managercontact" placeholder="Enter Contact No" required>
+            </div>
+            <div class="form-group">
+            <label for="manageremail">Email Address</label>
+            <input type="email" value="{{manager.Email}}" class="form-control"  id="manageremail" name="manageremail" placeholder="Enter Email Address" required>
+            </div>
+            <div class="form-group">
+            <label for="manageraddress">Address</label>
+            <input type="text" value="{{manager.Address}}" class="form-control"id="manageraddress" name="manageraddress" placeholder="Enter Address" required>
+            </div>
+            <div class="form-group">
+            <label for="managerbankname">Bank Name</label>
+            <input type="text" value="{{manager.BankName}}" class="form-control" id="managerbankname" name="managerbankname" placeholder="Enter Bank Name" required>
+            </div>
+            <div class="form-group">
+            <label for="managerbankbranch">Bank Branch Name</label>
+            <input type="text"value="{{manager.BankBranch}}"  class="form-control"  id="managerbankbranch" name="managerbankbranch" placeholder="Enter Bank Branch" required>
+            </div>
+            <div class="form-group">
+            <label for="managerbankIFSC">IFSC Code</label>
+            <input type="text" value="{{manager.BankIFSC}}" class="form-control" id="managerbankIFSC" name="managerbankIFSC" placeholder="Enter IFSC Code" required>
+            </div>
+            <div class="form-group">
+            <label for="managerbankaccount">Account Number</label>
+            <input type="text" value="{{manager.BankAccount}}" class="form-control" id="managerbankaccount" name="managerbankaccount" placeholder="Enter Account Number" required>
+            </div>
+            <div class="form-group">
+            <label for="managerabout">About manager</label>
+            <input type="text" value="{{manager.About}}" class="form-control" id="managerabout" name="managerabout" placeholder="write">
+            </div>
+            <button style="float:right;background:black"type="submit" class="btn mx-3 my-3 btn-dark">UPDATE</button>
+        </form>
+        </div>
+        </div>
+    </div>
+    </div>
+{% endfor %}
+{%endif%}
+
+
+
+
+
+
+
+
+{% endblock %}
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="scripts.js"></script>
+
+{% endblock js %}

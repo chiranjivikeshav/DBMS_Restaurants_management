@@ -278,7 +278,7 @@ def manager(request):
         manager.save()
         id = restaurant_id
         messages.success(request, 'Manager Details Added successfully!')
-    return redirect("manager_dash", id)
+    return redirect("manager_dash")
 
 
 @login_required(login_url='/authpage')
@@ -313,7 +313,7 @@ def manager_update(request):
         manager.save()
         id = restaurant_id
         messages.success(request, 'Manager Details Updated successfully!')
-    return redirect("manager_dash", id)
+    return redirect("manager_dash")
 
 @login_required(login_url='/authpage')
 def restaurant_update(request,id):
