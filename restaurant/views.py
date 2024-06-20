@@ -245,9 +245,54 @@ def manager_dash(request):
     user = request.user
     restaurant = Restaurant.objects.get(user =user)
     manager = Manager.objects.filter(restaurant=restaurant)
+    orders = Order.objects.filter(restaurant=restaurant)
+    total_order = 0
+    pending_order =0
+    delivered_order =0
+    total_sell =0
+    restaurant_orders = {}
+    for order in orders :
+        orderstatus =""
+        total_order+=1
+        if order.payment_status==False:
+            orderstatus ="Payment Left"
+            pending_order+=1
+        elif order.delevery_status==False:
+            orderstatus = "Pending"
+            pending_order+=1
+        else:
+            orderstatus = "Delivered"
+            delivered_order+=1
+        restaurant_orders[order.id] = {
+            'order': order,
+            'orderdate': order.order_date,
+            'custumername':order.name,
+            'orderstatus':orderstatus,
+            'items': [],
+            'order_price': 0,
+            }
+        total_price =0
+        oderItems = OrderItem.objects.filter(order = order)
+        for order_item in oderItems:
+            item_restaurant  = order_item.item.restaurant
+            if item_restaurant == restaurant:
+                total_price += (order_item.item.price)*order_item.quantity
+                restaurant_orders[order.id]['items'].append({
+                    'item_name': order_item.item.item_name,
+                    'quantity': order_item.quantity,
+                })
+        total_sell  += total_price
+        restaurant_orders[order.id]['order_price'] = total_price
+        if len(restaurant_orders[order.id]['items']) == 0:
+            del restaurant_orders[order.id]['items']
     context ={
           'restaurant':restaurant,
           'managers':manager,
+          'restaurant_orders' : restaurant_orders,
+          'total_order':total_order,
+          'pending_order':pending_order,
+          'delivered_order':delivered_order,
+          'total_sell':total_sell
     }
     return render(request,"manager_dash.html",context)
 
@@ -487,8 +532,9 @@ def order(request):
             pin_code=pincode,
             total_price=total_price
         )
-        
+        restaurants = set()
         for cart_item in cart_items:
+            restaurants.add(cart_item.item.restaurant)
             OrderItem.objects.create(
                 order=order,
                 item=cart_item.item,
@@ -496,6 +542,7 @@ def order(request):
                 price=(cart_item.item.price)*(cart_item.item_count),
             )
             cart_item.delete()
+        order.restaurant.set(restaurants)
         order_items_created.send(sender=Order, order=order)
         return redirect('checkout',order.id)
     return redirect('order_detail')  

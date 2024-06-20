@@ -8,9 +8,7 @@
 {%block css%}
 
 /*===========Dashboard CSS=========*/
-.modal{
-    background:black;
-}
+
 .dashboard {
     display: flex;
     width: 100%;
@@ -142,17 +140,18 @@
 .dashboard .order-table {
     width: 100%;
     border-collapse: collapse;
+    
 }
 
 .dashboard .order-table th, .order-table td {
     border: 1px solid #ddd;
     padding: 10px;
-    text-align: left;
+    text-align: center;
 }
 
 .order-table th {
-    background-color: #3498db;
-    color: #fff;
+    background-color: black;
+    color: orange;
 }
 
 .order-table tbody tr:nth-child(even) {
@@ -184,7 +183,70 @@
     background-color: red;
     color: white;
   }
+  .modal-header{
+    font-size:24px;
+    color:orange;
+    background-color:black;
 
+  }
+   .btn{
+    color:orange;
+    background:black;
+   }
+
+.modal-body {
+
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.modal-body h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+.modal-body .order-items {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.modal-body .order-items li {
+    margin-bottom: 5px;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+    color: #555;
+}
+
+.modal-body .address {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #fff; 
+    border: 1px solid #ddd; 
+    border-radius: 5px;
+}
+
+.modal-body .address strong {
+    color: #333;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.modal-body .address p {
+    margin: 5px 0;
+    color: #555; 
+}
+.modal-body section {
+    padding: 10px 0;
+}
+.modal-body hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
 
 
 {%endblock%}
@@ -204,19 +266,19 @@
         <div class="sidebar-menu">
             <a href="#order-summary"><i class="fas fa-chart-bar"></i> Summary</a>
             <a href="#order-details"><i class="fas fa-list"></i> Order Details</a>
+            {% if managers|length < 1 %}
+            <button class="" data-toggle="modal" data-target="#managerModal"><i class="fas fa-pencil-alt"></i> Manager Details</button>
+            {% else %}
+            <button class="" data-toggle="modal" data-target="#managerModal2"><i class="fas fa-pencil-alt"></i> Manager Details</button>
+            {% endif %}
             <a href="#charts"><i class="fa fa-line-chart"></i> Sales & Order Trends</a>
             <a href="#user-management"><i class="fas fa-users"></i> Staff Management</a>
-            {% if managers|length < 1 %}
-             <button class="" data-toggle="modal" data-target="#managerModal"><i class="fas fa-pencil-alt"></i> Manager Details</button>
-            {% else %}
-             <button class="" data-toggle="modal" data-target="#managerModal2"><i class="fas fa-pencil-alt"></i> Manager Details</button>
-            {% endif %}
              
 
         </div>
     </div>
     
-    <!-- Main Content Area -->
+    <!-- ==================== Main Content Area ===================== -->
     <div class="main-content">
         {% comment %} <a class="btn btn-lg btn-dark my-8 mx-3" href="/restaurant_MPO">Back</a> {% endcomment %}
         <section id="order-summary" class="section">
@@ -224,76 +286,102 @@
             <div class="stats">
                 <div class="stat">
                     <h3>Total Orders</h3>
-                    <p>150</p>
-                </div>
+                    <p>{{total_order}}</p>
+                </div>       
                 <div class="stat">
                     <h3>Pending Orders</h3>
-                    <p>20</p>
+                    <p>{{pending_order}}</p>
                 </div>
                 <div class="stat">
                     <h3>Delivered Orders</h3>
-                    <p>120</p>
+                    <p>{{delivered_order}}</p>
                 </div>
                 <div class="stat">
                     <h3>Total Sales</h3>
-                    <p>$10,000</p>
+                    <p>Rs. {{total_sell}}</p>
                 </div>
             </div>
         </section>
         
-        <!-- Order Details -->
+        <!-- ============Order Details=============== -->
         <section id="order-details" class="section">
             <h2>Order Details</h2>
             <div class="order-filters">
-                <input type="text" placeholder="Search orders or customers..." class="search-bar">
+                <input type="text" placeholder="Enter Order Id" class="search-bar">
                 <select class="filter">
                     <option value="all">All Orders</option>
                     <option value="pending">Pending</option>
                     <option value="delivered">Delivered</option>
-                    <option value="payment-left">Payment Left</option>
+                    <option value="payment left">Payment Left</option>
                 </select>
             </div>
             <table class="order-table">
                 <thead>
                     <tr>
                         <th>Order ID</th>
-                        <th>Customer Name</th>
-                        <th>Items</th>
+                        <th>Order Info.</th>
                         <th>Total Price</th>
                         <th>Order Date</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Orders will be dynamically populated here -->
+                   {% for order_id, order_info in restaurant_orders.items%}
                     <tr>
-                        <td>1024</td>
-                        <td>John Doe</td>
-                        <td>Pizza, Burger</td>
-                        <td>$30.00</td>
-                        <td>2024-06-18</td>
-                        <td>Delivered</td>
+                        <td>#{{order_info.order.id}}</td>
+                        <td style="width:230px">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{forloop.counter}}">
+                                View
+                            </button>                      
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop{{forloop.counter}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Order Detials</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h2>Order Items</h2>
+                                        {% for item in order_info.items%}
+                                        {{item.item_name}}, Quantity: {{item.quantity}}<br>
+                                        {%endfor%}
+                                        <h2 class="my-3">Address</h2>
+                                        <strong>Name:</strong> {{ order_info.order.name }}<br>
+                                        <strong>Phone:</strong> {{ order_info.order.phone }}<br>
+                                        <strong>Email:</strong> {{ order_info.order.email }}<br>
+                                        <strong>Address:</strong> {{ order_info.order.address }}, {{ order_info.order.city }}, {{ order_info.order.state }}, {{ order_info.order.pin_code }}<br>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Rs. {{order_info.order_price}}</td>
+                        <td style="width:150px;">{{order_info.orderdate}}</td>
+                        <td>{{order_info.orderstatus}}</td>
                     </tr>
-                    <!-- More rows -->
+                   {% endfor %} 
                 </tbody>
             </table>
         </section>
 
-        <!-- Charts and Graphs -->
+        <!-- ================Charts and Graphs=============== -->
         <section id="charts" class="section">
             <h2>Sales & Order Trends</h2>
             <div class="chart-container">
-                <!-- Integrate your preferred charting library -->
                 <canvas id="salesChart"></canvas>
                 <canvas id="orderTrendsChart"></canvas>
             </div>
         </section>
 
-        <!-- User Management -->
+        <!-- ====================User Management ===============-->
         <section id="user-management" class="section">
             <h2>User Management</h2>
-            <p>Manage user roles and permissions here.</p>
-            <!-- User management content -->
+            <p></p>
         </section>
 
     </div>
@@ -305,8 +393,8 @@
 <div class="modal fade" id="managerModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
     <div class="modal-dialog" >
         <div class="modal-content" style="font-weight:900" >
-        <div class="modal-header" style="background:#AAA;">
-            <h2 style="font-size:40px;">Manager Details</h2>
+        <div class="modal-header">
+            <h5>Manager Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
         </div>
@@ -362,8 +450,8 @@
 <div class="modal fade" id="managerModal2" tabindex="-1" aria-labelledby="loginModal2" aria-hidden="true">
     <div class="modal-dialog" >
         <div class="modal-content" style="font-weight:900" >
-        <div class="modal-header" style="background:#AAA;">
-            <h2 style="font-size:40px;">Manager Details</h2>
+        <div class="modal-header">
+            <h5>Manager Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
         </div>
@@ -439,5 +527,45 @@
         listItem.innerHTML = `<i class="fas fa-bell"></i> ${message}`;
         notificationsList.appendChild(listItem);
     };
+       
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var filterDropdown = document.querySelector('.filter');
+        var searchBar = document.querySelector('.search-bar');
+        var tableRows = document.querySelectorAll('.order-table tbody tr');
+    
+        // Filter orders based on order status
+        filterDropdown.addEventListener('change', function() {
+            var filterValue = filterDropdown.value.toLowerCase();
+            var searchText = searchBar.value.toLowerCase();
+            tableRows.forEach(function(row) {
+                var orderId = row.firstElementChild.textContent.toLowerCase();
+                var status = row.lastElementChild.textContent.toLowerCase();
+                if ((filterValue === 'all'||status.includes(filterValue))&&orderId.includes(searchText)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    
+        // Search orders by Id
+        searchBar.addEventListener('keyup', function() {
+            var searchText = searchBar.value.toLowerCase();
+            var filterValue = filterDropdown.value.toLowerCase();
+            tableRows.forEach(function(row) {
+                var orderId = row.firstElementChild.textContent.toLowerCase();
+                var status = row.lastElementChild.textContent.toLowerCase();
+                if (orderId.includes(searchText)&&(filterValue === 'all'||status.includes(filterValue))){
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+
+
 </script>
 {% endblock js %}

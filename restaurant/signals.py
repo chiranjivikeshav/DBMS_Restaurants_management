@@ -7,14 +7,11 @@ order_items_created = Signal()
 
 @receiver(order_items_created)
 def handle_order_items_created(sender, order, **kwargs):
-    orderItems = OrderItem.objects.filter(order=order)
-    if not orderItems.exists():
-        return
-
+    restaurants = order.restaurant.all()
     manager_users = set()
-    for orderItem in orderItems:
-        manager = orderItem.item.restaurant.user
-        manager_users.add(manager)
+    for restaurant in restaurants:
+        manager_user = restaurant.user
+        manager_users.add(manager_user)
 
     channel_layer = get_channel_layer()
     for user in manager_users:

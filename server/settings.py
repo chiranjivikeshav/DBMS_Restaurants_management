@@ -108,13 +108,13 @@ CHANNEL_LAYERS = {
 # REDIS_HOST = os.getenv('REDIS_HOST')
 # REDIS_PORT = int(os.getenv('REDIS_PORT'))
 # REDIS_PASSWORD = os.getenv('REDIS_PASSWORD')
-# Channel layers configuration
 # CHANNEL_LAYERS = {
 #     'default': {
 #         'BACKEND': 'channels_redis.core.RedisChannelLayer',
 #         'CONFIG': {
-#             'hosts': [(REDIS_HOST, REDIS_PORT)],
-#             'capacity': 100,
+#             # 'hosts': [(REDIS_HOST, REDIS_PORT)],
+#             # "password": REDIS_PASSWORD,
+#             "hosts": ["rediss://red-cppj4hij1k6c73ejqmsg:mJNMMamYHawzOAtRQOH4SrmTZd5SxxJZ@singapore-redis.render.com:6379"],
 #         },
 #     },
 # }
