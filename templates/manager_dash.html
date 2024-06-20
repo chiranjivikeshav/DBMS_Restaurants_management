@@ -177,7 +177,13 @@
     padding: 10px;
 }
 
-
+ .badge {
+    margin-left:7px;
+    padding: 5px 9px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+  }
 
 
 
@@ -191,11 +197,8 @@
             <h1>Dashboard</h1>
         </div>
         <div class="notifications-panel">
-            <h4>Order Notifications (5)</h4>
-            <ul class="notifications-list">
-                <li><i class="fas fa-bell"></i> New order from John Doe</li>
-                <li><i class="fas fa-bell"></i> New order from John Doe</li>
-                <li><i class="fas fa-bell"></i> New order from John Doe</li>
+            <h4>Order Notifications<span class="badge" id="count_notification"></span></h4>
+            <ul class="notifications-list" id="notificationsList">
             </ul>
         </div>
         <div class="sidebar-menu">
@@ -417,13 +420,24 @@
 
 
 
-
-
-
-
 {% endblock %}
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="scripts.js"></script>
+<script type="text/javascript">
+     // Create a WebSocket connection
+    const notificationsSocket = new WebSocket ('ws://' + window.location.host + '/ws/notifications/');
+    let notifications = [];
+    notificationsSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        let message = data.message;
+        notifications.push(message);
+        let count_notification = document.getElementById('count_notification');
+        count_notification.textContent = (notifications.length)
 
+        let notificationsList = document.getElementById('notificationsList');
+        let listItem = document.createElement('li');
+        listItem.innerHTML = `<i class="fas fa-bell"></i> ${message}`;
+        notificationsList.appendChild(listItem);
+    };
+</script>
 {% endblock js %}

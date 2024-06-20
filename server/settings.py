@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+from dotenv import load_dotenv
+load_dotenv()
 
 # Application definition
 
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'restaurant',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -72,18 +75,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'server.wsgi.application'
-
+ASGI_APPLICATION = 'server.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {  
 #     'default': {  
 #         'ENGINE': 'django.db.backends.mysql',  
@@ -96,6 +91,32 @@ DATABASES = {
 #             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
 #       }
 #     }
+# }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+# REDIS_HOST = os.getenv('REDIS_HOST')
+# REDIS_PORT = int(os.getenv('REDIS_PORT'))
+# REDIS_PASSWORD = os.getenv('REDIS_PASSWORD')
+# Channel layers configuration
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             'hosts': [(REDIS_HOST, REDIS_PORT)],
+#             'capacity': 100,
+#         },
+#     },
 # }
 
 # Password validation

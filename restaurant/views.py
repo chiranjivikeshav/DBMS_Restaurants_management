@@ -7,6 +7,9 @@ from django.contrib.auth.models import User
 from restaurant.models import Userprofile,Restaurant,Item,Manager,Cart,Order,OrderItem
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from .signals import order_items_created
+
+
 def home(request): 
     return render(request,"home.html")
 
@@ -455,6 +458,7 @@ def order_detail(request):
     return render (request,"order_details.html",{"cart_items":cart_items,"total_cost":total_cost})
 
 # ===========this is for collecting order detials===========
+
 @login_required(login_url='/authpage')
 def order(request):
     if request.method == 'POST':
@@ -483,6 +487,7 @@ def order(request):
             pin_code=pincode,
             total_price=total_price
         )
+        
         for cart_item in cart_items:
             OrderItem.objects.create(
                 order=order,
@@ -491,6 +496,7 @@ def order(request):
                 price=(cart_item.item.price)*(cart_item.item_count),
             )
             cart_item.delete()
+        order_items_created.send(sender=Order, order=order)
         return redirect('checkout',order.id)
     return redirect('order_detail')  
 
