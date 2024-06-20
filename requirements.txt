@@ -5,3 +5,4 @@ gunicorn==21.2.0
 mysqlclient ==2.2.0
 channels==3.0.5 
 channels_redis==4.2.0
+python-dotenv==1.0.1
