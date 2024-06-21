@@ -109,13 +109,23 @@ DATABASES = {
 # REDIS_PORT = int(os.getenv('REDIS_PORT'))
 # REDIS_PASSWORD = os.getenv('REDIS_PASSWORD')
 
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [
+#                 "rediss://red-cpq92e2ju9rs73a0ptb0:pkWf81d5jMkZq0FnBKiXg5kiYklRm6k3@singapore-redis.render.com:6379/0"
+#             ],
+#         },
+#     },
+# }
+
+
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [
-                "rediss://red-cpq92e2ju9rs73a0ptb0:pkWf81d5jMkZq0FnBKiXg5kiYklRm6k3@singapore-redis.render.com:6379/0"
-            ],
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
         },
     },
 }
