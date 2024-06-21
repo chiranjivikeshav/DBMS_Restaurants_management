@@ -188,7 +188,7 @@
     <div class="order-summary">
         <h2>Order Summary</h2>
         <ul>{% for items in cart_items %}
-            <li>{{forloop.counter}}. {{items.item.item_name|slice:"0:15"}}... <span class="prices"> Rs. {{items.item.price}}</span></li>
+            <li>{{forloop.counter}}. {{items.item.item_name|slice:"0:15"}}... <span class="prices"> Rs. {{items.item.price}} <i class="fas fa-times" style="font-size:12px;"></i> {{items.item_count}}</span></li>
             {% endfor %}
         </ul>
         <div class="order-total">Total: <span class="prices"> Rs. {{total_cost}}<span></div>

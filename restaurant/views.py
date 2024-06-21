@@ -9,7 +9,6 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from .signals import order_items_created
 
-
 def home(request): 
     return render(request,"home.html")
 
@@ -466,7 +465,6 @@ def add_to_cart2(request, item_id):
         return redirect('menu')
     messages.success(request, 'Item added to cart!')
     return redirect('menu')
-    
 def remove_from_cart(request, item_id):
     cart_item = get_object_or_404(Cart, id=item_id)
     cart_item.delete()
@@ -476,6 +474,7 @@ def cart_display(request):
     user =  request.user
     cart_items = Cart.objects.filter(user = user)
     return render(request ,"cart.html",{"cart_items" : cart_items})
+
 
 @login_required(login_url='/authpage')
 def order_now(request, item_id):
@@ -494,9 +493,9 @@ def order_now(request, item_id):
 def order_detail(request):
     user =  request.user
     total_cost  = 0
-    cart_items = Cart.objects.filter(user = user)
+    cart_items = Cart.objects.filter(user = user,item_count__gt=0)
     for cart_item in  cart_items:
-        total_cost += cart_item.item.price
+        total_cost += (cart_item.item.price)*(cart_item.item_count)
     if total_cost == 0:
         messages.success(request,"Please Add Item In the Cart")
         return redirect('cart_display')
@@ -516,7 +515,7 @@ def order(request):
         pincode = request.POST.get('zip')
 
         user =  request.user
-        cart_items = Cart.objects.filter(user = user)
+        cart_items = Cart.objects.filter(user = user,item_count__gt=0)
         total_price = sum(item.item.price * item.item_count for item in cart_items)
         if total_price == 0:
             messages.success(request,"Please Add Item In the Cart")
@@ -541,7 +540,6 @@ def order(request):
                 quantity=cart_item.item_count,
                 price=(cart_item.item.price)*(cart_item.item_count),
             )
-            cart_item.delete()
         order.restaurant.set(restaurants)
         order_items_created.send(sender=Order, order=order)
         return redirect('checkout',order.id)
@@ -550,7 +548,6 @@ def order(request):
 
 def checkout(request,order_id):
     user = request.user
-    print(order_id)
     cart_items = Cart.objects.filter(user = user)
     total_cost  = 0
     for cart_item in  cart_items:

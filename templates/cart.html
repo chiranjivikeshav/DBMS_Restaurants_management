@@ -52,7 +52,7 @@ h1 {
 /* page structure */
 #w {
   display: block;
-  width: 600px;
+  width: 700px;
   margin: 0 auto;
 }
 
@@ -96,13 +96,16 @@ h1 {
   width: 100px;
 }
 #cart thead th.second {
-  width: 200px;
+  width: 220px;
 }
 #cart thead th.third {
   width: 150px;
 }
 #cart thead th.fourth {
-  width: 30px;
+  width: 120px;
+}
+#cart thead th.fifth {
+  width: 60px;
 }
 
 
@@ -219,6 +222,44 @@ td.checkout {
   -moz-box-shadow: inset 0 1px 3px 1px rgba(0,0,0,0.25);
   box-shadow: inset 0 1px 3px 1px rgba(0,0,0,0.25);
 }
+
+.amount-box{
+  display: flex;
+  gap: .3rem;
+  height:30px;
+  padding-left:20px;
+}
+.amount-box div{
+  width: 1.5rem;
+  border-radius: .3rem;
+  aspect-ratio: 1;
+  background-color: #e0f2f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  color: #191a3cee;
+  cursor: pointer;
+}
+.amount{
+  width: 2.5rem;
+  border: 1px solid #d1d1d1;
+  outline: none;
+  border-radius: .3rem;
+  text-align: center;
+  color: #191a3c;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+input[type="number"] {
+-moz-appearance: textfield;
+}
+
+
+
 {%endblock%}
 
 {% block body %}
@@ -234,8 +275,9 @@ td.checkout {
             <tr>
               <th class="first">Photo</th>
               <th class="second">Item</th>
-              <th class="third">Price</th>
-              <th class="fourth">Remove</th>
+              <th class="third">Quantity</th>
+              <th class="fourth">Price</th>
+              <th class="fifth">Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -245,6 +287,18 @@ td.checkout {
              
               <td><img src="{{cart.item.image.url }}" class="thumb"></td>
               <td> {{cart.item.item_name}}</td>
+              <td> 
+                <div class="amount-box">
+                  <div class="minus-box">
+                      <i class="fa-solid fa-minus"></i>
+                  </div>
+                  <input type="number" readonly value="{{cart.item_count}}" min="0" max="30" class="amount" id="amount">
+                  <input type="number" style="display:none" readonly value="{{cart.id}}"  class="itemid" i ="itemid">
+                  <div class="plus-box">
+                      <i class="fa-solid fa-plus"></i>
+                  </div>
+                </div>
+              </td>
               <td>Rs. {{cart.item.price}}</td>
               <td><i class="material-icons"><a href="/remove_from_cart/{{cart.id}}">delete</a></i></td>
             </tr>
@@ -252,8 +306,7 @@ td.checkout {
            {% endfor%}
            <!-- checkout btn -->
            <td colspan="5" class="checkout" style="background:grey "> <a href="/order_details" ><button id="submitbtn">Order Now!</button></a></td>
-           
-           
+                    
           </tbody>
         </table>
         {% else%}
@@ -264,13 +317,59 @@ td.checkout {
 
 
  {% endblock %}
-
-
-
-
  {% block js %}
- 
- 
+ <script>
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const plusButtons = document.querySelectorAll(".plus-box");
+    const minusButtons = document.querySelectorAll(".minus-box");
+    const amountInputs = document.querySelectorAll(".amount");
+    const idInputs = document.querySelectorAll(".itemid");
+  
+    plusButtons.forEach((plus, index) => {
+      plus.addEventListener("click", () => {
+        const amount = amountInputs[index];
+        const id = idInputs[index];
+        if (amount.value < 30) {
+          amount.value++;
+          //CALL API FUNCTION
+          updateCartItem(id.value, amount.value);
+        }
+      });
+    });
+  
+    minusButtons.forEach((minus, index) => {
+      minus.addEventListener("click", () => {
+        const amount = amountInputs[index];
+        const id = idInputs[index];
+        if (amount.value > 0) {
+          amount.value--;
+          //CALL API FUNCTION
+          updateCartItem(id.value, amount.value);
+        }
+      });
+    });
+  });
+  
+  function updateCartItem(cartId, quantity) {
+    fetch(`/api/cart/quantity/${cartId}/`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      body: JSON.stringify({ item_count: quantity })
+    })
+    // Function to get the CSRF token from the Cookie
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+  }
+  
+
+ </script>
 
 {% endblock js %}
 

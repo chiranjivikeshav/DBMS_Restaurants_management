@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from restaurant import views
+from .APIviews import Updatequantity
 urlpatterns = [
    path('',views.home,name='home'), 
    path('authpage',views.authpage,name='authpage'),
@@ -27,6 +28,7 @@ urlpatterns = [
    path('add_to_cart/<int:item_id>', views.add_to_cart, name='add_to_cart'),
    path('add_to_cart2/<int:item_id>', views.add_to_cart2, name='add_to_cart2'),
    path('cart_display', views.cart_display, name='cart_display'),
+   path('api/cart/quantity/<int:cartId>/', Updatequantity.as_view(), name='api_quantity_update'),
    path('remove_from_cart/<int:item_id>', views.remove_from_cart, name='remove_from_cart'),
    path('order_now/<int:item_id>', views.order_now, name='order_now'),
    path('order_details', views.order_detail, name='order_detail'),

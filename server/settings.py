@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'restaurant',
     'channels',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -77,6 +78,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'server.wsgi.application'
 ASGI_APPLICATION = 'server.asgi.application'
 
+
+
+
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 # DATABASES = {  
@@ -100,11 +105,11 @@ DATABASES = {
     }
 }
 
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels.layers.InMemoryChannelLayer',
-#     },
-# }
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 # REDIS_HOST = os.getenv('REDIS_HOST')
 # REDIS_PORT = int(os.getenv('REDIS_PORT'))
 # REDIS_PASSWORD = os.getenv('REDIS_PASSWORD')
@@ -114,21 +119,15 @@ DATABASES = {
 #         'BACKEND': 'channels_redis.core.RedisChannelLayer',
 #         'CONFIG': {
 #             "hosts": [
-#                 "rediss://red-cpq92e2ju9rs73a0ptb0:pkWf81d5jMkZq0FnBKiXg5kiYklRm6k3@singapore-redis.render.com:6379/0"
+#                 {
+#                     "address": (REDIS_HOST, REDIS_PORT),
+#                     "ssl": False,
+#                     "password": REDIS_PASSWORD
+#                 }
 #             ],
 #         },
 #     },
 # }
-
-
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
-        },
-    },
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
