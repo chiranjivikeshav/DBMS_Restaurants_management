@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from restaurant import views
-from .APIviews import Updatequantity
+from .APIviews import Updatequantity,FeedbackSubmission
 urlpatterns = [
    path('',views.home,name='home'), 
    path('authpage',views.authpage,name='authpage'),
@@ -34,7 +34,8 @@ urlpatterns = [
    path('order_details', views.order_detail, name='order_detail'),
    path('order',views.order,name='order'),
    path('checkout/<int:order_id>', views.checkout, name='checkout'),
-   path('myorder', views.myorder, name='myorder')
+   path('myorder', views.myorder, name='myorder'),
+   path('api/feedback/', FeedbackSubmission.as_view(), name='customer_feedback')
 ]
 
     

@@ -92,6 +92,7 @@ body {
     padding: 8px;
     border-radius: 4px;
     font-size: 0.9rem;
+    height:50px;
 }
 
 .order-actions {
@@ -127,7 +128,14 @@ body {
     background-color: #dc3545;
 }
 
-.order-actions .feedback {
+.feedback {
+    font-size:12px;
+    float:right;
+    background-color: orange;
+
+}
+.feedback :hover{
+    opacity: 0.9;
     background-color: orange;
 }
 
@@ -153,6 +161,67 @@ body {
     color:red;
     font-size:18px;
 }
+/*============= FEEDBACK css =====*/
+.modal{
+    margin-top:30px;
+    text-align:center;
+}
+
+.modal .rating{
+  font-size: 40px;
+  color: #e4e4e4;
+  cursor: pointer;
+
+}
+.modal, .textarea, .end{
+    padding: 15px;
+}
+.modal .head{
+    padding-top: 15px;
+}
+.modal .textarea{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.modal .textarea p{
+    font-size: 18px;
+}
+.modal textarea{
+    outline: none;
+    resize: none;
+    height: 100px;
+    border: 1.5px solid black;
+    border-radius: 10px;
+    padding: 5px;
+}
+.modal .end{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.modal .btn{
+    width: 150px;
+    height: 35px;
+    cursor: pointer;
+    background-color: orange;
+    font-size: 15px;
+}
+.thankyou{
+    height:360px;
+    color:orange;
+    width:100%;
+    border-radius:10px;
+    background:white;
+    font-size:60px;
+    font-weight:900;
+    text-align:center;
+    padding-top:111px;
+}
+.thankyou .fa-check-circle {
+    color: #807b00;
+    font-size: 80px;
+}
 
 
 {%endblock%}
@@ -175,7 +244,7 @@ body {
                     <div class="order-details">
                         <ul>
                             {% for item in order.orderitem_set.all %}
-                                <li>{{ item.item.item_name }} - Quantity: {{ item.quantity }}</li>
+                                <li>{{ item.item.item_name }} - {{ item.quantity }}</li>
                             {% endfor %}
                         </ul>
                         <p><i class="fa fa-check-circle"></i> Rs. {{ order.total_price }}</p>
@@ -204,7 +273,7 @@ body {
                     <div class="order-details">
                         <ul>
                             {% for item in order.orderitem_set.all %}
-                                <li>{{ item.item.item_name }} - Quantity: {{ item.quantity }}</li>
+                                <li>{{ item.item.item_name }} - {{ item.quantity }}</li>
                             {% endfor %}
                         </ul>
                         <p><i class="fa fa fa-times-circle"></i> Rs. {{ order.total_price }}</p>
@@ -232,15 +301,53 @@ body {
                     </div>
                     <div class="order-details">
                         <ul>
+                            
                             {% for item in order.orderitem_set.all %}
-                                <li>{{ item.item.item_name }} - Quantity: {{ item.quantity }}</li>
+                                <li>
+                                    {{ item.item.item_name }} -{{ item.quantity }} 
+                                    <button class="btn feedback" type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedbackModal" data-item-id="{{ item.item.id }}">
+                                        Feedback
+                                    </button>
+                                </li>
                             {% endfor %}
+
+                            <!-- Modal Template -->
+                            <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content" id="modal-content">
+                                        <div class="head">
+                                            <p>Please rate the quality of food</p>
+                                        </div>
+                                        <div class="rating">
+                                            <i class="fas fa-star" data-value="1"></i>
+                                            <i class="fas fa-star" data-value="2"></i>
+                                            <i class="fas fa-star" data-value="3"></i>
+                                            <i class="fas fa-star" data-value="4"></i>
+                                            <i class="fas fa-star" data-value="5"></i>
+                                        </div>
+                                        <div class="textarea">
+                                            <p>Share your experience</p>
+                                            <textarea name="exp" id="feedbackExp" placeholder="Let us know..."></textarea>
+                                        </div>
+                                        <div class="end">
+                                            <div class="submission">
+                                                <button class="sub btn" id="submitFeedback">Send</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="thankyou" id="thankyou">
+                                        <i class="fa fa-check-circle"></i>
+                                        <h2>Thank you for Feedback</h2>
+                                    </div>
+                                </div>
+                            </div>
+
                         </ul>
                         <p><i class="fa fa-check-circle"></i> Rs. {{ order.total_price }}</p>
                         <p><i class="fa fa-check-circle"></i> Delivered</p>
                     </div>
                     <div class="order-actions">
-                        <button class="btn feedback">Feedback</button>
+                        
                     </div>
                 </div>
             {% empty %}
@@ -251,11 +358,77 @@ body {
 </div>
 
  {% endblock %}
-
-
-
-
  {% block js %}
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let currentItemId = null;
+        let currentRating = 0;
+
+        document.querySelectorAll('.btn.feedback').forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('modal-content').style.display = "block";
+                document.getElementById('thankyou').style.display = "none";
+                currentItemId = this.getAttribute('data-item-id');
+                resetModal();
+            });
+        });
+    
+        // Handle star click events
+        document.querySelectorAll('.rating .fa-star').forEach(star => {
+            star.addEventListener('click', function() {
+                currentRating  = parseInt(this.getAttribute('data-value'));
+                const stars = this.parentElement.querySelectorAll('.fa-star');
+                stars.forEach((s, index) => {
+                    if (index < currentRating) {
+                        stars[index].style.color = "#ffd93b"; 
+                    }else{
+                        stars[index].style.color = "#e4e4e4"; 
+                    }
+                });
+            });
+        });
+    
+        document.getElementById('submitFeedback').addEventListener('click', function() {
+            const experience = document.getElementById('feedbackExp').value;
+            if (currentRating === 0) {
+                alert("Please select a rating.");
+                return;
+            }
+            if (!experience) {
+                alert("Please provide your feedback.");
+                return;
+            }
+            fetch(`/api/feedback/`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({itemid:currentItemId,rating:currentRating,experience: experience})
+            })
+
+            console.log(`Item ID: ${currentItemId}, Rating: ${currentRating}, Experience: ${experience}`);
+            document.getElementById('modal-content').style.display = "none";
+            document.getElementById('thankyou').style.display = "block";
+        });
+
+        function resetModal() {
+            currentRating = 0;
+            document.getElementById('feedbackExp').value = '';
+            document.querySelectorAll('.rating .fa-star').forEach(star => {
+                star.style.color = "#e4e4e4"; 
+            });
+        }
+
+        // Function to get the CSRF token from the Cookie
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+          }
+    });
+    
+  </script>
 {% endblock js %}
 

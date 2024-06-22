@@ -232,7 +232,7 @@
             <img src="{{ item.image.url }}" alt="{{ item.item_name }}" />
             <div class="title">{{ item.item_name }}</div>
             <div class="price">Price: Rs.{{ item.price }}</div>
-            {{item.item_rating|floatformat:1}} <div class="star-rating" style="--rating: {{item.item_rating}};"></div>
+            {{item.item_rating|floatformat:1}} <div class="star-rating" style="--rating: {{item.item_rating}};"></div> <span style="position: relative;font-size: 13px;bottom: 2px;">({{item.people_rated}})</span>
             <div class="order flex">
               <div class="o">
                 <a href="/order_now/{{ item.id }}" class="btn btn-menu">ORDER NOW</a>

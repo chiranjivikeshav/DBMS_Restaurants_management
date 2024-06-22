@@ -481,7 +481,7 @@ font-family: Arial, Helvetica, sans-serif;
         <p class="k">{{ item.item_name }}</p>
          <i>{{ item.price }} Rs</i>
          <a href="/restaurant_UPV/{{item.restaurant.id}}"><p>{{ item.restaurant.rest_name  }}, {{ item.restaurant.location }}</p></a>
-        {{item.item_rating|floatformat:1}} <div class="star-rating" style="--rating: {{item.item_rating}};" ></div>
+        {{item.item_rating|floatformat:1}} <div class="star-rating" style="--rating: {{item.item_rating}};" ></div><span style="position: relative;font-size: 13px;bottom: 2px;">({{item.people_rated}})<p>
       </div> 
     </div>
       

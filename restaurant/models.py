@@ -92,3 +92,11 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     def __str__(self):
         return self.item.item_name
+
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    rating = models.PositiveIntegerField()
+    experience = models.TextField()
+    def __str__(self):
+        return self.user.username
