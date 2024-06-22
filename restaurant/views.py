@@ -4,10 +4,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from restaurant.models import Userprofile,Restaurant,Item,Manager,Cart,Order,OrderItem
+from restaurant.models import Userprofile,Restaurant,Item,Manager,Cart,Order,OrderItem,PaymentHistory
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from .signals import order_items_created
+from django.views.decorators.csrf import csrf_exempt
+from server import settings
+from django.urls import reverse
+
 
 def home(request): 
     return render(request,"home.html")
@@ -545,14 +549,85 @@ def order(request):
         return redirect('checkout',order.id)
     return redirect('order_detail')  
 
-
+import razorpay
+razorpay_client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
 def checkout(request,order_id):
     user = request.user
-    cart_items = Cart.objects.filter(user = user)
-    total_cost  = 0
-    for cart_item in  cart_items:
-        total_cost += cart_item.item.price
-    return render (request,"payment.html",{"total_cost":total_cost})
+    order = Order.objects.get(id = order_id)
+    total_cost = 0
+    orderItem = OrderItem.objects.filter(order = order)
+    for item in orderItem:
+        total_cost += item.price
+    currency = 'INR' 
+    amount = int(total_cost )
+    var=amount*100
+    razorpay_order = razorpay_client.order.create(dict(amount=var,
+                                                   currency=currency,
+                                           payment_capture='0'))
+ 
+    razorpay_order_id = razorpay_order['id']
+    order = get_object_or_404(Order, id=order_id)
+    order.razor_pay_order_id = razorpay_order_id
+    order.save()
+    callback_url = request.build_absolute_uri(reverse('paymenthandler'))
+    context = {}
+    context['razorpay_order_id'] = razorpay_order_id
+    context['razorpay_merchant_key'] = settings.RAZOR_KEY_ID
+    context['razorpay_amount'] = amount
+    context['currency'] = currency
+    context['callback_url'] = callback_url
+    context['payment_status'] = order.payment_status
+    return render(request, "payment.html", context)
+
+
+@csrf_exempt
+def paymenthandler(request):
+    if request.method == "POST":
+        try:
+            payment_id = request.POST.get('razorpay_payment_id', '')
+            razorpay_order_id = request.POST.get('razorpay_order_id', '')
+            signature = request.POST.get('razorpay_signature', ''),
+            if signature=='':
+                messages.error(request,"Signature verification failed")
+                return redirect('checkout',order.id)
+            else:
+                order=get_object_or_404(Order,razor_pay_order_id=razorpay_order_id)
+                order.payment_status=True
+                order.save()
+                payment_history = PaymentHistory(
+                   order = order,
+                   razorpay_order_id = razorpay_order_id,
+                   payment_id = razorpay_order_id,
+                   payment_signature=signature
+                )
+                payment_history.save()
+                messages.success(request,"payment successful")
+                return redirect('checkout',order.id)
+        except:
+             order=Order.objects.filter(razor_pay_order_id=razorpay_order_id)
+             messages.error(request,"payment Failed !")
+             return redirect('checkout',order.id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def myorder(request):

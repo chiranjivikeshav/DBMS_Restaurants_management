@@ -82,6 +82,7 @@ class Order(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     payment_status=models.BooleanField(default=False)
     delevery_status=models.BooleanField(default=False)
+    razor_pay_order_id = models.TextField()
     def __str__(self):
         return self.name
 
@@ -100,3 +101,11 @@ class Feedback(models.Model):
     experience = models.TextField()
     def __str__(self):
         return self.user.username
+
+class PaymentHistory(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    razorpay_order_id = models.TextField()
+    payment_id = models.TextField()
+    payment_signature = models.TextField()
+    def __str__(self):
+        return self.order.name

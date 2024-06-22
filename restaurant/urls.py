@@ -34,6 +34,7 @@ urlpatterns = [
    path('order_details', views.order_detail, name='order_detail'),
    path('order',views.order,name='order'),
    path('checkout/<int:order_id>', views.checkout, name='checkout'),
+   path('paymenthandler/', views.paymenthandler, name='paymenthandler'),
    path('myorder', views.myorder, name='myorder'),
    path('api/feedback/', FeedbackSubmission.as_view(), name='customer_feedback')
 ]
