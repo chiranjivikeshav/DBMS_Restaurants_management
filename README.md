@@ -14,7 +14,6 @@ Instructions on how to install and set up your Django project locally.
   <ul>
     <li>Clone the Repository: </li>
       git clone https://github.com/chiranjivikeshav/DBMS_Restaurants_management.git
-
     <li>Create and Activate a Virtual Environment (Optional but Recommended):</li>
       cd your-django-project<br>
       python -m venv venv <br>
