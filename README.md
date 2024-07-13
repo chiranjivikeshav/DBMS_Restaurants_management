@@ -6,8 +6,7 @@
 ## Eventwave  https://eatswift.onrender.com/
 
 # Description
- EatSwift is the comprehensive website for food ordering, restaurant registration, and order management.
-
+ EatSwift is a comprehensive platform for food ordering, restaurant registration, and order management.
 
 # Installation
 Instructions on how to install and set up your Django project locally.
