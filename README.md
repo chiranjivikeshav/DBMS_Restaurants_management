@@ -3,7 +3,7 @@
 ## Restaurants Management
 
 # Website Name
-## Eventwave  https://eatswift.onrender.com/
+## EatSwift  https://eatswift.onrender.com/
 
 # Description
  EatSwift is the comprehensive website for food ordering, restaurant registration, and order management.
